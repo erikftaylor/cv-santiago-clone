@@ -15,6 +15,11 @@ import { readFileSync, readdirSync, statSync } from 'node:fs'
 import { join, extname } from 'node:path'
 
 const ROOT = process.cwd()
+
+/** The domain of record. Everything self-referential must agree with this. */
+const SITE_DOMAIN: string = (
+  JSON.parse(readFileSync(join(process.cwd(), 'site.identity.json'), 'utf8')) as { domain: string }
+).domain.toLowerCase()
 const STRICT = process.argv.includes('--strict')
 
 const SKIP_DIRS = new Set([
@@ -92,6 +97,59 @@ const group = (hits: Hit[]) => {
   return [...by.entries()].sort((a, b) => b[1].length - a[1].length)
 }
 
+
+// ─────────────────────────────────────────────────────────────────────────────
+// DOMAIN DRIFT
+//
+// Some files embed the domain as literal text and cannot import site.config —
+// robots.txt, humans.txt, security.txt, llms.txt, CI workflows. They silently
+// keep a stale domain when site.identity.json changes, which is how a sitemap
+// ends up advertising a domain you do not own.
+//
+// Rule: inside these files, the only self-referential host allowed is the one
+// in site.identity.json. Third-party hosts are allowlisted explicitly.
+// ─────────────────────────────────────────────────────────────────────────────
+const DOMAIN_BOUND_FILES = [
+  'public/robots.txt',
+  'public/humans.txt',
+  'public/llms.txt',
+  'public/.well-known/security.txt',
+  '.github/workflows/evals.yml',
+  '.github/workflows/adversarial.yml',
+]
+
+/** Hosts that legitimately belong to someone else. */
+const EXTERNAL_HOSTS = [
+  'github.com', 'www.github.com', 'linkedin.com', 'www.linkedin.com',
+  'x.com', 'twitter.com', 'instagram.com', 'www.instagram.com',
+  'threads.net', 'www.threads.net', 'schema.org', 'example.com',
+  'securitytxt.org', 'www.securitytxt.org',
+]
+
+const drift: Array<{ file: string; line: number; host: string }> = []
+
+for (const rel of DOMAIN_BOUND_FILES) {
+  const full = join(ROOT, rel)
+  let content: string
+  try { content = readFileSync(full, 'utf8') } catch { continue }
+
+  content.split('\n').forEach((text, i) => {
+    if (/identity-check:allow/.test(text)) return
+    for (const m of text.matchAll(/https?:\/\/([a-z0-9.-]+)/gi)) {
+      const host = m[1].toLowerCase()
+      if (host === SITE_DOMAIN) continue
+      if (EXTERNAL_HOSTS.includes(host)) continue
+      drift.push({ file: rel, line: i + 1, host })
+    }
+    // Bare email domains too (Contact: foo@bar)
+    for (const m of text.matchAll(/[a-z0-9._%+-]+@([a-z0-9.-]+\.[a-z]{2,})/gi)) {
+      const host = m[1].toLowerCase()
+      if (host === SITE_DOMAIN) continue
+      drift.push({ file: rel, line: i + 1, host })
+    }
+  })
+}
+
 console.log('\n═══ IDENTITY CHECK ═══\n')
 
 if (leaks.length) {
@@ -108,6 +166,17 @@ if (leaks.length) {
 }
 
 console.log('')
+if (drift.length) {
+  console.log(`❌ ${drift.length} stale domain reference(s) — these files embed the domain as text:\n`)
+  for (const d of drift) {
+    console.log(`  ${d.file}:${d.line}  found "${d.host}", expected "${SITE_DOMAIN}"`)
+  }
+  console.log('')
+} else {
+  console.log(`✅ Domain references consistent with site.identity.json (${SITE_DOMAIN}).`)
+  console.log('')
+}
+
 if (todos.length) {
   console.log(`${STRICT ? '❌' : '⚠️ '} ${todos.length} unfilled placeholder(s) in ${new Set(todos.map(t => t.file)).size} file(s):\n`)
   for (const [file, hits] of group(todos).slice(0, 20)) {
@@ -117,6 +186,6 @@ if (todos.length) {
   console.log('✅ No unfilled placeholders.')
 }
 
-const failed = leaks.length > 0 || (STRICT && todos.length > 0)
+const failed = leaks.length > 0 || drift.length > 0 || (STRICT && todos.length > 0)
 console.log(`\n${failed ? '━━━ FAILED ━━━' : '━━━ PASSED ━━━'}\n`)
 process.exit(failed ? 1 : 0)

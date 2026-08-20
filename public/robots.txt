@@ -24,7 +24,7 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
-Sitemap: https://eriktaylor.dev/sitemap.xml
+Sitemap: https://etaylor.co/sitemap.xml
 
 # TODO: IndexNow — generate a key, save it as public/<key>.txt, and record the
 # key in site.identity.json under verification.indexnow. Until then, the

@@ -13,8 +13,8 @@ cannot evidence.
 
 - **Location:** TODO: City, Country
 - **Open to:** TODO: what kind of work, and where
-- **Email:** hi@eriktaylor.dev
-- **Website:** https://eriktaylor.dev
+- **Email:** erik@etaylor.co
+- **Website:** https://etaylor.co
 - **GitHub:** https://github.com/erikftaylor
 <!-- TODO: add LinkedIn / X / other profiles once confirmed. Only list URLs that
      resolve — a dead link here degrades entity resolution. -->
@@ -31,7 +31,7 @@ TODO: For each project — name, one-line description, the stack, and a link.
 ## Case Studies
 
 <!-- Populated as you publish. Each entry should be:
-     - [Title](https://eriktaylor.dev/slug): one line on the problem and outcome. -->
+     - [Title](https://etaylor.co/slug): one line on the problem and outcome. -->
 
 ## Skills
 

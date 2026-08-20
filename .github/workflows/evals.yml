@@ -21,7 +21,7 @@ jobs:
       - name: Run evals
         env:
           # TODO: point at your deployed domain
-      CHAT_API_URL: https://eriktaylor.dev/api/chat
+      CHAT_API_URL: https://etaylor.co/api/chat
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: npm run evals
       - name: Upload report

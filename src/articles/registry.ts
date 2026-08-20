@@ -70,11 +70,11 @@ export const articleRegistry: ArticleConfig[] = [
     titles: { es: 'Caso de Ejemplo', en: 'Example Case Study' },
     seo: {
       es: {
-        title: 'TODO: Título del caso · 55-60 caracteres | eriktaylor.dev',
+        title: `TODO: Título del caso · 55-60 caracteres | ${site.domain}`,
         description: 'TODO: 150-160 caracteres. Problema, lo que construiste, el resultado medible.',
       },
       en: {
-        title: 'TODO: Case study title · 55-60 chars | eriktaylor.dev',
+        title: `TODO: Case study title · 55-60 chars | ${site.domain}`,
         description: 'TODO: 150-160 chars. The problem, what you built, the measurable outcome.',
       },
     },
@@ -93,7 +93,7 @@ export const articleRegistry: ArticleConfig[] = [
       },
     },
     type: 'case-study',
-    ogImage: 'https://eriktaylor.dev/og-image.webp',
+    ogImage: `${site.origin}/og-image.webp`,
     component: () => import('../CaseStudyTemplate.tsx'),
     // Flip to true (and set i18nFile) once the copy is real and you want the
     // chatbot to retrieve it.
@@ -109,7 +109,7 @@ export const articleRegistry: ArticleConfig[] = [
       ],
       articleType: 'TechArticle',
       articleTags: 'TODO, comma, separated',
-      images: ['https://eriktaylor.dev/og-image.webp'],
+      images: [`${site.origin}/og-image.webp`],
       // 2+ entries. `about` is what the article IS; `mentions` is what it
       // REFERENCES. Both feed entity resolution for AI search.
       about: [
