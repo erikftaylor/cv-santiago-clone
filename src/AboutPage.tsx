@@ -30,9 +30,8 @@ const SOCIAL_LINKS: { name: string; url: string; rel?: string }[] = Object.entri
     rel: 'me noopener noreferrer',
   }))
 
-export default function AboutPage({ lang = 'es' }: { lang?: AboutLang }) {
+export default function AboutPage({ lang = 'en' }: { lang?: AboutLang }) {
   const t = aboutContent[lang]
-  const altSlug = t.altSlug
 
   useEffect(() => {
     document.documentElement.lang = lang
@@ -47,9 +46,8 @@ export default function AboutPage({ lang = 'es' }: { lang?: AboutLang }) {
     canonical.href = site.url(`/${t.slug}`)
 
     const hreflangs = [
-      { lang: 'es', href: site.url('/sobre-mi') },
       { lang: 'en', href: site.url('/about') },
-      { lang: 'x-default', href: site.url('/sobre-mi') },
+      { lang: 'x-default', href: site.url('/about') },
     ]
     document.querySelectorAll('link[hreflang]').forEach(el => el.remove())
     for (const hl of hreflangs) {
@@ -315,18 +313,12 @@ export default function AboutPage({ lang = 'es' }: { lang?: AboutLang }) {
 
         {/* Language toggle */}
         <div className="text-center pt-6 border-t border-border">
-          <Link
-            to={`/${altSlug}`}
-            className="text-sm text-muted-foreground hover:text-primary transition-colors"
-          >
-            {lang === 'es' ? 'Read in English →' : 'Leer en Español →'}
-          </Link>
         </div>
 
         {/* Footer */}
         <footer className="mt-8 text-center">
           <p className="text-xs text-muted-foreground">
-            &copy; {new Date().getFullYear()} {site.fullName}. {lang === 'es' ? 'Todos los derechos reservados.' : 'All rights reserved.'}
+            &copy; {new Date().getFullYear()} {site.fullName}. All rights reserved.
           </p>
         </footer>
       </main>

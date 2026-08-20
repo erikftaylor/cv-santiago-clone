@@ -26,7 +26,7 @@ export interface SiteIdentity {
   location: string
   address: { locality: string; country: string }
   social: Record<string, string>
-  lang: { primary: 'es' | 'en'; secondary: 'es' | 'en'; bilingual: boolean }
+  lang: { primary: 'en' }
   avatar: string
   ogImage: string
   themeColor: string
@@ -60,22 +60,11 @@ export const site = {
 }
 
 /**
- * Route that serves the secondary language. `/` always serves the primary.
- * Upstream hardcoded `/` = Spanish and `/en` = English; deriving it from
- * `lang` means flipping `primary` in site.identity.json moves the whole site.
+ * This site is single-language (English). The upstream project was bilingual
+ * ES/EN; that surface was removed deliberately — see README. `Lang` is narrowed
+ * to 'en' in i18n.ts so the type system prevents a second language creeping
+ * back in without a considered decision.
  */
-export const SECONDARY_PATH = `/${base.lang.secondary}`
-
-/** Which language a given pathname is served in. */
-export function langForPath(pathname: string): 'es' | 'en' {
-  if (pathname === '/') return base.lang.primary
-  if (pathname === SECONDARY_PATH) return base.lang.secondary
-  // Article and static pages carry language in the slug itself.
-  return ES_PATHS.has(pathname) ? 'es' : 'en'
-}
-
-/** Static (non-article) paths that are inherently Spanish. */
-const ES_PATHS = new Set(['/privacidad', '/sobre-mi'])
 
 export const siteTitle = `${site.brand} | ${site.tagline}`
 

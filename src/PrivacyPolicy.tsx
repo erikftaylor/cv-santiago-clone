@@ -1,4 +1,4 @@
-import { site, SECONDARY_PATH } from './site.config'
+import { site } from './site.config'
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { ArticleLayout } from './articles/components'
@@ -187,7 +187,7 @@ export default function PrivacyPolicy({ lang = 'es' }: { lang?: 'es' | 'en' }) {
 
         <div className="mt-12 pt-8 border-t border-border">
           <Link
-            to={lang === site.lang.primary ? '/' : SECONDARY_PATH}
+            to="/"
             className="inline-flex items-center gap-2 text-primary hover:underline font-medium"
           >
             {'← '}{t.backHome}

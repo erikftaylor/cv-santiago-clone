@@ -145,10 +145,8 @@ function parseI18n(source: I18nSource): Chunk[] {
 
   const baseMetadata: Omit<ChunkMetadata, 'section_id' | 'section_anchor'> = {
     article_id: source.articleId,
-    article_slug_en: `/${article.slugs.en}`,
-    article_slug_es: `/${article.slugs.es}`,
-    page_path_en: `/${article.slugs.en}`,
-    page_path_es: `/${article.slugs.es}`,
+    article_slug_en: `/${article.slug}`,
+    page_path_en: `/${article.slug}`,
     source_file: source.sourceFile,
     format: 'i18n',
   }

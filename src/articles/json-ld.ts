@@ -29,7 +29,6 @@ export function buildFaqPage(
 interface JsonLdOptions {
   lang: Lang
   url: string
-  altUrl: string
   headline: string
   alternativeHeadline: string
   description: string
@@ -117,7 +116,6 @@ export function buildArticleJsonLd(opts: JsonLdOptions) {
       ...(opts.relatedLink ? { relatedLink: opts.relatedLink } : {}),
       ...(opts.video ? { video: opts.video } : {}),
       ...(opts.subjectOf ? { subjectOf: opts.subjectOf } : {}),
-      workTranslation: { '@id': `${opts.altUrl}/#article` },
     },
     PERSON,
     WEBSITE,
@@ -155,7 +153,6 @@ export function buildJsonLdFromRegistry(
     header: { h1: string }
     seo: { title: string; description: string }
     slug: string
-    altSlug: string
     nav: { breadcrumbHome: string; breadcrumbCurrent: string }
     faq: { items: readonly { q: string; a: string }[] }
   },
@@ -168,7 +165,6 @@ export function buildJsonLdFromRegistry(
   return buildArticleJsonLd({
     lang,
     url: `${site.origin}/${i18n.slug}`,
-    altUrl: `${site.origin}/${i18n.altSlug}`,
     headline: i18n.header.h1,
     alternativeHeadline: i18n.seo.title,
     description: i18n.seo.description,

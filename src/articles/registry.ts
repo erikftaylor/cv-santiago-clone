@@ -1,4 +1,4 @@
-import { site, SECONDARY_PATH } from '../site.config'
+import { site } from '../site.config'
 import type { ComponentType } from 'react'
 
 export interface ArticleSeo {
@@ -27,18 +27,16 @@ export interface ArticleSeoMeta {
 
 export interface ArticleConfig {
   id: string
-  slugs: { es: string; en: string }
-  titles: { es: string; en: string }
-  seo: { es: ArticleSeo; en: ArticleSeo }
-  sectionLabels: { es: Record<string, string>; en: Record<string, string> }
+  slug: string
+  title: string
+  seo: ArticleSeo
+  sectionLabels: Record<string, string>
   type: 'collab' | 'case-study' | 'bridge'
   /** Absolute OG image URL for prerender (social cards: LinkedIn, Twitter) */
   ogImage?: string
   /** Hero image path for JSON-LD / GEO (what AI search engines see). Falls back to ogImage if not set. */
   heroImage?: string
-  component: () => Promise<{ default: ComponentType<{ lang: 'es' | 'en' }> }>
-  /** x-default hreflang slug (defaults to ES slug) */
-  xDefaultSlug?: string
+  component: () => Promise<{ default: ComponentType<{ lang: 'en' }> }>
   /** Whether this article is ready for RAG indexing (default: false) */
   ragReady?: boolean
   /** Path to i18n content file relative to project root (required when ragReady=true) */
@@ -66,31 +64,17 @@ export const articleRegistry: ArticleConfig[] = [
   // Delete this one once you have at least one of your own.
   {
     id: 'example-case-study',
-    slugs: { es: 'caso-ejemplo', en: 'example-case-study' },
-    titles: { es: 'Caso de Ejemplo', en: 'Example Case Study' },
+    slug: 'example-case-study',
+    title: 'Example Case Study',
     seo: {
-      es: {
-        title: `TODO: Título del caso · 55-60 caracteres | ${site.domain}`,
-        description: 'TODO: 150-160 caracteres. Problema, lo que construiste, el resultado medible.',
-      },
-      en: {
-        title: `TODO: Case study title · 55-60 chars | ${site.domain}`,
-        description: 'TODO: 150-160 chars. The problem, what you built, the measurable outcome.',
-      },
+      title: `TODO: Case study title · 55-60 chars | ${site.domain}`,
+      description: 'TODO: 150-160 chars. The problem, what you built, the measurable outcome.',
     },
     sectionLabels: {
-      es: {
-        problem: 'El problema',
-        architecture: 'Arquitectura',
-        results: 'Resultados',
-        lessons: 'Lecciones',
-      },
-      en: {
-        problem: 'The problem',
-        architecture: 'Architecture',
-        results: 'Results',
-        lessons: 'Lessons',
-      },
+      problem: 'The problem',
+      architecture: 'Architecture',
+      results: 'Results',
+      lessons: 'Lessons',
     },
     type: 'case-study',
     ogImage: `${site.origin}/og-image.webp`,
@@ -127,33 +111,16 @@ export const articleRegistry: ArticleConfig[] = [
   },
 ]
 
-// Derived maps for GlobalNav and routing
-export function getAltPaths(): Record<string, string> {
-  const map: Record<string, string> = {
-    '/': SECONDARY_PATH,
-    [SECONDARY_PATH]: '/',
-    '/sobre-mi': '/about',
-    '/about': '/sobre-mi',
-    '/privacidad': '/privacy',
-    '/privacy': '/privacidad',
-  }
-  for (const article of articleRegistry) {
-    map[`/${article.slugs.es}`] = `/${article.slugs.en}`
-    map[`/${article.slugs.en}`] = `/${article.slugs.es}`
-  }
-  return map
-}
+// Derived maps for GlobalNav and routing.
+// `getAltPaths` and `getEsSlugs` are gone — this site is single-language.
 
 export function getPageTitles(): Record<string, string> {
   const map: Record<string, string> = {
     '/': 'Portfolio',
-    [SECONDARY_PATH]: 'Portfolio',
-    '/sobre-mi': 'Sobre Mí',
     '/about': 'About',
   }
   for (const article of articleRegistry) {
-    map[`/${article.slugs.es}`] = article.titles.es
-    map[`/${article.slugs.en}`] = article.titles.en
+    map[`/${article.slug}`] = article.title
   }
   return map
 }
@@ -161,22 +128,7 @@ export function getPageTitles(): Record<string, string> {
 export function getSectionLabels(): Record<string, Record<string, string>> {
   const map: Record<string, Record<string, string>> = {}
   for (const article of articleRegistry) {
-    map[`/${article.slugs.es}`] = article.sectionLabels.es
-    map[`/${article.slugs.en}`] = article.sectionLabels.en
+    map[`/${article.slug}`] = article.sectionLabels
   }
   return map
-}
-
-/**
- * Paths served in Spanish. `/` is included only when Spanish is the primary
- * language — see `site.lang` in site.identity.json.
- */
-export function getEsSlugs(): Set<string> {
-  const slugs = new Set<string>(['/privacidad', '/sobre-mi'])
-  if (site.lang.primary === 'es') slugs.add('/')
-  if (site.lang.secondary === 'es') slugs.add(SECONDARY_PATH)
-  for (const article of articleRegistry) {
-    slugs.add(`/${article.slugs.es}`)
-  }
-  return slugs
 }

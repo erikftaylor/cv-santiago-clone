@@ -219,7 +219,6 @@ export function extractSources(chunks) {
       section_id: meta.section_id,
       section_anchor: meta.section_anchor || '',
       page_path_en: meta.page_path_en || '',
-      page_path_es: meta.page_path_es || '',
       article_slug_en: meta.article_slug_en || '',
       article_slug_es: meta.article_slug_es || '',
     })
@@ -250,7 +249,7 @@ export function filterSourcesByResponse(sources, responseText) {
 // Static article routes — used to generate badges from keywords regardless of RAG
 // TODO: keep in sync with the slugs in src/articles/registry.ts.
 export const ARTICLE_ROUTES = {
-  'example-case-study': { page_path_es: '/caso-ejemplo', page_path_en: '/example-case-study' },
+  'example-case-study': { page_path_en: '/example-case-study' },
 }
 
 // Home fallback
@@ -259,7 +258,6 @@ export const HOME_SOURCE = {
   section_id: 'portfolio',
   section_anchor: '',
   page_path_en: '/',
-  page_path_es: '/',
   article_slug_en: 'en',
   article_slug_es: '',
 }

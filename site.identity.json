@@ -3,7 +3,10 @@
   "fullName": "Erik Taylor",
   "shortName": "Erik",
   "brand": "Erik Taylor",
-  "alternateNames": ["Erik F. Taylor", "erikftaylor"],
+  "alternateNames": [
+    "Erik F. Taylor",
+    "erikftaylor"
+  ],
   "domain": "etaylor.co",
   "email": "erik@etaylor.co",
   "tagline": "Product Designer · AI × UX",
@@ -14,7 +17,10 @@
     "AI Product Designer"
   ],
   "location": "Denver, CO · Remote",
-  "address": { "locality": "Denver", "country": "US" },
+  "address": {
+    "locality": "Denver",
+    "country": "US"
+  },
   "social": {
     "github": "https://github.com/erikftaylor",
     "linkedin": "https://www.linkedin.com/in/erikftaylor/",
@@ -28,9 +34,14 @@
     "orcid": "",
     "wikidata": ""
   },
-  "lang": { "primary": "en", "secondary": "es", "bilingual": false },
+  "lang": {
+    "primary": "en"
+  },
   "avatar": "/foto-avatar.webp",
   "ogImage": "/og-image.webp",
   "themeColor": "#0a0a0a",
-  "verification": { "bing": "", "indexnow": "" }
+  "verification": {
+    "bing": "",
+    "indexnow": ""
+  }
 }

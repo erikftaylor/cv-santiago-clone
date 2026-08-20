@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback, useMemo, useReducer, useRef } from 'react'
-import { useLocation, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'motion/react'
 import { Mail, ExternalLink, Briefcase, GraduationCap, Award, Code, Users, Globe, Bot, BadgeCheck, FolderGit2, Sparkles, Github, FileText, Calendar, SkipForward, ChevronRight, List } from 'lucide-react'
 import { translations, seo, type Lang } from './i18n'
-import { site, langForPath } from './site.config'
+import { site } from './site.config'
 import { useHomeSeo } from './articles/use-article-seo'
 import { getTechIcon } from './tech-icons'
 
@@ -1431,10 +1431,8 @@ function CertLogo({ logo }: { logo: string }) {
 }
 
 function App() {
-  const location = useLocation()
-  // `/` serves the primary language; the secondary lives at `/<lang code>`.
-  // Both derive from `lang` in site.identity.json — see langForPath().
-  const lang: Lang = langForPath(location.pathname)
+  // Single-language site — see site.config.ts.
+  const lang: Lang = 'en'
   const t = translations[lang]
   const hydrated = useHydrated()
   useHeroStyles()
@@ -1502,7 +1500,7 @@ function App() {
               className="text-center md:text-left"
             >
               <p className="text-lg text-muted-foreground mb-2">
-                {lang === 'es' ? 'Hola, soy' : "Hi, I'm"} <Link to={lang === 'es' ? '/sobre-mi' : '/about'} className="text-gradient-theme font-semibold hover:opacity-80 transition-opacity">{site.fullName}</Link>,
+                {"Hi, I'm"} <Link to="/about" className="text-gradient-theme font-semibold hover:opacity-80 transition-opacity">{site.fullName}</Link>,
               </p>
               <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4 leading-tight">
                 <span className="text-gradient-theme">{hydrated ? roleText : t.greetingRoles[0]}</span>
@@ -1510,7 +1508,7 @@ function App() {
                 <br />
                 {t.greeting}
                 <br />
-                {lang === 'es' ? 'con ' : 'with '}
+                {'with '}
                 <BeamPill>
                   {t.heroPill.map((word, i) => (
                     <span key={word}>
@@ -1924,8 +1922,8 @@ function App() {
           <p className="mt-12 text-xs text-muted-foreground">
             &copy; {new Date().getFullYear()} {site.fullName}
             <span className="mx-2 text-border">|</span>
-            <Link to={lang === 'es' ? '/privacidad' : '/privacy'} className="hover:text-primary transition-colors">
-              {lang === 'es' ? 'Privacidad' : 'Privacy'}
+            <Link to="/privacy" className="hover:text-primary transition-colors">
+              {'Privacy'}
             </Link>
           </p>
         </div>

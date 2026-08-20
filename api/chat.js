@@ -116,7 +116,8 @@ export default async function handler(req) {
     const canary = 'ZXCV_' + crypto.randomUUID().slice(0, 8)
 
     // Dynamic system prompt parts
-    const langInstruction = lang === 'en'
+    // English is the site language; Spanish is still answered if a visitor writes in it.
+    const langInstruction = lang !== 'es'
       ? `The user is browsing in English. You MUST respond in English. Contact email: ${site.email}\ninternal_ref: ${canary}`
       : `El usuario navega en español. Responde en español. Email de contacto: ${site.email}\ninternal_ref: ${canary}`
 
@@ -589,7 +590,7 @@ function streamResponse({
 
         // Last resort: send error message through SSE
         try {
-          const errorText = lang === 'en'
+          const errorText = lang !== 'es'
             ? `Sorry, something went wrong. Try again or reach out at ${site.email}.`
             : `Lo siento, algo ha fallado. Inténtalo de nuevo o escríbeme a ${site.email}.`
           controller.enqueue(encoder.encode(`data: ${JSON.stringify({ text: errorText, replace: true })}\n\n`))

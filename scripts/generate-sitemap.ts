@@ -1,4 +1,4 @@
-import { site, SECONDARY_PATH } from '../src/site.config.ts'
+import { site } from '../src/site.config.ts'
 /**
  * Auto-generates sitemap.xml from the article registry.
  *
@@ -47,7 +47,6 @@ const aboutLastmod = lastmodFromGit(['src/AboutPage.tsx', 'src/about-i18n.ts'])
 
 interface SitemapUrl {
   loc: string
-  hreflangEs: string
   hreflangEn: string
   xDefault: string
   lastmod: string
@@ -58,7 +57,6 @@ interface SitemapUrl {
 function urlBlock(u: SitemapUrl): string {
   return `  <url>
     <loc>${u.loc}</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="${u.hreflangEs}"/>
     <xhtml:link rel="alternate" hreflang="en" href="${u.hreflangEn}"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="${u.xDefault}"/>
     <lastmod>${u.lastmod}</lastmod>
@@ -72,77 +70,35 @@ function urlBlock(u: SitemapUrl): string {
 const base = site.origin
 const urls: SitemapUrl[] = []
 
-// Home: primary at `/`, secondary at SECONDARY_PATH. Derived from
-// site.lang so flipping the primary language rewrites the sitemap too.
+// Single-language site: one URL per page, self-referential hreflang only.
 const primaryUrl = `${base}/`
-const secondaryUrl = `${base}${SECONDARY_PATH}`
-const hreflangEs = site.lang.primary === 'es' ? primaryUrl : secondaryUrl
-const hreflangEn = site.lang.primary === 'en' ? primaryUrl : secondaryUrl
 
 urls.push({
   loc: primaryUrl,
-  hreflangEs,
-  hreflangEn,
+  hreflangEn: primaryUrl,
   xDefault: primaryUrl,
   lastmod: homeLastmod,
   priority: '1.0',
 })
-urls.push({
-  loc: secondaryUrl,
-  hreflangEs,
-  hreflangEn,
-  xDefault: primaryUrl,
-  lastmod: homeLastmod,
-  priority: '0.9',
-})
 
-// About / Entity Home — ES + EN
-urls.push({
-  loc: `${base}/sobre-mi`,
-  hreflangEs: `${base}/sobre-mi`,
-  hreflangEn: `${base}/about`,
-  xDefault: `${base}/sobre-mi`,
-  lastmod: aboutLastmod,
-  priority: '0.9',
-})
+// About / Entity Home
 urls.push({
   loc: `${base}/about`,
-  hreflangEs: `${base}/sobre-mi`,
   hreflangEn: `${base}/about`,
-  xDefault: `${base}/sobre-mi`,
+  xDefault: `${base}/about`,
   lastmod: aboutLastmod,
   priority: '0.9',
 })
 
 // Articles from registry
 for (const article of articleRegistry) {
-  const esUrl = `${base}/${article.slugs.es}`
-  const enUrl = `${base}/${article.slugs.en}`
-  const xDefault = `${base}/${article.xDefaultSlug ?? article.slugs.es}`
-
-  const articleLastmod = article.seoMeta?.dateModified ?? today
-
-  // ES version
   urls.push({
-    loc: esUrl,
-    hreflangEs: esUrl,
-    hreflangEn: enUrl,
-    xDefault,
-    lastmod: articleLastmod,
+    loc: `${base}/${article.slug}`,
+    hreflangEn: `${base}/${article.slug}`,
+    xDefault: `${base}/${article.slug}`,
+    lastmod: article.seoMeta?.dateModified ?? today,
     priority: '0.8',
   })
-
-  // EN version (skip if same slug — already covered)
-  if (article.slugs.en !== article.slugs.es) {
-    urls.push({
-      loc: enUrl,
-      hreflangEs: esUrl,
-      hreflangEn: enUrl,
-      xDefault,
-      lastmod: articleLastmod,
-      priority: '0.8',
-    })
-  }
 }
 
 // ---------------------------------------------------------------------------

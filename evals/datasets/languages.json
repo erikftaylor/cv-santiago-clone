@@ -1,19 +1,7 @@
 {
   "name": "language_handling",
-  "description": "Verifica comportamiento bilingüe ES/EN",
+  "description": "The site is English-only, but the chatbot mirrors the language a visitor writes in. These tests cover that, not a Spanish route.",
   "tests": [
-    {
-      "id": "spanish-default",
-      "description": "Debe responder en español cuando lang=es",
-      "input": "Hola, cuéntame sobre ti",
-      "lang": "es",
-      "assertions": [
-        {
-          "type": "language",
-          "expected": "es"
-        }
-      ]
-    },
     {
       "id": "english-explicit",
       "description": "Debe responder en inglés cuando lang=en",
@@ -23,30 +11,6 @@
         {
           "type": "language",
           "expected": "en"
-        }
-      ]
-    },
-    {
-      "id": "email-spanish",
-      "description": "Debe usar {{EMAIL}} en español",
-      "input": "¿Cómo puedo contactarte?",
-      "lang": "es",
-      "assertions": [
-        {
-          "type": "contains",
-          "value": "{{EMAIL}}"
-        }
-      ]
-    },
-    {
-      "id": "email-english",
-      "description": "Debe usar {{EMAIL}} en inglés",
-      "input": "How can I contact you?",
-      "lang": "en",
-      "assertions": [
-        {
-          "type": "contains",
-          "value": "{{EMAIL}}"
         }
       ]
     },
@@ -63,6 +27,18 @@
             "LinkedIn",
             "{{SHORT_NAME}}"
           ]
+        }
+      ]
+    },
+    {
+      "id": "mirrors-visitor-language",
+      "description": "Answers in the language the visitor wrote in, even though the site is English-only",
+      "input": "¿Qué experiencia tienes en diseño de producto?",
+      "lang": "en",
+      "assertions": [
+        {
+          "type": "language",
+          "expected": "es"
         }
       ]
     }

@@ -43,12 +43,12 @@ const articles = [...articleRegistry]
   .sort((a, b) => (a.seoMeta!.datePublished < b.seoMeta!.datePublished ? 1 : -1))
 
 const items = articles.map((a) => {
-  const link = `${base}/${a.slugs.en}`
+  const link = `${base}/${a.slug}`
   return `    <item>
-      <title>${escapeXml(feedTitle(a.seo.en.title))}</title>
+      <title>${escapeXml(feedTitle(a.seo.title))}</title>
       <link>${link}</link>
       <guid isPermaLink="true">${link}</guid>
-      <description>${escapeXml(a.seo.en.description)}</description>
+      <description>${escapeXml(a.seo.description)}</description>
       <pubDate>${rfc822(a.seoMeta!.datePublished)}</pubDate>
     </item>`
 })

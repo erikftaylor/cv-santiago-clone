@@ -34,7 +34,6 @@ function upsertLink(rel: string, href: string) {
 export interface ArticleSeoOpts {
   lang: string
   slug: string
-  altSlug: string
   title: string
   description: string
   image?: string
@@ -42,21 +41,16 @@ export interface ArticleSeoOpts {
   modifiedTime?: string
   articleTags: string
   jsonLd: object
-  /** ES slug used as x-default hreflang (defaults to slug when lang=es) */
-  xDefaultSlug?: string
 }
 
 export function useArticleSeo(opts: ArticleSeoOpts) {
   useEffect(() => {
     const {
-      lang, slug, altSlug, title, description, image,
-      publishedTime, modifiedTime, articleTags, jsonLd, xDefaultSlug,
+      lang, slug, title, description, image,
+      publishedTime, modifiedTime, articleTags, jsonLd,
     } = opts
 
     const url = site.url(`/${slug}`)
-    const altUrl = site.url(`/${altSlug}`)
-    const altLang = lang === 'es' ? 'en' : 'es'
-    const defaultSlug = xDefaultSlug ?? (lang === 'es' ? slug : altSlug)
 
     document.title = title
 
@@ -88,12 +82,11 @@ export function useArticleSeo(opts: ArticleSeoOpts) {
     // Canonical
     upsertLink('canonical', url)
 
-    // Hreflang
+    // Single-language site: one self-referential hreflang, no alternates.
     const createdLinks: HTMLLinkElement[] = []
     for (const { hreflang, href } of [
       { hreflang: lang, href: url },
-      { hreflang: altLang, href: altUrl },
-      { hreflang: 'x-default', href: site.url(`/${defaultSlug}`) },
+      { hreflang: 'x-default', href: url },
     ]) {
       const link = document.createElement('link')
       link.rel = 'alternate'

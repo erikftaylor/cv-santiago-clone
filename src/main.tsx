@@ -1,4 +1,4 @@
-import { site, SECONDARY_PATH, langForPath } from './site.config'
+import { site } from './site.config'
 import { StrictMode, lazy, Suspense, useState, useEffect, useRef, Component, type ReactNode, type ComponentType } from 'react'
 import { hydrateRoot, createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route, useLocation, Link } from 'react-router-dom'
@@ -6,7 +6,7 @@ import { Analytics } from '@vercel/analytics/react'
 import './index.css'
 import App from './App.tsx'
 import GlobalNav from './GlobalNav.tsx'
-import { articleRegistry, getEsSlugs } from './articles/registry'
+import { articleRegistry } from './articles/registry'
 
 const FloatingChat = lazy(() => import('./FloatingChat'))
 const MusicToggle = lazy(() => import('./MusicToggle'))
@@ -15,7 +15,7 @@ const PrivacyPolicy = lazy(() => import('./PrivacyPolicy'))
 const AboutPage = lazy(() => import('./AboutPage'))
 
 // Lazy-load article components from registry
-const articleComponents: Record<string, React.LazyExoticComponent<ComponentType<{ lang: 'es' | 'en' }>>> = {}
+const articleComponents: Record<string, React.LazyExoticComponent<ComponentType<{ lang: 'en' }>>> = {}
 for (const article of articleRegistry) {
   articleComponents[article.id] = lazy(article.component)
 }
@@ -75,13 +75,10 @@ function GlobalChat() {
 
   if (!hydrated || pathname.startsWith('/ops')) return null
 
-  const esSlugs = getEsSlugs()
-  const lang = esSlugs.has(pathname) ? 'es' : 'en'
-
   return (
     <ChatErrorBoundary>
       <Suspense fallback={null}>
-        <FloatingChat lang={lang} />
+        <FloatingChat lang="en" />
       </Suspense>
     </ChatErrorBoundary>
   )
@@ -129,11 +126,6 @@ Object.defineProperty(window, '__portfolio', {
 })
 
 function NotFound() {
-  const { pathname } = useLocation()
-  const isSecondary = pathname.startsWith(SECONDARY_PATH)
-  // The 404 copy follows the LANGUAGE of the route the visitor landed on,
-  // which is not the same question as which route to send them back to.
-  const isEnglish = langForPath(isSecondary ? SECONDARY_PATH : '/') === 'en'
 
   useEffect(() => {
     let robots = document.querySelector('meta[name="robots"]') as HTMLMetaElement
@@ -147,18 +139,16 @@ function NotFound() {
     <div className="min-h-[80vh] flex flex-col items-center justify-center text-center px-6">
       <p className="text-8xl font-display font-bold text-primary mb-4">404</p>
       <h1 className="text-2xl font-display font-semibold text-foreground mb-2">
-        {isEnglish ? 'Page not found' : 'Página no encontrada'}
+        Page not found
       </h1>
       <p className="text-muted-foreground mb-8 max-w-md">
-        {isEnglish
-          ? "The page you're looking for doesn't exist or has been moved."
-          : 'La página que buscas no existe o ha sido movida.'}
+        The page you&rsquo;re looking for doesn&rsquo;t exist or has been moved.
       </p>
       <Link
-        to={isSecondary ? SECONDARY_PATH : '/'}
+        to="/"
         className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors"
       >
-        {isEnglish ? '← Back to home' : '← Volver al inicio'}
+        ← Back to home
       </Link>
     </div>
   )
@@ -173,17 +163,13 @@ const app = (
         <Suspense fallback={null}>
           <Routes>
             <Route path="/" element={<App />} />
-            <Route path={SECONDARY_PATH} element={<App />} />
             <Route path="/ops" element={<OpsDashboard />} />
-            <Route path="/sobre-mi" element={<AboutPage lang="es" />} />
             <Route path="/about" element={<AboutPage lang="en" />} />
-            <Route path="/privacidad" element={<PrivacyPolicy lang="es" />} />
             <Route path="/privacy" element={<PrivacyPolicy lang="en" />} />
             {articleRegistry.map((article) => {
               const ArticleComponent = articleComponents[article.id]
               return [
-                <Route key={`${article.id}-es`} path={`/${article.slugs.es}`} element={<ArticleComponent lang="es" />} />,
-                <Route key={`${article.id}-en`} path={`/${article.slugs.en}`} element={<ArticleComponent lang="en" />} />,
+                <Route key={article.id} path={`/${article.slug}`} element={<ArticleComponent lang="en" />} />,
               ]
             })}
             <Route path="*" element={<NotFound />} />

@@ -33,7 +33,6 @@ export default function CaseStudyTemplate({ lang }: { lang: Lang }) {
     header: { h1: t.h1 },
     seo: { title: t.h1, description: t.subtitle },
     slug: t.slug,
-    altSlug: t.altSlug,
     nav: t.nav,
     faq: t.faq,
   })
@@ -41,7 +40,6 @@ export default function CaseStudyTemplate({ lang }: { lang: Lang }) {
   useArticleSeo({
     lang,
     slug: t.slug,
-    altSlug: t.altSlug,
     title: t.h1,
     description: t.subtitle,
     publishedTime: t.dateISO,

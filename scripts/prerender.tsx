@@ -27,7 +27,7 @@ import AboutPage from '../src/AboutPage.tsx';
 import { aboutContent } from '../src/about-i18n.ts';
 import PrivacyPolicy from '../src/PrivacyPolicy.tsx';
 import { seo } from '../src/i18n.ts';
-import { site, SECONDARY_PATH } from '../src/site.config.ts';
+import { site } from '../src/site.config.ts';
 
 // Map article id → i18n content for JSON-LD generation.
 //
@@ -58,15 +58,14 @@ function stripReactSSRTags(html: string): string {
 // ---------------------------------------------------------------------------
 // SSR render per language (home page)
 // ---------------------------------------------------------------------------
-function renderApp(lang: 'es' | 'en'): string {
-  const path = lang === site.lang.primary ? '/' : SECONDARY_PATH;
+function renderApp(lang: 'en'): string {
+  const path = '/';
   return stripReactSSRTags(renderToString(
     <StaticRouter location={path}>
       <div>
         <Suspense fallback={null}>
           <Routes>
             <Route path="/" element={<App />} />
-            <Route path={SECONDARY_PATH} element={<App />} />
           </Routes>
         </Suspense>
       </div>
@@ -74,7 +73,7 @@ function renderApp(lang: 'es' | 'en'): string {
   ));
 }
 
-function renderArticlePage(slug: string, ArticleComponent: ComponentType<{ lang: 'es' | 'en' }>, lang: 'es' | 'en'): string {
+function renderArticlePage(slug: string, ArticleComponent: ComponentType<{ lang: 'en' }>, lang: 'en'): string {
   return stripReactSSRTags(renderToString(
     <StaticRouter location={`/${slug}`}>
       <GlobalNav />
@@ -108,33 +107,25 @@ try {
 }
 
 // ---------------------------------------------------------------------------
-// Home pages — primary at `/`, secondary at SECONDARY_PATH
-//
-// Upstream assumed Spanish-at-root. These are now expressed in terms of
-// primary/secondary so flipping `lang.primary` in site.identity.json moves the
-// whole site without touching this file.
+// Home page — single language (English). The upstream ES/EN split was removed.
 // ---------------------------------------------------------------------------
-const PRIMARY = site.lang.primary;
-const SECONDARY = site.lang.secondary;
+const LANG = 'en' as const;
+const LOCALE = 'en_US';
 
-const LOCALE: Record<'es' | 'en', string> = { es: 'es_ES', en: 'en_US' };
-
-function renderHome(lang: 'es' | 'en'): string {
+function renderHome(): string {
   try {
-    return renderApp(lang);
+    return renderApp(LANG);
   } catch (err) {
-    console.error(`[prerender] SSR failed for ${lang.toUpperCase()}, falling back to empty root:`, err);
+    console.error('[prerender] SSR failed for home, falling back to empty root:', err);
     return '';
   }
 }
 
-/** Build a full home page document for one language. */
-function buildHomePage(lang: 'es' | 'en', bodyHtml: string, url: string): string {
-  const pageSeo = seo[lang];
-  const alt: 'es' | 'en' = lang === 'es' ? 'en' : 'es';
+function buildHomePage(bodyHtml: string, url: string): string {
+  const pageSeo = seo[LANG];
   return indexHtml
     .replace('<div id="root"></div>', `<div id="root">${bodyHtml}</div>`)
-    .replace(/<html lang="[a-z-]*"/, `<html lang="${lang}"`)
+    .replace(/<html lang="[a-z-]*"/, `<html lang="${LANG}"`)
     .replace(/<title>[^<]*<\/title>/, `<title>${esc(pageSeo.title)}</title>`)
     .replace(/<meta name="title" content="[^"]*" \/>/, `<meta name="title" content="${esc(pageSeo.title)}" />`)
     .replace(/<meta name="description" content="[^"]*" \/>/, `<meta name="description" content="${esc(pageSeo.description)}" />`)
@@ -142,15 +133,14 @@ function buildHomePage(lang: 'es' | 'en', bodyHtml: string, url: string): string
     .replace(/<meta property="og:url" content="[^"]*" \/>/, `<meta property="og:url" content="${url}" />`)
     .replace(/<meta property="og:title" content="[^"]*" \/>/, `<meta property="og:title" content="${esc(pageSeo.title)}" />`)
     .replace(/<meta property="og:description" content="[^"]*" \/>/, `<meta property="og:description" content="${esc(pageSeo.description)}" />`)
-    .replace(/<meta property="og:locale" content="[^"]*" \/>/, `<meta property="og:locale" content="${LOCALE[lang]}" />`)
-    .replace(/<meta property="og:locale:alternate" content="[^"]*" \/>/, `<meta property="og:locale:alternate" content="${LOCALE[alt]}" />`)
+    .replace(/<meta property="og:locale" content="[^"]*" \/>/, `<meta property="og:locale" content="${LOCALE}" />`)
+    .replace(/<meta property="og:locale:alternate" content="[^"]*" \/>\s*/, '')
     .replace(/<meta name="twitter:url" content="[^"]*" \/>/, `<meta name="twitter:url" content="${url}" />`)
     .replace(/<meta name="twitter:title" content="[^"]*" \/>/, `<meta name="twitter:title" content="${esc(pageSeo.title)}" />`)
     .replace(/<meta name="twitter:description" content="[^"]*" \/>/, `<meta name="twitter:description" content="${esc(pageSeo.description)}" />`);
 }
 
-const primaryPage = buildHomePage(PRIMARY, renderHome(PRIMARY), `${site.origin}/`);
-const secondaryPage = buildHomePage(SECONDARY, renderHome(SECONDARY), `${site.origin}${SECONDARY_PATH}`);
+const primaryPage = buildHomePage(renderHome(), `${site.origin}/`);
 
 // ---------------------------------------------------------------------------
 // About / Entity Home — ES (/sobre-mi) + EN (/about)
@@ -186,7 +176,7 @@ const aboutPersonProfile = {
     },
   },
 };
-function buildAboutJsonLd(lang: 'es' | 'en', pageUrl: string, faq: readonly { q: string; a: string }[]) {
+function buildAboutJsonLd(lang: 'en', pageUrl: string, faq: readonly { q: string; a: string }[]) {
   // Split: ProfilePage references Person by @id (not inline) so KG crawlers
   // dedupe cleanly against the canonical Person emitted on home and articles.
   // The Person itself is emitted top-level in this @graph for ID resolution
@@ -212,15 +202,11 @@ interface AboutPageData {
 
 const aboutPages: AboutPageData[] = [];
 
-for (const lang of ['es', 'en'] as const) {
+{
+  const lang = LANG;
   const t = aboutContent[lang];
   const slug = t.slug;
-  const altSlug = t.altSlug;
   const url = `${site.origin}/${slug}`;
-  const altUrl = `${site.origin}/${altSlug}`;
-  const altLang = lang === 'es' ? 'en' : 'es';
-  const ogLocale = lang === 'es' ? 'es_ES' : 'en_US';
-  const ogLocaleAlt = lang === 'es' ? 'en_US' : 'es_ES';
 
   let renderedHtml: string;
   try {
@@ -241,11 +227,11 @@ for (const lang of ['es', 'en'] as const) {
     renderedHtml = '';
   }
 
-  const hreflangLinks = `<link rel="alternate" hreflang="${lang}" href="${url}" /><link rel="alternate" hreflang="${altLang}" href="${altUrl}" /><link rel="alternate" hreflang="x-default" href="${site.origin}/sobre-mi" />`;
+  const hreflangLinks = `<link rel="alternate" hreflang="${lang}" href="${url}" /><link rel="alternate" hreflang="x-default" href="${url}" />`;
 
   let result = indexHtml
     .replace('<div id="root"></div>', `<div id="root">${renderedHtml}</div>`)
-    .replace('<html lang="es" class="dark">', `<html lang="${lang}" class="dark">`)
+    .replace(/<html lang="[a-z-]*"/, `<html lang="${lang}"`)
     .replace(/<title>[^<]*<\/title>/, `<title>${esc(t.seo.title)}</title>`)
     .replace(/<meta name="title" content="[^"]*" \/>/, `<meta name="title" content="${esc(t.seo.title)}" />`)
     .replace(/<meta name="description" content="[^"]*" \/>/, `<meta name="description" content="${esc(t.seo.description)}" />`)
@@ -255,8 +241,8 @@ for (const lang of ['es', 'en'] as const) {
     .replace(/<meta property="og:url" content="[^"]*" \/>/, `<meta property="og:url" content="${url}" />`)
     .replace(/<meta property="og:title" content="[^"]*" \/>/, `<meta property="og:title" content="${esc(t.seo.title)}" />`)
     .replace(/<meta property="og:description" content="[^"]*" \/>/, `<meta property="og:description" content="${esc(t.seo.description)}" />`)
-    .replace(/<meta property="og:locale" content="es_ES" \/>/, `<meta property="og:locale" content="${ogLocale}" />`)
-    .replace(/<meta property="og:locale:alternate" content="en_US" \/>/, `<meta property="og:locale:alternate" content="${ogLocaleAlt}" />`)
+    .replace(/<meta property="og:locale" content="[^"]*" \/>/, `<meta property="og:locale" content="${LOCALE}" />`)
+    .replace(/<meta property="og:locale:alternate" content="[^"]*" \/>\s*/, '')
     .replace(/<meta name="twitter:url" content="[^"]*" \/>/, `<meta name="twitter:url" content="${url}" />`)
     .replace(/<meta name="twitter:title" content="[^"]*" \/>/, `<meta name="twitter:title" content="${esc(t.seo.title)}" />`)
     .replace(/<meta name="twitter:description" content="[^"]*" \/>/, `<meta name="twitter:description" content="${esc(t.seo.description)}" />`);
@@ -284,19 +270,15 @@ interface ArticlePage {
 
 function buildArticlePage(
   config: ArticleConfig,
-  lang: 'es' | 'en',
-  ArticleComponent: ComponentType<{ lang: 'es' | 'en' }>,
+  lang: 'en',
+  ArticleComponent: ComponentType<{ lang: 'en' }>,
 ): string {
-  const slug = config.slugs[lang];
-  const altSlug = config.slugs[lang === 'es' ? 'en' : 'es'];
+  const slug = config.slug;
   const url = `${site.origin}/${slug}`;
-  const altUrl = `${site.origin}/${altSlug}`;
-  const altLang = lang === 'es' ? 'en' : 'es';
   const htmlLang = lang;
-  const ogLocale = lang === 'es' ? 'es_ES' : 'en_US';
-  const ogLocaleAlt = lang === 'es' ? 'en_US' : 'es_ES';
-  const articleSeo = config.seo[lang];
-  const xDefaultHref = `${site.origin}/${config.xDefaultSlug || config.slugs.es}`;
+  const ogLocale = LOCALE;
+  const articleSeo = config.seo;
+  const xDefaultHref = url;
 
   let renderedHtml: string;
   try {
@@ -306,7 +288,7 @@ function buildArticlePage(
     renderedHtml = '';
   }
 
-  const hreflangLinks = `<link rel="alternate" hreflang="${lang}" href="${url}" /><link rel="alternate" hreflang="${altLang}" href="${altUrl}" /><link rel="alternate" hreflang="x-default" href="${xDefaultHref}" />`;
+  const hreflangLinks = `<link rel="alternate" hreflang="${lang}" href="${url}" /><link rel="alternate" hreflang="x-default" href="${xDefaultHref}" />`;
 
   let result = indexHtml
     .replace('<div id="root"></div>', `<div id="root">${renderedHtml}</div>`)
@@ -321,8 +303,8 @@ function buildArticlePage(
     .replace(/<meta property="og:url" content="[^"]*" \/>/, `<meta property="og:url" content="${url}" />`)
     .replace(/<meta property="og:title" content="[^"]*" \/>/, `<meta property="og:title" content="${esc(articleSeo.title)}" />`)
     .replace(/<meta property="og:description" content="[^"]*" \/>/, `<meta property="og:description" content="${esc(articleSeo.description)}" />`)
-    .replace(/<meta property="og:locale" content="es_ES" \/>/, `<meta property="og:locale" content="${ogLocale}" />`)
-    .replace(/<meta property="og:locale:alternate" content="en_US" \/>/, `<meta property="og:locale:alternate" content="${ogLocaleAlt}" />`)
+    .replace(/<meta property="og:locale" content="[^"]*" \/>/, `<meta property="og:locale" content="${LOCALE}" />`)
+    .replace(/<meta property="og:locale:alternate" content="[^"]*" \/>\s*/, '')
     .replace(/<meta name="twitter:url" content="[^"]*" \/>/, `<meta name="twitter:url" content="${url}" />`)
     .replace(/<meta name="twitter:title" content="[^"]*" \/>/, `<meta name="twitter:title" content="${esc(articleSeo.title)}" />`)
     .replace(/<meta name="twitter:description" content="[^"]*" \/>/, `<meta name="twitter:description" content="${esc(articleSeo.description)}" />`)
@@ -351,7 +333,6 @@ function buildArticlePage(
       const jsonLd = buildArticleJsonLd({
         lang,
         url: `${site.origin}/${slug}`,
-        altUrl: `${site.origin}/${altSlug}`,
         headline: t.header.h1,
         alternativeHeadline: articleSeo.title,
         description: articleSeo.description,
@@ -398,14 +379,8 @@ for (const config of articleRegistry) {
     continue;
   }
 
-  const seen = new Set<string>();
-  for (const lang of ['es', 'en'] as const) {
-    const slug = config.slugs[lang];
-    if (seen.has(slug)) continue; // same slug for both languages
-    seen.add(slug);
-    const html = buildArticlePage(config, lang, ArticleComponent);
-    articlePages.push({ slug, html });
-  }
+  const html = buildArticlePage(config, LANG, ArticleComponent);
+  articlePages.push({ slug: config.slug, html });
 }
 
 // ---------------------------------------------------------------------------
@@ -473,18 +448,16 @@ async function writePage(html: string, outputPath: string, label: string) {
 }
 
 // ---------------------------------------------------------------------------
-// Privacy pages — /privacidad (ES) + /privacy (EN)
+// Privacy page — /privacy
 // ---------------------------------------------------------------------------
 const privacyPages: { slug: string; html: string }[] = [];
 
-for (const [lang, slug, altSlug] of [['es', 'privacidad', 'privacy'], ['en', 'privacy', 'privacidad']] as const) {
+{
+  const lang = LANG;
+  const slug = 'privacy';
   const url = `${site.origin}/${slug}`;
-  const altUrl = `${site.origin}/${altSlug}`;
-  const altLang = lang === 'es' ? 'en' : 'es';
-  const title = lang === 'es' ? `Política de Privacidad | ${site.domain}` : `Privacy Policy | ${site.domain}`;
-  const description = lang === 'es'
-    ? `Política de privacidad de ${site.domain}. Cómo se recopilan y utilizan los datos del chatbot y la web.`
-    : `Privacy policy for ${site.domain}. How chatbot and website data is collected and used.`;
+  const title = `Privacy Policy | ${site.domain}`;
+  const description = `Privacy policy for ${site.domain}. How chatbot and website data is collected and used.`;
 
   let renderedHtml: string;
   try {
@@ -505,11 +478,11 @@ for (const [lang, slug, altSlug] of [['es', 'privacidad', 'privacy'], ['en', 'pr
     renderedHtml = '';
   }
 
-  const hreflangLinks = `<link rel="alternate" hreflang="${lang}" href="${url}" /><link rel="alternate" hreflang="${altLang}" href="${altUrl}" /><link rel="alternate" hreflang="x-default" href="${site.origin}/privacidad" />`;
+  const hreflangLinks = `<link rel="alternate" hreflang="${lang}" href="${url}" /><link rel="alternate" hreflang="x-default" href="${url}" />`;
 
   let result = indexHtml
     .replace('<div id="root"></div>', `<div id="root">${renderedHtml}</div>`)
-    .replace('<html lang="es" class="dark">', `<html lang="${lang}" class="dark">`)
+    .replace(/<html lang="[a-z-]*"/, `<html lang="${lang}"`)
     .replace(/<title>[^<]*<\/title>/, `<title>${esc(title)}</title>`)
     .replace(/<meta name="title" content="[^"]*" \/>/, `<meta name="title" content="${esc(title)}" />`)
     .replace(/<meta name="description" content="[^"]*" \/>/, `<meta name="description" content="${esc(description)}" />`)
@@ -533,8 +506,7 @@ for (const [lang, slug, altSlug] of [['es', 'privacidad', 'privacy'], ['en', 'pr
 
 async function inlineCriticalCSS() {
   // Home pages
-  await writePage(primaryPage, indexPath, `${PRIMARY.toUpperCase()}: dist/index.html updated`);
-  await writePage(secondaryPage, resolve(distDir, SECONDARY, 'index.html'), `${SECONDARY.toUpperCase()}: dist/${SECONDARY}/index.html created`);
+  await writePage(primaryPage, indexPath, 'dist/index.html updated');
 
   // About pages
   for (const { slug, html } of aboutPages) {
@@ -593,8 +565,7 @@ function validateHydrationStructure(html: string, label: string) {
 }
 
 // Validate home pages
-validateHydrationStructure(primaryPage, `home-${PRIMARY}`);
-validateHydrationStructure(secondaryPage, `home-${SECONDARY}`);
+validateHydrationStructure(primaryPage, 'home');
 
 // Validate about pages
 for (const { slug, html } of aboutPages) {

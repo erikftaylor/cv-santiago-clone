@@ -66,8 +66,18 @@
   ],
   "redirects": [
     {
-      "source": "/es/",
-      "destination": "/es",
+      "source": "/es",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/sobre-mi",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/privacidad",
+      "destination": "/privacy",
       "permanent": true
     },
     {
@@ -78,28 +88,12 @@
   ],
   "rewrites": [
     {
-      "source": "/es",
-      "destination": "/es/index.html"
-    },
-    {
       "source": "/example-case-study",
       "destination": "/example-case-study/index.html"
     },
     {
-      "source": "/caso-ejemplo",
-      "destination": "/caso-ejemplo/index.html"
-    },
-    {
-      "source": "/sobre-mi",
-      "destination": "/sobre-mi/index.html"
-    },
-    {
       "source": "/about",
       "destination": "/about/index.html"
-    },
-    {
-      "source": "/privacidad",
-      "destination": "/privacidad/index.html"
     },
     {
       "source": "/privacy",

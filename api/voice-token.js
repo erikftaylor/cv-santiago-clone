@@ -162,7 +162,7 @@ export default async function handler(req) {
   }
 
   try {
-    const { lang = 'es', sessionId } = await req.json()
+    const { lang = 'en', sessionId } = await req.json()
 
     // Rate limiting
     const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown'
@@ -180,7 +180,8 @@ export default async function handler(req) {
     }
 
     // Compose prompt: base rules + language-specific voice affect
-    const voiceAffect = lang === 'en' ? VOICE_AFFECT_EN : VOICE_AFFECT_ES
+    // The site is English-only, but a visitor may still speak Spanish.
+    const voiceAffect = lang === 'es' ? VOICE_AFFECT_ES : VOICE_AFFECT_EN
     const instructions = resolveIdentityTokens(`${VOICE_BASE_PROMPT}\n\n${voiceAffect}`)
 
     // Request ephemeral token from OpenAI Realtime API
