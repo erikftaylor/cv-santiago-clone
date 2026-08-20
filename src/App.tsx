@@ -1510,7 +1510,15 @@ function App() {
                 <br />
                 {t.greeting}
                 <br />
-                {lang === 'es' ? 'con ' : 'with '}<BeamPill>Evals <span className="opacity-60">+</span> LLMOps <span className="opacity-60">+</span> HITL</BeamPill>
+                {lang === 'es' ? 'con ' : 'with '}
+                <BeamPill>
+                  {t.heroPill.map((word, i) => (
+                    <span key={word}>
+                      {i > 0 && <span className="opacity-60"> + </span>}
+                      {word}
+                    </span>
+                  ))}
+                </BeamPill>
               </h1>
 
               <div className="flex flex-wrap justify-center md:justify-start gap-3">
@@ -1826,14 +1834,14 @@ function App() {
                 {t.skills.languages}
               </h3>
               <div className="space-y-3">
-                <div className="flex justify-between items-center">
-                  <span>{t.skills.spanish}</span>
-                  <span className="text-sm text-primary font-medium">{t.skills.native}</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span>{t.skills.english}</span>
-                  <span className="text-sm text-muted-foreground">{t.skills.professional}</span>
-                </div>
+                {t.skills.languageList.map((l, i) => (
+                  <div key={l.name} className="flex justify-between items-center">
+                    <span>{l.name}</span>
+                    <span className={i === 0 ? 'text-sm text-primary font-medium' : 'text-sm text-muted-foreground'}>
+                      {l.level}
+                    </span>
+                  </div>
+                ))}
               </div>
 
               <h3 className="font-display font-semibold mb-4 mt-8">{t.skills.soft}</h3>

@@ -1,34 +1,50 @@
 /**
- * SITE CONTENT (ES / EN)
+ * SITE CONTENT (EN / ES)
  * ──────────────────────
  * All user-facing homepage copy. Identity constants (name, domain, email,
  * socials) live in `site.config.ts` — do not duplicate them here.
  *
- * Restructured from the upstream project: sections that were hardcoded to one
- * person's biography (one hardcoded key per employer) are
- * now uniform ARRAYS. Add a job by appending to `experience.items`; the page
- * renders it. No JSX changes required.
+ * Sections are uniform ARRAYS. Add a job by appending to `experience.items`;
+ * the page renders it. No JSX changes required.
  *
- * Both `es` and `en` must stay structurally identical — the language toggle,
- * hreflang, and prerenderer all assume parity.
+ * ── EDITORIAL RULES (from PRODUCT.md, confirmed 2026-08-06) ────────────────
+ * These are not style preferences. They are the reason the work reads as
+ * credible, and breaking them costs more than the copy gains:
+ *
+ *   1. THE BET IS THE STORY. Lead with the decision, the tradeoff, and its
+ *      open status — never with a process description.
+ *   2. UNPROVEN STAYS UNPROVEN. The case studies state plainly that their
+ *      metrics are not yet realized. Do not convert research-backed *goals*
+ *      into achieved outcomes, and do not attach numbers to any of them.
+ *   3. ONE HONEST CLAIM BEATS TWO IMPRESSIVE ONES. Tenure is **15+ years**,
+ *      counted from IBM in 2008. The old "8+ years" line is retired; the two
+ *      must never appear together.
+ *   4. Erik is **freelance** — no longer at Tovuti LMS. All Tovuti copy is
+ *      past tense.
+ *   5. Ridgeframe Strategies and his co-founder are deliberately OFF this
+ *      surface. Do not add them.
+ *   6. Availability is stated quietly, in the contact section only. No banner,
+ *      no badge, no urgency device.
  */
 import { site } from './site.config'
 
 export type Lang = 'es' | 'en'
 
 export const seo = {
-  es: {
-    title: `${site.brand} | ${site.tagline}`,
-    description: 'TODO: 150-160 caracteres. Qué construyes y la evidencia.',
-  },
   en: {
     title: `${site.brand} | ${site.tagline}`,
-    description: 'TODO: 150-160 chars. What you build and the evidence for it.',
+    description:
+      'Denver-based product designer, 15+ years across global enterprise, financial services, and learning platforms. Research through engineering handoff.',
+  },
+  es: {
+    title: `${site.brand} | ${site.tagline}`,
+    description:
+      'Diseñador de producto en Denver, 15+ años en software empresarial, servicios financieros y plataformas de aprendizaje.',
   },
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Shared shapes — documented once, used by both languages.
+// Shared shapes
 // ─────────────────────────────────────────────────────────────────────────────
 export interface ExperienceItem {
   company: string
@@ -38,12 +54,10 @@ export interface ExperienceItem {
   period: string
   desc: string
   highlights: readonly string[]
-  /** Optional pill, e.g. 'Open Source' or 'Exit 2025' */
   badge?: string
-  /** External link for the org */
   url?: string
   urlLabel?: string
-  /** Link to a case study on this site */
+  /** Internal route only — external links belong in `projects`. */
   caseStudyUrl?: string
   caseStudyLabel?: string
 }
@@ -53,8 +67,13 @@ export interface ProjectItem {
   badge?: string
   desc: string
   tech: readonly string[]
-  /** Bare host + path, no protocol — the UI adds it */
+  /** Bare host + path, no protocol — the UI adds it. */
   link?: string
+}
+
+export interface LanguageSkill {
+  name: string
+  level: string
 }
 
 export const translations = {
@@ -62,28 +81,37 @@ export const translations = {
   // ENGLISH
   // ═══════════════════════════════════════════════════════════════════════════
   en: {
-    greeting: 'TODO: the half-sentence after your name',
-    greetingRoles: ['TODO: Role one', 'TODO: Role two', 'TODO: Role three'],
-    pillLabels: ['TODO: Pill A', 'TODO: Pill B'],
+    greeting: 'who works upstream of the build',
+    greetingRoles: [
+      'Product Designer',
+      'UX Designer',
+      'Design Systems Builder',
+      'AI × UX Practitioner',
+    ],
+    /** The three words in the hero's beam pill. */
+    heroPill: ['Research', 'Systems', 'Handoff'],
+    pillLabels: ['Product Designer', 'AI × UX'],
     email: site.email,
     role: '',
     location: site.location,
     roles: site.roles,
-    taglines: [] as readonly string[],
 
     // ── Intro animation ──────────────────────────────────────────────────
     story: {
-      context: 'TODO: One line of where you come from.',
-      reflections: ['TODO: A short beat.', 'TODO: …and the turn.'],
+      context: '15+ years of it, starting as an IBM copywriter in 2008.',
+      reflections: ['The decision is the story.', '…not the process diagram.'],
       hookParagraphs: [
-        ['TODO: The line that reframes it.'],
-        ['TODO: What drives you.', 'TODO: *Emphasised* +phrase+.'],
+        ['I work *upstream.*'],
+        [
+          'Where design decisions get made —',
+          '+before anything gets generated+.',
+        ],
       ],
-      why: 'TODO: The concrete thing you did that proves the above.',
+      why: 'Enterprise at IBM, financial services at Transamerica, learning platforms at Tovuti LMS. Research through engineering handoff, and the tradeoffs named out loud.',
       seeking: [
-        'TODO: What you want next.',
-        'TODO: The kind of team and problem.',
-        'TODO: A closing line.',
+        'Now freelance.',
+        'Working where AI is changing what design owns.',
+        'Open to the right full-time role.',
       ],
       nav: [
         { icon: 'briefcase', label: 'My path', href: '#experience' },
@@ -91,64 +119,149 @@ export const translations = {
         { icon: 'mail', label: "Let's talk", href: '#contact' },
         { icon: 'bot', label: 'Ask me', href: '#chat', highlight: true },
       ],
-      skills: ['TODO: Skill 1', 'TODO: Skill 2', 'TODO: Skill 3', 'TODO: Skill 4'],
+      skills: ['Product Design', 'UX Research', 'Design Systems', 'AI-Integrated Workflows'],
       skipButton: 'Skip intro',
     },
 
     summary: {
-      p2: 'TODO: Opening of your positioning paragraph — ',
-      p2Highlight: 'TODO: the emphasised claim',
-      p2End: 'TODO: — and how it closes.',
+      p2: 'Fifteen-plus years across ',
+      p2Highlight: 'global enterprise, financial services, and learning platforms',
+      p2End: ' — now freelance, working where AI is changing what design is responsible for.',
     },
 
+    // ── What I deliver ───────────────────────────────────────────────────
     coreCompetencies: {
-      title: 'Core competencies',
+      title: 'What I deliver',
       items: [
-        { title: 'TODO: Competency', desc: 'TODO: What you actually do inside it.' },
-        { title: 'TODO: Competency', desc: 'TODO: What you actually do inside it.' },
-        { title: 'TODO: Competency', desc: 'TODO: What you actually do inside it.' },
+        {
+          title: 'Cross-Functional Collaboration',
+          desc: 'I translate between design, product, and engineering — and increasingly between human intent and AI output. Decisions move faster when everyone is working from the same picture.',
+        },
+        {
+          title: 'Design Systems in Figma',
+          desc: 'From early wireframes to production-ready systems. I work in Figma the way engineers work in code: structure, consistency, and handoffs that do not require a meeting to decode.',
+        },
+        {
+          title: 'Designing for AI-Generated Experiences',
+          desc: 'AI products introduce a new class of UX problems — non-deterministic outputs, confidence variance, trust signals, and failure states that do not behave like traditional errors.',
+        },
+        {
+          title: 'Research-Driven Decisions',
+          desc: 'Qualitative and quantitative insight shapes the major calls, including feedback loops for AI-generated interfaces where variance is higher and edge cases are less predictable.',
+        },
+        {
+          title: 'AI-Integrated Design Workflows',
+          desc: 'Research synthesis, design-system documentation, prompt-to-prototype. Built as working practice rather than commentary.',
+        },
+        {
+          title: 'Accessibility to WCAG 2.2 AA',
+          desc: 'I audit organizations against it and hold my own work to the same bar.',
+        },
       ],
     },
 
-    // ── Work history · append entries, do not add new keys ────────────────
+    // ── Work history ─────────────────────────────────────────────────────
     experience: {
       title: 'Experience',
       items: [
         {
-          company: 'TODO: Company',
-          location: 'TODO: City, Country',
-          role: 'TODO: Your title',
-          period: 'TODO: 2024 - Present',
-          desc: 'TODO: One or two lines on the mandate.',
+          company: 'Freelance',
+          location: 'Denver, CO · Remote',
+          role: 'Product Designer',
+          period: '2026 – Present',
+          desc: 'Product design for teams shipping software — discovery through engineering handoff.',
           highlights: [
-            'TODO: An accomplishment with a number in it.',
-            'TODO: A system you designed, and its constraint.',
-            'TODO: Something that outlived your involvement.',
+            'TODO: name an engagement worth listing, or delete this line and let the description stand alone.',
           ],
         },
         {
-          company: 'TODO: Previous company',
-          location: 'TODO: City, Country',
-          role: 'TODO: Your title',
-          period: 'TODO: 2020 - 2024',
-          desc: 'TODO: One line.',
-          highlights: ['TODO: Accomplishment.'],
+          company: 'Tovuti LMS',
+          location: 'Remote',
+          role: 'Product Designer',
+          period: '2025 – 2026',
+          desc: 'Designed admin and learner experiences for the LMS platform.',
+          highlights: [
+            'TODO: confirm attribution — the Journey Map Generator (see Projects) reads like this role, but the case study never names the employer. If it belongs here, move its highlights up.',
+          ],
+        },
+        {
+          company: 'Transamerica',
+          location: 'Denver, CO',
+          role: 'UX Designer',
+          period: '2020 – 2024',
+          desc: 'Designed the World Financial Group (WFG) agent portal — the tools licensed agents work in daily.',
+          highlights: [
+            'Joined a redesign whose direction was already set and pushed to add user interviews and usability testing, so the work was grounded in actual agent pain points rather than assumptions carried over from the prior portal. It cost time the team had not budgeted; skipping it risked solving the wrong friction.',
+            'Built a custom design system for WFG rather than reusing an off-the-shelf component set, because WFG branding and functional requirements did not map cleanly onto existing patterns.',
+            'Rebuilt global navigation around frequency of use rather than the org chart — agents were not asking for fewer features, they were asking for fewer steps to the ones they used constantly, like Commissions and Client Management.',
+            'Accepted the tradeoff that frequency-based ordering deprioritizes rarely-used tools entirely. That is a bet on those agents being rare enough to accept the extra click, and it will not be provable until full rollout data comes in.',
+          ],
+        },
+        {
+          company: 'IBM',
+          location: 'Remote',
+          role: 'Product Owner / UX Designer',
+          period: '2017 – 2020',
+          desc: 'Owned the Digital Sellers Guidebook — an adoption problem wearing a platform problem as a disguise.',
+          highlights: [
+            'Sellers treated the existing platform as overhead rather than help. Stakeholder interviews with sellers and managers surfaced the real constraint: high cognitive load and no time for training. Any fix that asked sellers to learn something new, somewhere new, would have failed the same way.',
+            'Built the guidebook on WordPress instead of a purpose-built platform so it integrated with tools IBM sellers already used and asked no one to learn new infrastructure. The tradeoff was less flexibility.',
+          ],
+        },
+        {
+          company: 'IBM',
+          location: 'Remote',
+          role: 'Team Lead',
+          period: '2010 – 2017',
+          desc: 'Team lead prior to moving into product ownership and design.',
+          highlights: [],
+        },
+        {
+          company: 'IBM',
+          location: 'Remote',
+          role: 'Copywriter',
+          period: '2008 – 2010',
+          desc: 'Where the fifteen years starts — writing before designing.',
+          highlights: [],
         },
       ] as readonly ExperienceItem[],
     },
 
+    // ── Case studies ─────────────────────────────────────────────────────
+    // Each leads with the decision and its open status, per PRODUCT.md rule 1.
     projects: {
-      title: 'Projects',
+      title: 'Case studies',
       githubLink: site.social.github.replace('https://', ''),
-      viewCode: 'View code',
+      viewCode: 'Read the case study',
       viewPrototype: 'View prototype',
       items: [
         {
-          title: 'TODO: Project name',
-          badge: 'TODO: Status',
-          desc: 'TODO: What it does and who it is for. One or two sentences.',
-          tech: ['TODO', 'Tech', 'Stack'],
-          link: '',
+          title: 'Journey Map Generator',
+          badge: 'Solo build · 8 weeks',
+          desc: 'A feature was drawing negative feedback and the root causes were opaque — a ticket saying "confusing" does not say which step confused anyone. Rather than hand-synthesize help docs, demo transcripts, and scattered complaints over weeks, I built a tool that generates persona-based journey maps from help-center content and wires in Zendesk and Slack so every complaint pins to a journey step, auto-classified by owner. The bet: a week lost if it was wrong, months of manual audit saved if it worked. Prototype to shipped tool to engineering handoff inside the eight-week window.',
+          tech: ['Journey Mapping', 'Zendesk', 'Slack', 'Research Synthesis', 'AI-Assisted Build'],
+          link: 'etaylor.co/i-vibe-coded-a-journey-map-generator-auto-synthesizing-docs-and-demos-into-actionable-friction-maps',
+        },
+        {
+          title: 'WFG Agent Portal',
+          badge: 'Transamerica',
+          desc: 'The agent portal was unintuitive and impersonal — essential tools were hard to find and nothing adapted to the agent using it. I joined after direction was set and argued for user interviews and usability testing anyway, then built a design system tailored to WFG rather than bending the experience into an off-the-shelf component set.',
+          tech: ['Design Systems', 'Figma', 'Usability Testing', 'Stakeholder Interviews'],
+          link: 'etaylor.co/empowering-financial-agents-with-a-redesigned-portal-experience',
+        },
+        {
+          title: 'Advisor Navigation',
+          badge: 'Transamerica',
+          desc: 'Licensed agents could not get to the tools they used constantly: the global nav was cluttered with links and subcategories, and mobile was worse. I cut links and reordered what remained by frequency of use rather than by org chart. The tradeoff — burying rarely-used tools — is a bet that will not be provable until full rollout data comes in.',
+          tech: ['Information Architecture', 'Mobile', 'Usability Testing', 'Figma'],
+          link: 'etaylor.co/boosting-advisor-efficiency-with-a-renovated-navigation-experience',
+        },
+        {
+          title: 'IBM Digital Sellers Guidebook',
+          badge: 'IBM',
+          desc: 'Sellers saw the platform as overhead, not help, and managers had no way to demonstrate value in the time sellers had. The real constraint was cognitive load, not awareness — so the guidebook was built on tooling sellers already used rather than asking them to learn somewhere new.',
+          tech: ['WordPress', 'Stakeholder Interviews', 'Content Design', 'Adoption'],
+          link: 'etaylor.co/driving-adoption-and-engagement-with-ibms-digital-sellers-guidebook',
         },
       ] as readonly ProjectItem[],
     },
@@ -162,54 +275,47 @@ export const translations = {
 
     education: {
       title: 'Education',
-      items: [
-        { year: 'TODO', org: 'TODO: Institution', title: 'TODO: Programme', desc: 'TODO: One line.' },
-      ],
+      // TODO: add degree / institution / year. Not present in any existing
+      // material, so nothing is assumed here.
+      items: [] as readonly { year: string; org: string; title: string; desc: string }[],
     },
 
     certifications: {
       title: 'Certifications',
-      // Only real credentials with working verification URLs. An unverifiable
-      // certification is worse than no certification.
+      // Only real credentials with working verification URLs.
       items: [] as readonly { year: string; title: string; org: string; logo?: string; url?: string }[],
     },
 
     skills: {
       title: 'Skills',
       languages: 'Languages',
-      native: 'Native',
-      professional: 'Professional',
-      english: 'English',
-      spanish: 'Spanish',
-      soft: 'Soft skills',
-      softSkills: ['TODO: Skill', 'TODO: Skill', 'TODO: Skill'],
-    },
-
-    techStack: {
-      title: 'Tech stack',
-      categories: [
-        { name: 'TODO: Category', items: ['TODO', 'TODO'] },
-        { name: 'TODO: Category', items: ['TODO', 'TODO'] },
+      languageList: [{ name: 'English', level: 'Native' }] as readonly LanguageSkill[],
+      soft: 'Practice',
+      softSkills: [
+        'Stakeholder interviews',
+        'Usability testing',
+        'Research synthesis',
+        'Design systems',
+        'Information architecture',
+        'Cross-functional collaboration',
+        'Engineering handoff',
+        'Accessibility (WCAG 2.2 AA)',
       ],
     },
 
-    // Optional showcase block. Delete the section from App.tsx if unused.
-    claudeCode: {
-      title: 'TODO: Showcase title',
-      badge: 'TODO: Badge',
-      desc: 'TODO: One paragraph.',
-      highlights: [] as readonly string[],
-      certs: [] as readonly { title: string; url?: string }[],
+    techStack: {
+      title: 'Tools',
+      categories: [
+        { name: 'Design', items: ['Figma', 'Design Systems', 'Prototyping', 'Wireframing'] },
+        { name: 'Research', items: ['Usability Testing', 'Journey Mapping', 'Stakeholder Interviews'] },
+        { name: 'AI', items: ['Claude', 'Prompt-to-Prototype', 'Research Synthesis'] },
+        { name: 'Platforms', items: ['WordPress', 'Zendesk', 'Slack'] },
+      ],
     },
 
-    // Social proof — populate with YOUR posts, or leave empty to hide.
-    linkedinPosts: { cta: 'Read on LinkedIn', items: [] as readonly unknown[] },
-    xPost: null as null | Record<string, unknown>,
-    redditPosts: [] as readonly unknown[],
-
     cta: {
-      title: "TODO: Let's talk",
-      desc: 'TODO: One line on what you want to hear about.',
+      title: "Let's talk",
+      desc: 'Open to the right full-time role, and available for freelance product design in the meantime.',
       contact: 'Get in touch',
     },
 
@@ -225,13 +331,13 @@ export const translations = {
     chat: {
       placeholder: 'Ask me anything...',
       title: site.shortName,
-      subtitle: 'Ask me about my experience',
-      greeting: `Hi! I'm **${site.shortName}**. Ask me anything: experience, projects, what drives me.`,
+      subtitle: 'Ask me about my work',
+      greeting: `Hi! I'm **${site.shortName}**. Ask me anything: the case studies, how I work, what I'm looking for.`,
       error: 'Failed to send. Try again.',
       offline: 'Looks like you are offline. Check your connection and try again.',
       prompts: [
-        { icon: 'briefcase', label: 'Experience', query: `What is ${site.fullName}'s experience?` },
-        { icon: 'rocket', label: 'Projects', query: `What are ${site.fullName}'s most notable projects?` },
+        { icon: 'briefcase', label: 'Experience', query: `What is ${site.fullName}'s background?` },
+        { icon: 'rocket', label: 'Case studies', query: `Walk me through ${site.fullName}'s case studies.` },
         { icon: 'target', label: 'What I want next', query: `What roles is ${site.fullName} looking for?` },
       ],
       contactCtaTitle: 'Prefer email?',
@@ -241,7 +347,7 @@ export const translations = {
         connecting: 'Connecting...',
         listening: 'Listening...',
         thinking: 'Thinking...',
-        searching: 'Searching my projects...',
+        searching: 'Searching my case studies...',
         speaking: 'Speaking...',
         timeWarning: '15 seconds left',
         ended: 'Voice session ended',
@@ -255,30 +361,43 @@ export const translations = {
   },
 
   // ═══════════════════════════════════════════════════════════════════════════
-  // ESPAÑOL — keep structurally identical to `en`
+  // ESPAÑOL
+  //
+  // ⚠️  Erik does not publish in Spanish and cannot proofread this. It exists
+  //     only because the upstream project was ES-primary. If the Spanish route
+  //     is not wanted, strip it rather than maintaining two languages — see the
+  //     note in README. Translations below are faithful to the English.
   // ═══════════════════════════════════════════════════════════════════════════
   es: {
-    greeting: 'TODO: la media frase que sigue a tu nombre',
-    greetingRoles: ['TODO: Rol uno', 'TODO: Rol dos', 'TODO: Rol tres'],
-    pillLabels: ['TODO: Pill A', 'TODO: Pill B'],
+    greeting: 'que trabaja antes de que se construya',
+    greetingRoles: [
+      'Diseñador de Producto',
+      'Diseñador UX',
+      'Constructor de Design Systems',
+      'Práctica en IA × UX',
+    ],
+    heroPill: ['Investigación', 'Sistemas', 'Entrega'],
+    pillLabels: ['Diseñador de Producto', 'IA × UX'],
     email: site.email,
     role: '',
     location: site.location,
     roles: site.roles,
-    taglines: [] as readonly string[],
 
     story: {
-      context: 'TODO: Una línea sobre de dónde vienes.',
-      reflections: ['TODO: Un compás corto.', 'TODO: …y el giro.'],
+      context: '15+ años, empezando como redactor en IBM en 2008.',
+      reflections: ['La decisión es la historia.', '…no el diagrama de proceso.'],
       hookParagraphs: [
-        ['TODO: La línea que lo replantea.'],
-        ['TODO: Lo que te mueve.', 'TODO: Una *frase* +enfatizada+.'],
+        ['Trabajo *aguas arriba.*'],
+        [
+          'Donde se toman las decisiones de diseño —',
+          '+antes de que se genere nada+.',
+        ],
       ],
-      why: 'TODO: Lo concreto que hiciste que demuestra lo anterior.',
+      why: 'Software empresarial en IBM, servicios financieros en Transamerica, plataformas de aprendizaje en Tovuti LMS. De la investigación a la entrega a ingeniería, con los tradeoffs dichos en voz alta.',
       seeking: [
-        'TODO: Qué quieres ahora.',
-        'TODO: Qué tipo de equipo y problema.',
-        'TODO: Una línea de cierre.',
+        'Ahora freelance.',
+        'Trabajando donde la IA cambia lo que el diseño asume.',
+        'Abierto al puesto adecuado a tiempo completo.',
       ],
       nav: [
         { icon: 'briefcase', label: 'Mi camino', href: '#experience' },
@@ -286,22 +405,43 @@ export const translations = {
         { icon: 'mail', label: 'Hablemos', href: '#contact' },
         { icon: 'bot', label: 'Pregúntame', href: '#chat', highlight: true },
       ],
-      skills: ['TODO: Skill 1', 'TODO: Skill 2', 'TODO: Skill 3', 'TODO: Skill 4'],
+      skills: ['Diseño de Producto', 'Investigación UX', 'Design Systems', 'Flujos con IA'],
       skipButton: 'Saltar intro',
     },
 
     summary: {
-      p2: 'TODO: Apertura de tu párrafo de posicionamiento — ',
-      p2Highlight: 'TODO: la afirmación enfatizada',
-      p2End: 'TODO: — y cómo cierra.',
+      p2: 'Más de quince años en ',
+      p2Highlight: 'software empresarial, servicios financieros y plataformas de aprendizaje',
+      p2End: ' — ahora freelance, trabajando donde la IA cambia de qué responde el diseño.',
     },
 
     coreCompetencies: {
-      title: 'Competencias core',
+      title: 'Lo que aporto',
       items: [
-        { title: 'TODO: Competencia', desc: 'TODO: Qué haces realmente dentro.' },
-        { title: 'TODO: Competencia', desc: 'TODO: Qué haces realmente dentro.' },
-        { title: 'TODO: Competencia', desc: 'TODO: Qué haces realmente dentro.' },
+        {
+          title: 'Colaboración multidisciplinar',
+          desc: 'Traduzco entre diseño, producto e ingeniería — y cada vez más entre la intención humana y la salida de un modelo. Las decisiones avanzan más rápido cuando todos parten de la misma imagen.',
+        },
+        {
+          title: 'Design Systems en Figma',
+          desc: 'Del wireframe inicial al sistema listo para producción. Trabajo en Figma como los ingenieros trabajan en código: estructura, consistencia y entregas que no necesitan una reunión para descifrarse.',
+        },
+        {
+          title: 'Diseño para experiencias generadas por IA',
+          desc: 'Los productos con IA traen una clase nueva de problemas de UX: salidas no deterministas, varianza de confianza, señales de fiabilidad y estados de fallo que no se comportan como errores tradicionales.',
+        },
+        {
+          title: 'Decisiones basadas en investigación',
+          desc: 'Los datos cualitativos y cuantitativos guían las decisiones importantes, incluidos los ciclos de feedback para interfaces generadas por IA, donde la varianza es mayor y los casos límite menos predecibles.',
+        },
+        {
+          title: 'Flujos de diseño integrados con IA',
+          desc: 'Síntesis de investigación, documentación de design systems, de prompt a prototipo. Como práctica de trabajo, no como comentario.',
+        },
+        {
+          title: 'Accesibilidad WCAG 2.2 AA',
+          desc: 'Audito organizaciones con ese estándar y aplico el mismo listón a mi propio trabajo.',
+        },
       ],
     },
 
@@ -309,40 +449,101 @@ export const translations = {
       title: 'Experiencia',
       items: [
         {
-          company: 'TODO: Empresa',
-          location: 'TODO: Ciudad, País',
-          role: 'TODO: Tu puesto',
-          period: 'TODO: 2024 - Presente',
-          desc: 'TODO: Una o dos líneas sobre el mandato.',
+          company: 'Freelance',
+          location: 'Denver, CO · Remoto',
+          role: 'Diseñador de Producto',
+          period: '2026 – Presente',
+          desc: 'Diseño de producto para equipos que lanzan software — del descubrimiento a la entrega a ingeniería.',
           highlights: [
-            'TODO: Un logro con un número.',
-            'TODO: Un sistema que diseñaste, y su restricción.',
-            'TODO: Algo que sobrevivió a tu marcha.',
+            'TODO: nombrar un proyecto que merezca listarse, o borrar esta línea y dejar la descripción sola.',
           ],
         },
         {
-          company: 'TODO: Empresa anterior',
-          location: 'TODO: Ciudad, País',
-          role: 'TODO: Tu puesto',
-          period: 'TODO: 2020 - 2024',
-          desc: 'TODO: Una línea.',
-          highlights: ['TODO: Logro.'],
+          company: 'Tovuti LMS',
+          location: 'Remoto',
+          role: 'Diseñador de Producto',
+          period: '2025 – 2026',
+          desc: 'Diseñé las experiencias de administración y de alumno de la plataforma LMS.',
+          highlights: [
+            'TODO: confirmar atribución — el Generador de Journey Maps (ver Proyectos) encaja con este puesto, pero el caso de estudio no nombra a la empresa.',
+          ],
+        },
+        {
+          company: 'Transamerica',
+          location: 'Denver, CO',
+          role: 'Diseñador UX',
+          period: '2020 – 2024',
+          desc: 'Diseñé el portal de agentes de World Financial Group (WFG), las herramientas que los agentes usan a diario.',
+          highlights: [
+            'Me incorporé a un rediseño con la dirección ya fijada y defendí añadir entrevistas y pruebas de usabilidad, para que el trabajo partiera de los problemas reales de los agentes y no de suposiciones heredadas del portal anterior. Costó tiempo no presupuestado; no hacerlo arriesgaba resolver la fricción equivocada.',
+            'Construí un design system a medida para WFG en lugar de reutilizar un set de componentes genérico, porque su marca y sus requisitos funcionales no encajaban en los patrones existentes.',
+            'Reconstruí la navegación global por frecuencia de uso en lugar de por organigrama: los agentes no pedían menos funciones, pedían menos pasos hasta las que usaban constantemente, como Comisiones y Gestión de Clientes.',
+            'Acepté el tradeoff de que ordenar por frecuencia despriorizaba del todo algunas herramientas. Es una apuesta a que esos agentes son suficientemente pocos como para asumir un clic extra, y no será demostrable hasta que lleguen los datos del despliegue completo.',
+          ],
+        },
+        {
+          company: 'IBM',
+          location: 'Remoto',
+          role: 'Product Owner / Diseñador UX',
+          period: '2017 – 2020',
+          desc: 'Fui responsable del Digital Sellers Guidebook — un problema de adopción disfrazado de problema de plataforma.',
+          highlights: [
+            'Los comerciales veían la plataforma existente como una carga, no como una ayuda. Las entrevistas con comerciales y managers revelaron la restricción real: mucha carga cognitiva y ningún tiempo para formarse. Cualquier solución que pidiera aprender algo nuevo, en un sitio nuevo, habría fallado igual.',
+            'Construí el guidebook sobre WordPress en lugar de una plataforma a medida, para que se integrara con las herramientas que los comerciales ya usaban y no obligara a nadie a aprender infraestructura nueva. El tradeoff fue menos flexibilidad.',
+          ],
+        },
+        {
+          company: 'IBM',
+          location: 'Remoto',
+          role: 'Team Lead',
+          period: '2010 – 2017',
+          desc: 'Responsable de equipo antes de pasar a product ownership y diseño.',
+          highlights: [],
+        },
+        {
+          company: 'IBM',
+          location: 'Remoto',
+          role: 'Redactor',
+          period: '2008 – 2010',
+          desc: 'Donde empiezan los quince años — escribir antes que diseñar.',
+          highlights: [],
         },
       ] as readonly ExperienceItem[],
     },
 
     projects: {
-      title: 'Proyectos',
+      title: 'Casos de estudio',
       githubLink: site.social.github.replace('https://', ''),
-      viewCode: 'Ver código',
+      viewCode: 'Leer el caso',
       viewPrototype: 'Ver prototipo',
       items: [
         {
-          title: 'TODO: Nombre del proyecto',
-          badge: 'TODO: Estado',
-          desc: 'TODO: Qué hace y para quién. Una o dos frases.',
-          tech: ['TODO', 'Tech', 'Stack'],
-          link: '',
+          title: 'Generador de Journey Maps',
+          badge: 'En solitario · 8 semanas',
+          desc: 'Una funcionalidad recibía feedback negativo y las causas raíz eran opacas: un ticket que dice "confuso" no dice qué paso confundió a nadie. En vez de sintetizar a mano documentación, transcripciones y quejas dispersas durante semanas, construí una herramienta que genera journey maps por persona a partir del centro de ayuda y conecta Zendesk y Slack para que cada queja quede anclada a un paso y clasificada por responsable. La apuesta: perder una semana si me equivocaba, ahorrar meses de auditoría manual si funcionaba. De prototipo a herramienta entregada a ingeniería dentro de las ocho semanas.',
+          tech: ['Journey Mapping', 'Zendesk', 'Slack', 'Síntesis de investigación', 'Construcción con IA'],
+          link: 'etaylor.co/i-vibe-coded-a-journey-map-generator-auto-synthesizing-docs-and-demos-into-actionable-friction-maps',
+        },
+        {
+          title: 'Portal de Agentes WFG',
+          badge: 'Transamerica',
+          desc: 'El portal era poco intuitivo e impersonal: las herramientas esenciales costaban de encontrar y nada se adaptaba al agente. Me incorporé con la dirección ya fijada y aun así defendí entrevistas y pruebas de usabilidad, y construí un design system a medida en lugar de forzar la experiencia dentro de componentes genéricos.',
+          tech: ['Design Systems', 'Figma', 'Pruebas de usabilidad', 'Entrevistas'],
+          link: 'etaylor.co/empowering-financial-agents-with-a-redesigned-portal-experience',
+        },
+        {
+          title: 'Navegación para Asesores',
+          badge: 'Transamerica',
+          desc: 'Los agentes no llegaban a las herramientas que usaban constantemente: la navegación global estaba saturada de enlaces y subcategorías, y en móvil era peor. Recorté enlaces y reordené el resto por frecuencia de uso en lugar de por organigrama. El tradeoff — enterrar herramientas poco usadas — es una apuesta que no será demostrable hasta el despliegue completo.',
+          tech: ['Arquitectura de información', 'Móvil', 'Pruebas de usabilidad', 'Figma'],
+          link: 'etaylor.co/boosting-advisor-efficiency-with-a-renovated-navigation-experience',
+        },
+        {
+          title: 'IBM Digital Sellers Guidebook',
+          badge: 'IBM',
+          desc: 'Los comerciales veían la plataforma como una carga, no como una ayuda, y los managers no podían demostrar su valor en el tiempo disponible. La restricción real era la carga cognitiva, no el desconocimiento: por eso el guidebook se construyó sobre herramientas que ya usaban.',
+          tech: ['WordPress', 'Entrevistas', 'Diseño de contenido', 'Adopción'],
+          link: 'etaylor.co/driving-adoption-and-engagement-with-ibms-digital-sellers-guidebook',
         },
       ] as readonly ProjectItem[],
     },
@@ -356,9 +557,7 @@ export const translations = {
 
     education: {
       title: 'Formación',
-      items: [
-        { year: 'TODO', org: 'TODO: Institución', title: 'TODO: Programa', desc: 'TODO: Una línea.' },
-      ],
+      items: [] as readonly { year: string; org: string; title: string; desc: string }[],
     },
 
     certifications: {
@@ -369,37 +568,33 @@ export const translations = {
     skills: {
       title: 'Habilidades',
       languages: 'Idiomas',
-      native: 'Nativo',
-      professional: 'Profesional',
-      english: 'Inglés',
-      spanish: 'Español',
-      soft: 'Soft skills',
-      softSkills: ['TODO: Skill', 'TODO: Skill', 'TODO: Skill'],
-    },
-
-    techStack: {
-      title: 'Stack técnico',
-      categories: [
-        { name: 'TODO: Categoría', items: ['TODO', 'TODO'] },
-        { name: 'TODO: Categoría', items: ['TODO', 'TODO'] },
+      languageList: [{ name: 'Inglés', level: 'Nativo' }] as readonly LanguageSkill[],
+      soft: 'Práctica',
+      softSkills: [
+        'Entrevistas con stakeholders',
+        'Pruebas de usabilidad',
+        'Síntesis de investigación',
+        'Design systems',
+        'Arquitectura de información',
+        'Colaboración multidisciplinar',
+        'Entrega a ingeniería',
+        'Accesibilidad (WCAG 2.2 AA)',
       ],
     },
 
-    claudeCode: {
-      title: 'TODO: Título del showcase',
-      badge: 'TODO: Badge',
-      desc: 'TODO: Un párrafo.',
-      highlights: [] as readonly string[],
-      certs: [] as readonly { title: string; url?: string }[],
+    techStack: {
+      title: 'Herramientas',
+      categories: [
+        { name: 'Diseño', items: ['Figma', 'Design Systems', 'Prototipado', 'Wireframing'] },
+        { name: 'Investigación', items: ['Pruebas de usabilidad', 'Journey Mapping', 'Entrevistas'] },
+        { name: 'IA', items: ['Claude', 'Prompt-to-Prototype', 'Síntesis de investigación'] },
+        { name: 'Plataformas', items: ['WordPress', 'Zendesk', 'Slack'] },
+      ],
     },
 
-    linkedinPosts: { cta: 'Leer en LinkedIn', items: [] as readonly unknown[] },
-    xPost: null as null | Record<string, unknown>,
-    redditPosts: [] as readonly unknown[],
-
     cta: {
-      title: 'TODO: Hablemos',
-      desc: 'TODO: Una línea sobre qué quieres escuchar.',
+      title: 'Hablemos',
+      desc: 'Abierto al puesto adecuado a tiempo completo, y disponible para diseño de producto freelance mientras tanto.',
       contact: 'Contactar',
     },
 
@@ -415,14 +610,14 @@ export const translations = {
     chat: {
       placeholder: 'Escribe tu pregunta...',
       title: site.shortName,
-      subtitle: 'Pregúntame sobre mi experiencia',
-      greeting: `¡Hola! Soy **${site.shortName}**. Pregúntame lo que quieras: experiencia, proyectos, lo que me mueve.`,
+      subtitle: 'Pregúntame sobre mi trabajo',
+      greeting: `¡Hola! Soy **${site.shortName}**. Pregúntame lo que quieras: los casos de estudio, cómo trabajo, qué busco.`,
       error: 'Error al enviar. Inténtalo de nuevo.',
       offline: 'Parece que no hay conexión a internet. Comprueba tu red e inténtalo de nuevo.',
       prompts: [
-        { icon: 'briefcase', label: 'Experiencia', query: `¿Cuál es la experiencia de ${site.fullName}?` },
-        { icon: 'rocket', label: 'Proyectos', query: `¿Cuáles son los proyectos más destacados de ${site.fullName}?` },
-        { icon: 'target', label: 'Qué busco', query: `¿Qué roles busca ${site.fullName}?` },
+        { icon: 'briefcase', label: 'Experiencia', query: `¿Cuál es la trayectoria de ${site.fullName}?` },
+        { icon: 'rocket', label: 'Casos de estudio', query: `Cuéntame los casos de estudio de ${site.fullName}.` },
+        { icon: 'target', label: 'Qué busco', query: `¿Qué puestos busca ${site.fullName}?` },
       ],
       contactCtaTitle: '¿Prefieres email?',
       voice: {
@@ -431,7 +626,7 @@ export const translations = {
         connecting: 'Conectando...',
         listening: 'Te escucho...',
         thinking: 'Pensando...',
-        searching: 'Buscando en mis proyectos...',
+        searching: 'Buscando en mis casos de estudio...',
         speaking: 'Hablando...',
         timeWarning: '15 segundos restantes',
         ended: 'Sesión de voz terminada',
