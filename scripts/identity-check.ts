@@ -26,6 +26,10 @@ const SKIP_DIRS = new Set([
   'node_modules', '.git', 'dist', '.vercel', 'coverage',
   '.playwright-mcp', '.seo-audit', '.seo-audit-v2',
 ])
+// package-lock.json is skipped from the LINE scan: it is thousands of lines of
+// registry URLs and integrity hashes, and scanning it drowns the report. Its
+// `name` fields are checked separately below — that blind spot is exactly how
+// "cv-santiago" survived on main after package.json was renamed.
 const SKIP_FILES = new Set(['package-lock.json', 'identity-check.ts'])
 const TEXT_EXT = new Set([
   '.ts', '.tsx', '.js', '.jsx', '.json', '.html', '.css',
@@ -150,6 +154,42 @@ for (const rel of DOMAIN_BOUND_FILES) {
   })
 }
 
+
+// ─────────────────────────────────────────────────────────────────────────────
+// PACKAGE NAME
+//
+// package.json and package-lock.json each carry a project `name`. The lockfile
+// copy only updates when npm regenerates it, so renaming the project in
+// package.json alone leaves the old name behind — and the lockfile is excluded
+// from the line scan, so nothing else would catch it.
+// ─────────────────────────────────────────────────────────────────────────────
+const nameIssues: string[] = []
+
+try {
+  const pkg = JSON.parse(readFileSync(join(ROOT, 'package.json'), 'utf8')) as { name?: string }
+  const lock = JSON.parse(readFileSync(join(ROOT, 'package-lock.json'), 'utf8')) as {
+    name?: string
+    packages?: Record<string, { name?: string }>
+  }
+
+  const names: Array<[string, string | undefined]> = [
+    ['package.json name', pkg.name],
+    ['package-lock.json name', lock.name],
+    ['package-lock.json packages[""].name', lock.packages?.['']?.name],
+  ]
+
+  for (const [label, value] of names) {
+    if (!value) continue
+    for (const { re, label: what } of LEAK_PATTERNS) {
+      if (re.test(value)) nameIssues.push(`${label} = "${value}" (${what})`)
+    }
+  }
+
+  if (pkg.name && lock.name && pkg.name !== lock.name) {
+    nameIssues.push(`package.json name "${pkg.name}" != package-lock.json name "${lock.name}" — run npm install to regenerate the lockfile`)
+  }
+} catch { /* a missing or unparseable manifest is not this check's problem */ }
+
 console.log('\n═══ IDENTITY CHECK ═══\n')
 
 if (leaks.length) {
@@ -166,6 +206,15 @@ if (leaks.length) {
 }
 
 console.log('')
+if (nameIssues.length) {
+  console.log(`❌ ${nameIssues.length} package-name issue(s):\n`)
+  for (const n of nameIssues) console.log(`  ${n}`)
+  console.log('')
+} else {
+  console.log('✅ Package names clean and in sync.')
+  console.log('')
+}
+
 if (drift.length) {
   console.log(`❌ ${drift.length} stale domain reference(s) — these files embed the domain as text:\n`)
   for (const d of drift) {
@@ -186,6 +235,6 @@ if (todos.length) {
   console.log('✅ No unfilled placeholders.')
 }
 
-const failed = leaks.length > 0 || drift.length > 0 || (STRICT && todos.length > 0)
+const failed = leaks.length > 0 || drift.length > 0 || nameIssues.length > 0 || (STRICT && todos.length > 0)
 console.log(`\n${failed ? '━━━ FAILED ━━━' : '━━━ PASSED ━━━'}\n`)
 process.exit(failed ? 1 : 0)
