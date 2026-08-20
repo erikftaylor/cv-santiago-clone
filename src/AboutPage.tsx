@@ -10,6 +10,8 @@ const SOCIAL_LABELS: Record<string, string> = {
   github: 'GitHub',
   linkedin: 'LinkedIn',
   x: 'X / Twitter',
+  instagram: 'Instagram',
+  threads: 'Threads',
   youtube: 'YouTube',
   substack: 'Substack',
   devto: 'Dev.to',
