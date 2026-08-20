@@ -1,3 +1,4 @@
+import { site } from '../site.config'
 import { useState, useEffect, useMemo, lazy, Suspense } from 'react'
 import OpsAuth from './OpsAuth'
 import TabNav from './components/TabNav'
@@ -35,7 +36,7 @@ export default function OpsDashboard() {
       document.head.appendChild(robots)
     }
     robots.content = 'noindex, nofollow'
-    document.title = 'LLMOps Dashboard | santifer.io'
+    document.title = `LLMOps Dashboard | ${site.domain}`
     // Force dark mode via CSS variables (works regardless of OS preference)
     const style = document.createElement('style')
     style.id = 'ops-dark-theme'
@@ -96,7 +97,7 @@ export default function OpsDashboard() {
           <div className="flex items-center justify-between sm:block">
             <div>
               <h1 className="text-lg sm:text-xl font-display font-bold text-foreground">LLMOps Dashboard</h1>
-              <p className="text-xs sm:text-sm text-muted-foreground">santifer.io</p>
+              <p className="text-xs sm:text-sm text-muted-foreground">{site.domain}</p>
             </div>
             <button
               onClick={logout}

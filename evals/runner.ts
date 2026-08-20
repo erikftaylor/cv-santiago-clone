@@ -25,6 +25,7 @@ if (fs.existsSync(envLocalPath)) {
   }
 }
 import { runAssertion, type Assertion, type AssertionResult } from './assertions'
+import { resolveIdentityTokens, site } from '../api/_shared/identity.js'
 import { judgeTone } from './llm-judge'
 
 // Tipos
@@ -187,7 +188,11 @@ function loadDatasets(): Dataset[] {
   const files = fs.readdirSync(DATASETS_DIR).filter((f) => f.endsWith('.json'))
   return files.map((file) => {
     const content = fs.readFileSync(path.join(DATASETS_DIR, file), 'utf-8')
-    return JSON.parse(content) as Dataset
+    // Datasets are identity-free templates: {{FULL_NAME}}, {{SHORT_NAME}},
+    // {{EMAIL}}, {{DOMAIN}} are resolved from site.identity.json at load time.
+    // This keeps the suite portable and stops the eval fixtures from drifting
+    // out of sync with the site's actual identity.
+    return JSON.parse(resolveIdentityTokens(content)) as Dataset
   })
 }
 
@@ -389,7 +394,7 @@ async function main() {
     )
     console.log(`${colors.dim}   Options:${colors.reset}`)
     console.log(`${colors.dim}   1. Run 'vercel dev' (serves edge functions on port 3000)${colors.reset}`)
-    console.log(`${colors.dim}   2. Test against production: CHAT_API_URL=https://santifer.io/api/chat npm run evals${colors.reset}`)
+    console.log(`${colors.dim}   2. Test against production: CHAT_API_URL=https://${site.domain}/api/chat npm run evals${colors.reset}`)
     process.exit(1)
   }
 

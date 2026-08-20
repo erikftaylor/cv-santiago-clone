@@ -26,28 +26,11 @@ const FIX_MODE = process.argv.includes('--fix')
 
 /** Map article id → source file (relative to root) */
 const SOURCE_MAP: Record<string, string> = {
-  'n8n-for-pms': 'src/N8nForPMs.tsx',
-  'jacobo': 'src/JacoboAgent.tsx',
-  'business-os': 'src/BusinessOS.tsx',
-  'programmatic-seo': 'src/ProgrammaticSeo.tsx',
-  'santifer-irepair': 'src/SantiferIRepair.tsx',
-  'self-healing-chatbot': 'src/SelfHealingChatbot.tsx',
-  'career-ops': 'src/CareerOps.tsx',
-  'ai-agent-fleet': 'src/AiAgentFleet.tsx',
-  'story': 'src/Story.tsx',
+  'example-case-study': 'src/CaseStudyTemplate.tsx',
 }
 
 /** Map article id → i18n source file (relative to root). Content edits go here. */
 const I18N_MAP: Record<string, string> = {
-  'n8n-for-pms': 'src/n8n-i18n.ts',
-  'jacobo': 'src/jacobo-i18n.ts',
-  'business-os': 'src/business-os-i18n.ts',
-  'programmatic-seo': 'src/pseo-i18n.ts',
-  'santifer-irepair': 'src/santifer-irepair-i18n.ts',
-  'self-healing-chatbot': 'src/chatbot-i18n.ts',
-  'career-ops': 'src/career-ops-i18n.ts',
-  'ai-agent-fleet': 'src/ai-agent-fleet-i18n.ts',
-  'story': 'src/story-i18n.ts',
 }
 
 const REGISTRY_PATH = 'src/articles/registry.ts'
@@ -220,14 +203,8 @@ function validateArticle(config: typeof articleRegistry[0]): { issues: Issue[]; 
   }
 
   // 2. xDefaultSlug vs registry ES slug
-  if (seoXDefault && seoXDefault !== config.slugs.es) {
-    issues.push({ severity: 'error', msg: `xDefaultSlug mismatch: useArticleSeo="${seoXDefault}" vs registry.slugs.es="${config.slugs.es}"` })
-  }
 
   // 3. Hreflang paired: both ES and EN slugs defined
-  if (!config.slugs.es || !config.slugs.en) {
-    issues.push({ severity: 'error', msg: `Missing hreflang slug pair: es="${config.slugs.es}", en="${config.slugs.en}"` })
-  }
 
   // ===== WARNINGS =====
 
@@ -335,14 +312,14 @@ function validateArticle(config: typeof articleRegistry[0]): { issues: Issue[]; 
     issues.push({ severity: 'warn', msg: `about entries: ${aboutCount} (minimum: 2)` })
   }
 
-  // 9. SEO title/description length (per language)
-  for (const lang of ['es', 'en'] as const) {
-    const seo = config.seo[lang]
+  // 9. SEO title/description length
+  {
+    const seo = config.seo
     if (seo.title.length > 60) {
-      issues.push({ severity: 'warn', msg: `SEO title too long [${lang}]: ${seo.title.length} chars (max: 60)` })
+      issues.push({ severity: 'warn', msg: `SEO title too long: ${seo.title.length} chars (max: 60)` })
     }
     if (seo.description.length > 160) {
-      issues.push({ severity: 'warn', msg: `SEO description too long [${lang}]: ${seo.description.length} chars (max: 160)` })
+      issues.push({ severity: 'warn', msg: `SEO description too long: ${seo.description.length} chars (max: 160)` })
     }
   }
 

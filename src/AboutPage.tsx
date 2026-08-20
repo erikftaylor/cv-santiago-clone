@@ -1,3 +1,4 @@
+import { site } from './site.config'
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { MapPin, Mail, ExternalLink, Award, GraduationCap, Briefcase, ChevronRight, Clock, Newspaper, HelpCircle, Users } from 'lucide-react'
@@ -5,23 +6,32 @@ import { aboutContent, type AboutLang } from './about-i18n'
 
 // `rel: 'me'` is the IndieAuth standard for declaring profiles/sites the person controls.
 // Used here for cross-domain entity ownership signals (parsed by Mastodon, Bluesky, KG crawlers).
-const SOCIAL_LINKS: { name: string; url: string; rel?: string }[] = [
-  { name: 'career-ops', url: 'https://career-ops.org', rel: 'me noopener noreferrer' },
-  { name: 'LinkedIn', url: 'https://www.linkedin.com/in/santifer', rel: 'me noopener noreferrer' },
-  { name: 'GitHub', url: 'https://github.com/santifer', rel: 'me noopener noreferrer' },
-  { name: 'YouTube', url: 'https://www.youtube.com/@santifer_io', rel: 'me noopener noreferrer' },
-  { name: 'X / Twitter', url: 'https://x.com/santifer', rel: 'me noopener noreferrer' },
-  { name: 'Dev.to', url: 'https://dev.to/santifer', rel: 'me noopener noreferrer' },
-  { name: 'Substack', url: 'https://santifer.substack.com', rel: 'me noopener noreferrer' },
-  { name: 'Stack Overflow', url: 'https://stackoverflow.com/users/32541743', rel: 'me noopener noreferrer' },
-  { name: 'ORCID', url: 'https://orcid.org/0009-0006-2192-7210', rel: 'me noopener noreferrer' },
-  { name: 'Crunchbase', url: 'https://www.crunchbase.com/person/santiago-fernandez-de-valderrama' },
-  { name: 'Wikidata', url: 'https://www.wikidata.org/wiki/Q138710224' },
-]
+const SOCIAL_LABELS: Record<string, string> = {
+  github: 'GitHub',
+  linkedin: 'LinkedIn',
+  x: 'X / Twitter',
+  instagram: 'Instagram',
+  threads: 'Threads',
+  youtube: 'YouTube',
+  substack: 'Substack',
+  devto: 'Dev.to',
+  stackoverflow: 'Stack Overflow',
+  orcid: 'ORCID',
+  wikidata: 'Wikidata',
+}
 
-export default function AboutPage({ lang = 'es' }: { lang?: AboutLang }) {
+// Built from site.identity.json — empty entries are dropped, so the page never
+// renders a link to a profile that does not exist.
+const SOCIAL_LINKS: { name: string; url: string; rel?: string }[] = Object.entries(site.social)
+  .filter(([, url]) => Boolean(url))
+  .map(([key, url]) => ({
+    name: SOCIAL_LABELS[key] ?? key,
+    url,
+    rel: 'me noopener noreferrer',
+  }))
+
+export default function AboutPage({ lang = 'en' }: { lang?: AboutLang }) {
   const t = aboutContent[lang]
-  const altSlug = t.altSlug
 
   useEffect(() => {
     document.documentElement.lang = lang
@@ -33,12 +43,11 @@ export default function AboutPage({ lang = 'es' }: { lang?: AboutLang }) {
 
     let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement
     if (!canonical) { canonical = document.createElement('link'); canonical.rel = 'canonical'; document.head.appendChild(canonical) }
-    canonical.href = `https://santifer.io/${t.slug}`
+    canonical.href = site.url(`/${t.slug}`)
 
     const hreflangs = [
-      { lang: 'es', href: 'https://santifer.io/sobre-mi' },
-      { lang: 'en', href: 'https://santifer.io/about' },
-      { lang: 'x-default', href: 'https://santifer.io/sobre-mi' },
+      { lang: 'en', href: site.url('/about') },
+      { lang: 'x-default', href: site.url('/about') },
     ]
     document.querySelectorAll('link[hreflang]').forEach(el => el.remove())
     for (const hl of hreflangs) {
@@ -69,7 +78,7 @@ export default function AboutPage({ lang = 'es' }: { lang?: AboutLang }) {
             src="/foto-avatar-sm.webp"
             srcSet="/foto-avatar-sm.webp 192w, /foto-avatar.webp 384w"
             sizes="96px"
-            alt="Santiago Fernández de Valderrama"
+            alt={site.fullName}
             className="w-24 h-24 rounded-full border-2 border-border shadow-lg"
             width={96}
             height={96}
@@ -93,7 +102,7 @@ export default function AboutPage({ lang = 'es' }: { lang?: AboutLang }) {
         </header>
 
         {/* Manifesto */}
-        <blockquote cite="https://santifer.io/career-ops" className="mb-4 border-l-4 border-primary pl-6 pr-4 py-3 text-xl md:text-2xl italic font-display leading-snug text-foreground/90">
+        <blockquote className="mb-4 border-l-4 border-primary pl-6 pr-4 py-3 text-xl md:text-2xl italic font-display leading-snug text-foreground/90">
           {t.manifesto}
         </blockquote>
 
@@ -304,18 +313,12 @@ export default function AboutPage({ lang = 'es' }: { lang?: AboutLang }) {
 
         {/* Language toggle */}
         <div className="text-center pt-6 border-t border-border">
-          <Link
-            to={`/${altSlug}`}
-            className="text-sm text-muted-foreground hover:text-primary transition-colors"
-          >
-            {lang === 'es' ? 'Read in English →' : 'Leer en Español →'}
-          </Link>
         </div>
 
         {/* Footer */}
         <footer className="mt-8 text-center">
           <p className="text-xs text-muted-foreground">
-            &copy; {new Date().getFullYear()} Santiago Fernández de Valderrama. {lang === 'es' ? 'Todos los derechos reservados.' : 'All rights reserved.'}
+            &copy; {new Date().getFullYear()} {site.fullName}. All rights reserved.
           </p>
         </footer>
       </main>

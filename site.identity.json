@@ -1,0 +1,47 @@
+{
+  "_comment": "Runtime-readable identity. The SINGLE source of truth, imported by both src/site.config.ts (typed wrapper, adds derived helpers) and api/_shared/identity.js (Edge runtime). Edit here.",
+  "fullName": "Erik Taylor",
+  "shortName": "Erik",
+  "brand": "Erik Taylor",
+  "alternateNames": [
+    "Erik F. Taylor",
+    "erikftaylor"
+  ],
+  "domain": "etaylor.co",
+  "email": "erik@etaylor.co",
+  "tagline": "Product Designer · AI × UX",
+  "description": "Denver-based product designer with 15+ years of experience across global enterprise at IBM, financial services at Transamerica, and SaaS at Tovuti LMS. Works upstream, at the intersection of AI and UX.",
+  "roles": [
+    "Senior Product Designer",
+    "Senior UX Designer",
+    "AI Product Designer"
+  ],
+  "location": "Denver, CO · Remote",
+  "address": {
+    "locality": "Denver",
+    "country": "US"
+  },
+  "social": {
+    "github": "https://github.com/erikftaylor",
+    "linkedin": "https://www.linkedin.com/in/erikftaylor/",
+    "x": "https://x.com/erikftaylor",
+    "instagram": "https://www.instagram.com/erikftaylor/",
+    "threads": "https://www.threads.net/@erikftaylor",
+    "youtube": "",
+    "substack": "",
+    "devto": "",
+    "stackoverflow": "",
+    "orcid": "",
+    "wikidata": ""
+  },
+  "lang": {
+    "primary": "en"
+  },
+  "avatar": "/foto-avatar.webp",
+  "ogImage": "/og-image.webp",
+  "themeColor": "#0a0a0a",
+  "verification": {
+    "bing": "",
+    "indexnow": ""
+  }
+}

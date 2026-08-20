@@ -1,3 +1,4 @@
+import { site } from '../site.config'
 import { articleRegistry } from './registry'
 
 type Lang = 'es' | 'en'
@@ -28,7 +29,6 @@ export function buildFaqPage(
 interface JsonLdOptions {
   lang: Lang
   url: string
-  altUrl: string
   headline: string
   alternativeHeadline: string
   description: string
@@ -66,38 +66,21 @@ interface JsonLdOptions {
 
 const PERSON = {
   '@type': 'Person',
-  '@id': 'https://santifer.io/#person',
-  name: 'Santiago Fernández de Valderrama Aparicio',
-  alternateName: ['Santiago Fernández de Valderrama', 'santifer', 'Santi'],
-  url: 'https://santifer.io',
-  description: "Santiago Fernández de Valderrama is a software engineer specializing in multi-agent AI systems and agentic adoption. He created career-ops, an open-source project maintained by an orchestrated fleet of AI agents, and coined 'agentic maintenance': gated, evidence-based upkeep of a living codebase, sustained by a fleet of AI agents under human direction.",
-  jobTitle: ['AI Forward Deployed Engineer', 'Applied AI Engineer', 'Multi-Agent Systems Engineer', 'Agentic AI Engineer', 'Head of Applied AI', 'Solutions Architect (No/Low-Code & AI)', 'AI Product Manager'],
-  sameAs: [
-    'https://www.linkedin.com/in/santifer',
-    'https://github.com/santifer',
-    'https://x.com/santifer',
-    'https://dev.to/santifer',
-    'https://santifer.substack.com',
-    'https://contentdigest.santifer.io',
-    'https://www.youtube.com/@santifer_io',
-    'https://stackoverflow.com/users/32541743',
-    'https://orcid.org/0009-0006-2192-7210',
-    'https://www.crunchbase.com/person/santiago-fernandez-de-valderrama',
-    'https://huggingface.co/santifer',
-    'https://www.wikidata.org/wiki/Q138710224',
-    'https://santiferirepair.es',
-    'https://career-ops.org/about',
-    'https://www.facebook.com/santifer.io/',
-    'https://www.producthunt.com/@santifer',
-    'https://app.daily.dev/santifer',
-  ],
+  '@id': `${site.origin}/#person`,
+  name: site.fullName,
+  alternateName: site.alternateNames,
+  url: site.origin,
+  description: site.description,
+  jobTitle: site.roles,
+  // Only profiles that actually resolve — see site.identity.json
+  sameAs: site.sameAs,
 }
 
 const WEBSITE = {
   '@type': 'WebSite',
-  '@id': 'https://santifer.io/#website',
-  name: 'santifer.io',
-  url: 'https://santifer.io',
+  '@id': `${site.origin}/#website`,
+  name: site.domain,
+  url: site.origin,
 }
 
 export function buildArticleJsonLd(opts: JsonLdOptions) {
@@ -110,12 +93,12 @@ export function buildArticleJsonLd(opts: JsonLdOptions) {
       headline: opts.headline,
       alternativeHeadline: opts.alternativeHeadline,
       description: opts.description,
-      author: { '@id': 'https://santifer.io/#person' },
+      author: { '@id': `${site.origin}/#person` },
       // Publisher: Person-as-publisher is valid for CreativeWork on personal sites
-      // (Santiago publishes on his own domain). Override only for collabs (e.g. Marily).
+      // (the site owner publishes on their own domain). Override only for collabs.
       publisher: opts.publisher
         ? { '@type': 'Organization', name: opts.publisher.name, url: opts.publisher.url }
-        : { '@id': 'https://santifer.io/#person' },
+        : { '@id': `${site.origin}/#person` },
       datePublished: opts.datePublished,
       dateModified: opts.dateModified,
       keywords: opts.keywords,
@@ -123,7 +106,7 @@ export function buildArticleJsonLd(opts: JsonLdOptions) {
       mainEntityOfPage: opts.url,
       image: opts.images,
       inLanguage,
-      isPartOf: { '@id': 'https://santifer.io/#website' },
+      isPartOf: { '@id': `${site.origin}/#website` },
       ...(opts.about ? { about: opts.about } : {}),
       ...(opts.extra || {}),
       ...(opts.citation ? { citation: opts.citation } : {}),
@@ -133,7 +116,6 @@ export function buildArticleJsonLd(opts: JsonLdOptions) {
       ...(opts.relatedLink ? { relatedLink: opts.relatedLink } : {}),
       ...(opts.video ? { video: opts.video } : {}),
       ...(opts.subjectOf ? { subjectOf: opts.subjectOf } : {}),
-      workTranslation: { '@id': `${opts.altUrl}/#article` },
     },
     PERSON,
     WEBSITE,
@@ -141,7 +123,7 @@ export function buildArticleJsonLd(opts: JsonLdOptions) {
       '@type': 'BreadcrumbList',
       '@id': `${opts.url}/#breadcrumbs`,
       itemListElement: [
-        { '@type': 'ListItem', '@id': `${opts.url}/#breadcrumb-1`, position: 1, name: opts.breadcrumbHome, item: 'https://santifer.io' },
+        { '@type': 'ListItem', '@id': `${opts.url}/#breadcrumb-1`, position: 1, name: opts.breadcrumbHome, item: site.origin },
         { '@type': 'ListItem', '@id': `${opts.url}/#breadcrumb-2`, position: 2, name: opts.breadcrumbCurrent, item: opts.url },
       ],
     },
@@ -171,7 +153,6 @@ export function buildJsonLdFromRegistry(
     header: { h1: string }
     seo: { title: string; description: string }
     slug: string
-    altSlug: string
     nav: { breadcrumbHome: string; breadcrumbCurrent: string }
     faq: { items: readonly { q: string; a: string }[] }
   },
@@ -183,8 +164,7 @@ export function buildJsonLdFromRegistry(
   const meta = config.seoMeta
   return buildArticleJsonLd({
     lang,
-    url: `https://santifer.io/${i18n.slug}`,
-    altUrl: `https://santifer.io/${i18n.altSlug}`,
+    url: `${site.origin}/${i18n.slug}`,
     headline: i18n.header.h1,
     alternativeHeadline: i18n.seo.title,
     description: i18n.seo.description,

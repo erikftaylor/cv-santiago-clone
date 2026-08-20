@@ -1,6 +1,7 @@
 /**
  * Generates the home OG image (public/og-image.webp, 1200x630) from scripts/og-template.html,
- * injecting the current career-ops GitHub star count rounded to "XXK+".
+ * TODO: this previously injected a live GitHub star count. Re-point it at
+ * one of your own repos, or delete the fetch and keep the template static.
  *
  * - Renders the HTML with Playwright (Chromium) → PNG → webp via cwebp. Replicates the hero
  *   design tokens 1:1 (no AI-generated art).
@@ -32,7 +33,7 @@ async function fetchStars(owner: string, repo: string): Promise<number | null> {
   try {
     const res = await fetch(`https://api.github.com/repos/${owner}/${repo}`, {
       headers: {
-        'User-Agent': 'santifer-build/1.0',
+        'User-Agent': 'portfolio-build/1.0',
         ...(process.env.GITHUB_TOKEN ? { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` } : {}),
       },
     })
@@ -59,7 +60,7 @@ function readState(): { starsK?: string } {
 async function main() {
   console.log('🖼  Generating OG image...\n')
 
-  const stars = await fetchStars('santifer', 'career-ops')
+  const stars = 0 // TODO: await fetchStars('<owner>', '<repo>') for a real badge
   if (stars == null) {
     console.log('  ⏭ Could not read stars — leaving existing og-image.webp untouched')
     return

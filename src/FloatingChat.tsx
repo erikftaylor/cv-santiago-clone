@@ -1,3 +1,4 @@
+import { site } from './site.config'
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import {
@@ -39,7 +40,7 @@ interface Message {
 }
 
 interface FloatingChatProps {
-  lang: 'es' | 'en';
+  lang: 'en';
 }
 
 const PromptIcon = ({ icon }: { icon: string }) => {
@@ -564,7 +565,7 @@ export default function FloatingChat({ lang }: FloatingChatProps) {
           bottom: 'max(1.5rem, env(safe-area-inset-bottom, 0px) + 0.5rem)',
           right: 'max(1.5rem, env(safe-area-inset-right, 0px) + 0.5rem)',
         }}
-        aria-label={lang === 'en' ? (isOpen ? 'Close chat with Santi' : 'Open chat with Santi') : (isOpen ? 'Cerrar chat con Santi' : 'Abrir chat con Santi')}
+        aria-label={isOpen ? `Close chat with ${site.shortName}` : `Open chat with ${site.shortName}`}
       >
         <AnimatePresence mode="wait">
           {isOpen ? (
@@ -650,7 +651,7 @@ export default function FloatingChat({ lang }: FloatingChatProps) {
                   <source srcSet="/foto-avatar-sm.webp" type="image/webp" />
                   <img
                     src="/foto-avatar-sm.webp"
-                    alt="santifer avatar"
+                    alt={`${site.shortName} avatar`}
                     className="w-10 h-10 rounded-full object-cover ring-2 ring-primary/20"
                     width={40}
                     height={40}
@@ -788,7 +789,7 @@ export default function FloatingChat({ lang }: FloatingChatProps) {
                           {message.role === 'assistant' && message.ragSources && message.ragSources.length > 0 && !isLoading && !isStreaming && (
                             <div className="flex flex-wrap gap-1.5 mt-2 px-1">
                               {message.ragSources.map((source, si) => {
-                                const targetPath = lang === 'es' ? source.page_path_es : source.page_path_en;
+                                const targetPath = source.page_path_en;
                                 const sectionLabels = getSectionLabels()[targetPath] || {};
                                 const anchorId = source.section_anchor.replace(/^#/, '');
                                 const sectionName = sectionLabels[anchorId] || '';
@@ -932,7 +933,7 @@ export default function FloatingChat({ lang }: FloatingChatProps) {
             {mode === 'voice' && voiceMode.voiceSources.length > 0 && (
               <div className="flex flex-wrap justify-center gap-1.5 px-4 py-2 border-t border-border/50 bg-card/80">
                 {voiceMode.voiceSources.map((source, si) => {
-                  const targetPath = lang === 'es' ? source.page_path_es : source.page_path_en;
+                  const targetPath = source.page_path_en;
                   const sectionLabels = getSectionLabels()[targetPath] || {};
                   const anchorId = source.section_anchor.replace(/^#/, '');
                   const sectionName = sectionLabels[anchorId] || '';

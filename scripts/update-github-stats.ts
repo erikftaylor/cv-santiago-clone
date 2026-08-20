@@ -22,30 +22,21 @@ interface BadgeConfig {
 }
 
 // Repos with GitHubRepoBadge in article components
-const BADGE_REPOS: BadgeConfig[] = [
-  { owner: 'santifer', repo: 'career-ops', file: 'src/CareerOps.tsx', label: 'career-ops (badge)' },
-  { owner: 'santifer', repo: 'jacobo-workflows', file: 'src/JacoboAgent.tsx', label: 'jacobo-workflows (badge)' },
-]
+// TODO: add your own repos to show live star/fork counts on case-study pages.
+// Leave empty to skip — the script no-ops cleanly with an empty list.
+const BADGE_REPOS: BadgeConfig[] = []
 
 // Repos with stars/forks in i18n.ts project cards.
-// `extraLinks` allows matching cards that link to a custom domain (e.g. career-ops.org)
-// instead of github.com/owner/repo.
+// `extraLinks` allows matching cards that link to a custom domain instead of
+// github.com/owner/repo.
 interface I18nRepo {
   owner: string
   repo: string
   label: string
   extraLinks?: string[]
 }
-const I18N_REPOS: I18nRepo[] = [
-  { owner: 'santifer', repo: 'career-ops', label: 'career-ops (i18n)', extraLinks: ['career-ops.org'] },
-  { owner: 'santifer', repo: 'warpchart', label: 'warpchart (i18n)', extraLinks: ['warpchart.dev'] },
-  { owner: 'santifer', repo: 'cv-santiago', label: 'cv-santiago (i18n)' },
-  { owner: 'santifer', repo: 'claude-pulse', label: 'claude-pulse (i18n)' },
-  { owner: 'santifer', repo: 'claude-eye', label: 'claude-eye (i18n)' },
-  { owner: 'santifer', repo: 'claudeable', label: 'claudeable (i18n)' },
-  { owner: 'santifer', repo: 'jacobo-workflows', label: 'jacobo-workflows (i18n)' },
-  { owner: 'santifer', repo: 'santifer-irepair', label: 'santifer-irepair (i18n)' },
-]
+// TODO: repos whose stars/forks appear on project cards in i18n.ts.
+const I18N_REPOS: I18nRepo[] = []
 
 function formatCount(n: number): string {
   if (n >= 1000) {
@@ -58,7 +49,7 @@ function formatCount(n: number): string {
 const statsCache = new Map<string, { stars: number; forks: number }>()
 
 const ghHeaders = {
-  'User-Agent': 'santifer-build/1.0',
+  'User-Agent': 'TODO-owner-build/1.0',
   ...(process.env.GITHUB_TOKEN ? { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` } : {}),
 }
 
@@ -115,7 +106,7 @@ async function fetchGitHubStats(owner: string, repo: string): Promise<{ stars: n
   try {
     const res = await fetch(`https://api.github.com/repos/${owner}/${repo}`, {
       headers: {
-        'User-Agent': 'santifer-build/1.0',
+        'User-Agent': 'TODO-owner-build/1.0',
         ...(process.env.GITHUB_TOKEN ? { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` } : {}),
       },
     })
@@ -240,8 +231,7 @@ async function main() {
   let appTsx = readFileSync(APP_PATH, 'utf-8')
   let appChanged = false
 
-  for (const repo of [{ owner: 'santifer', repo: 'career-ops', label: 'career-ops (hero)' }]) {
-    const stats = await fetchGitHubStats(repo.owner, repo.repo)
+  for (const repo of [    const stats = await fetchGitHubStats(repo.owner, repo.repo)
     if (!stats) continue
 
     const s = formatCount(stats.stars)
@@ -272,8 +262,8 @@ async function main() {
     anyChanged = true
   }
 
-  // 4. Update career-ops star count in SEO meta descriptions (i18n.ts + index.html)
-  const careerOpsStats = await fetchGitHubStats('santifer', 'career-ops')
+  // 4. Update TODO-repo star count in SEO meta descriptions (i18n.ts + index.html)
+  const careerOpsStats = await fetchGitHubStats('TODO-owner', 'TODO-repo')
   if (careerOpsStats) {
     const starLabel = formatCount(careerOpsStats.stars) + '+'
 
@@ -309,7 +299,7 @@ async function main() {
     }
   }
 
-  // 5. Universal sweep: update ANY career-ops star/fork reference in all content files
+  // 5. Universal sweep: update ANY TODO-repo star/fork reference in all content files
   // Patterns: "35K+ stars", "35K+ estrellas", "35K+ ⭐", "35K+ GitHub stars", "35K stars", "35K estrellas",
   //           "7.1K+ forks", "5K+ forks"
   if (careerOpsStats) {
@@ -318,13 +308,13 @@ async function main() {
     const forkLabel = formatCount(careerOpsStats.forks)
     const forkLabelPlus = forkLabel + '+'
 
-    // Files to sweep — all i18n content + about + career-ops-i18n + chatbot prompt + index.html
+    // Files to sweep — all i18n content + about + TODO-repo-i18n + chatbot prompt + index.html
     // (index.html meta description / og:description / twitter:description use the "X.XK+ ⭐" format,
     //  which section 4's "GitHub stars"/"estrellas" patterns don't catch — the ⭐ pattern below does.)
     const sweepFiles = [
       resolve(__dirname, '../src/i18n.ts'),
       resolve(__dirname, '../src/about-i18n.ts'),
-      resolve(__dirname, '../src/career-ops-i18n.ts'),
+      resolve(__dirname, '../src/TODO-repo-i18n.ts'),
       resolve(__dirname, '../src/story-i18n.ts'),
       resolve(__dirname, '../public/llms.txt'),
       resolve(__dirname, '../public/humans.txt'),
@@ -430,7 +420,7 @@ async function main() {
       fleet = fleet.replace(/(\['Forks', ')([\d.,]+)(')/g, (_m, a: string, num: string, c: string) =>
         `${a}${num.includes('.') ? esInt(forks) : enInt(forks)}${c}`)
 
-      const contributors = await fetchContributorCount('santifer', 'career-ops')
+      const contributors = await fetchContributorCount('TODO-owner', 'TODO-repo')
       if (contributors) {
         fleet = fleet.replace(/\b\d{3,} contributors\b/g, `${contributors} contributors`)
         fleet = fleet.replace(/\b\d{3,} contribuidores\b/g, `${contributors} contribuidores`)
@@ -438,7 +428,7 @@ async function main() {
         fleet = fleet.replace(/(\['Contribuidores', ')\d+(')/g, `$1${contributors}$2`)
       }
 
-      const mergedPrs = await fetchMergedPrCount('santifer', 'career-ops')
+      const mergedPrs = await fetchMergedPrCount('TODO-owner', 'TODO-repo')
       if (mergedPrs) {
         fleet = fleet.replace(/\b[\d,]{3,} merged PRs\b/g, `${enInt(mergedPrs)} merged PRs`)
         fleet = fleet.replace(/\b[\d.]{3,} PRs fusionadas\b/g, `${esInt(mergedPrs)} PRs fusionadas`)
@@ -448,7 +438,7 @@ async function main() {
 
       // Releases row: count + latest tag + date, live from the API so it never fossilizes
       // (fila corregida a mano el 21-jul tras quedar fósil: 21/v1.18.0 junto a contadores frescos)
-      const releases = await fetchReleaseInfo('santifer', 'career-ops')
+      const releases = await fetchReleaseInfo('TODO-owner', 'TODO-repo')
       if (releases) {
         const ver = releases.latestTag.replace(/^.*?v(?=\d)/, 'v')
         const relMonthsEs = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre']

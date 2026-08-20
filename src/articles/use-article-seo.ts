@@ -1,3 +1,4 @@
+import { site } from '../site.config'
 import { useEffect } from 'react'
 
 // ---------------------------------------------------------------------------
@@ -33,7 +34,6 @@ function upsertLink(rel: string, href: string) {
 export interface ArticleSeoOpts {
   lang: string
   slug: string
-  altSlug: string
   title: string
   description: string
   image?: string
@@ -41,27 +41,22 @@ export interface ArticleSeoOpts {
   modifiedTime?: string
   articleTags: string
   jsonLd: object
-  /** ES slug used as x-default hreflang (defaults to slug when lang=es) */
-  xDefaultSlug?: string
 }
 
 export function useArticleSeo(opts: ArticleSeoOpts) {
   useEffect(() => {
     const {
-      lang, slug, altSlug, title, description, image,
-      publishedTime, modifiedTime, articleTags, jsonLd, xDefaultSlug,
+      lang, slug, title, description, image,
+      publishedTime, modifiedTime, articleTags, jsonLd,
     } = opts
 
-    const url = `https://santifer.io/${slug}`
-    const altUrl = `https://santifer.io/${altSlug}`
-    const altLang = lang === 'es' ? 'en' : 'es'
-    const defaultSlug = xDefaultSlug ?? (lang === 'es' ? slug : altSlug)
+    const url = site.url(`/${slug}`)
 
     document.title = title
 
     // Standard meta
     upsertMeta('name', 'description', description)
-    upsertMeta('name', 'author', 'Santiago Fernández de Valderrama')
+    upsertMeta('name', 'author', site.fullName)
     upsertMeta('name', 'robots', 'index, follow')
 
     // Open Graph
@@ -69,12 +64,12 @@ export function useArticleSeo(opts: ArticleSeoOpts) {
     upsertMeta('property', 'og:url', url)
     upsertMeta('property', 'og:title', title)
     upsertMeta('property', 'og:description', description)
-    upsertMeta('property', 'og:site_name', 'santifer.io')
+    upsertMeta('property', 'og:site_name', site.domain)
     upsertMeta('property', 'og:locale', lang === 'es' ? 'es_ES' : 'en_US')
     upsertMeta('property', 'og:locale:alternate', lang === 'es' ? 'en_US' : 'es_ES')
     upsertMeta('property', 'article:published_time', publishedTime)
     if (modifiedTime) upsertMeta('property', 'article:modified_time', modifiedTime)
-    upsertMeta('property', 'article:author', 'https://www.linkedin.com/in/santifer')
+    if (site.social.linkedin) upsertMeta('property', 'article:author', site.social.linkedin)
     upsertMeta('property', 'article:tag', articleTags)
     if (image) upsertMeta('property', 'og:image', image)
 
@@ -87,12 +82,11 @@ export function useArticleSeo(opts: ArticleSeoOpts) {
     // Canonical
     upsertLink('canonical', url)
 
-    // Hreflang
+    // Single-language site: one self-referential hreflang, no alternates.
     const createdLinks: HTMLLinkElement[] = []
     for (const { hreflang, href } of [
       { hreflang: lang, href: url },
-      { hreflang: altLang, href: altUrl },
-      { hreflang: 'x-default', href: `https://santifer.io/${defaultSlug}` },
+      { hreflang: 'x-default', href: url },
     ]) {
       const link = document.createElement('link')
       link.rel = 'alternate'
@@ -133,7 +127,7 @@ export function useHomeSeo({ lang, title, description }: { lang: string; title: 
     document.querySelector('meta[property="og:description"]')?.setAttribute('content', description)
     document.querySelector('meta[property="og:locale"]')?.setAttribute('content', lang === 'en' ? 'en_US' : 'es_ES')
 
-    const canonical = lang === 'en' ? 'https://santifer.io/en' : 'https://santifer.io/'
+    const canonical = lang === 'en' ? '${site.origin}/en' : '${site.origin}/'
     document.querySelector('link[rel="canonical"]')?.setAttribute('href', canonical)
     document.querySelector('meta[property="og:url"]')?.setAttribute('content', canonical)
 

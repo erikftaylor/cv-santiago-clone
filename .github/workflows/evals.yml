@@ -20,7 +20,8 @@ jobs:
         run: sleep 90
       - name: Run evals
         env:
-          CHAT_API_URL: https://santifer.io/api/chat
+          # TODO: point at your deployed domain
+      CHAT_API_URL: https://etaylor.co/api/chat
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: npm run evals
       - name: Upload report

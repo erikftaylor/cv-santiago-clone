@@ -1,3 +1,4 @@
+import { site } from '../src/site.config.ts'
 /**
  * Pings IndexNow API with all URLs from dist/sitemap.xml after build.
  *
@@ -66,7 +67,7 @@ console.log(`[indexnow] Pinging ${urls.length} URLs...`)
 // POST to IndexNow API
 // ---------------------------------------------------------------------------
 
-const host = 'santifer.io'
+const host = site.domain
 const keyLocation = `https://${host}/indexnow-key.txt`
 
 const body = {
