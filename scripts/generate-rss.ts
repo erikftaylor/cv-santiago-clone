@@ -1,3 +1,4 @@
+import { site } from '../src/site.config.ts'
 /**
  * Auto-generates rss.xml from the article registry.
  *
@@ -17,7 +18,7 @@ import { articleRegistry } from '../src/articles/registry.ts'
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const dist = resolve(__dirname, '..', 'dist')
 
-const base = 'https://santifer.io'
+const base = site.origin
 
 function escapeXml(s: string): string {
   return s
@@ -34,7 +35,7 @@ function rfc822(isoDate: string): string {
 /** Feed titles render literally in consumers (e.g. GitHub profile README):
  *  strip the site-name suffix and normalize em-dashes. */
 function feedTitle(t: string): string {
-  return t.replace(/\s*\|\s*santifer\.io\s*$/, '').replace(/\s+—\s+/g, ' - ')
+  return t.replace(new RegExp(`\\s*\\|\\s*${site.domain.replace('.', '\\\\.')}\\s*$`), '').replace(/\s+—\s+/g, ' - ')
 }
 
 const articles = [...articleRegistry]
@@ -60,9 +61,9 @@ const lastModified = articles
 const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>santifer.io — Articles</title>
+    <title>${site.domain} — Articles</title>
     <link>${base}</link>
-    <description>Case studies on AI agents, multi-agent systems, LLMOps and open source — by Santiago Fernández de Valderrama (santifer).</description>
+    <description>TODO: one line describing your writing — by ${site.fullName}.</description>
     <language>en</language>
     <lastBuildDate>${rfc822(lastModified)}</lastBuildDate>
     <atom:link href="${base}/rss.xml" rel="self" type="application/rss+xml"/>

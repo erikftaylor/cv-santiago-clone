@@ -1060,7 +1060,7 @@ interface ScreenshotGridProps {
   editorId?: string
 }
 
-export function ScreenshotGrid({ items, lang, basePath = '/jacobo/screenshots', editorId }: ScreenshotGridProps) {
+export function ScreenshotGrid({ items, lang, basePath = '/screenshots', editorId }: ScreenshotGridProps) {
   if (items.length < 3) {
     return (
       <EditorLabel name="ScreenshotGrid" id={editorId}>

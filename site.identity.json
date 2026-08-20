@@ -1,0 +1,30 @@
+{
+  "_comment": "Runtime-readable identity. The SINGLE source of truth, imported by both src/site.config.ts (typed wrapper, adds derived helpers) and api/_shared/identity.js (Edge runtime). Edit here.",
+  "fullName": "Erik Taylor",
+  "shortName": "Erik",
+  "brand": "eriktaylor",
+  "alternateNames": ["Erik F. Taylor"],
+  "domain": "eriktaylor.dev",
+  "email": "hi@eriktaylor.dev",
+  "tagline": "Applied AI Engineer",
+  "description": "TODO: One or two sentences on what you build and the evidence for it. Keep it concrete — specific systems and numbers, not adjectives.",
+  "roles": ["TODO: Primary role", "TODO: Secondary role", "TODO: Third role"],
+  "location": "TODO: City, Country",
+  "address": { "locality": "TODO: City", "country": "TODO: CC" },
+  "social": {
+    "github": "https://github.com/erikftaylor",
+    "linkedin": "",
+    "x": "",
+    "youtube": "",
+    "substack": "",
+    "devto": "",
+    "stackoverflow": "",
+    "orcid": "",
+    "wikidata": ""
+  },
+  "lang": { "primary": "en", "secondary": "es", "bilingual": false },
+  "avatar": "/foto-avatar.webp",
+  "ogImage": "/og-image.webp",
+  "themeColor": "#0a0a0a",
+  "verification": { "bing": "", "indexnow": "" }
+}

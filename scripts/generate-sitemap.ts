@@ -1,3 +1,4 @@
+import { site } from '../src/site.config.ts'
 /**
  * Auto-generates sitemap.xml from the article registry.
  *
@@ -68,7 +69,7 @@ function urlBlock(u: SitemapUrl): string {
 // Build URLs
 // ---------------------------------------------------------------------------
 
-const base = 'https://santifer.io'
+const base = site.origin
 const urls: SitemapUrl[] = []
 
 // Home ES + EN

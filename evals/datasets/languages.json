@@ -8,7 +8,10 @@
       "input": "Hola, cuéntame sobre ti",
       "lang": "es",
       "assertions": [
-        { "type": "language", "expected": "es" }
+        {
+          "type": "language",
+          "expected": "es"
+        }
       ]
     },
     {
@@ -17,25 +20,34 @@
       "input": "Hello, tell me about yourself",
       "lang": "en",
       "assertions": [
-        { "type": "language", "expected": "en" }
+        {
+          "type": "language",
+          "expected": "en"
+        }
       ]
     },
     {
       "id": "email-spanish",
-      "description": "Debe usar hi@santifer.io en español",
+      "description": "Debe usar {{EMAIL}} en español",
       "input": "¿Cómo puedo contactarte?",
       "lang": "es",
       "assertions": [
-        { "type": "contains", "value": "hi@santifer.io" }
+        {
+          "type": "contains",
+          "value": "{{EMAIL}}"
+        }
       ]
     },
     {
       "id": "email-english",
-      "description": "Debe usar hi@santifer.io en inglés",
+      "description": "Debe usar {{EMAIL}} en inglés",
       "input": "How can I contact you?",
       "lang": "en",
       "assertions": [
-        { "type": "contains", "value": "hi@santifer.io" }
+        {
+          "type": "contains",
+          "value": "{{EMAIL}}"
+        }
       ]
     },
     {
@@ -44,7 +56,14 @@
       "input": "¿Cómo te contacto?",
       "lang": "es",
       "assertions": [
-        { "type": "contains_any", "values": ["linkedin", "LinkedIn", "santifer"] }
+        {
+          "type": "contains_any",
+          "values": [
+            "linkedin",
+            "LinkedIn",
+            "{{SHORT_NAME}}"
+          ]
+        }
       ]
     }
   ]

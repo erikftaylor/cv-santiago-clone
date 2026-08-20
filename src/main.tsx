@@ -1,3 +1,4 @@
+import { site } from './site.config'
 import { StrictMode, lazy, Suspense, useState, useEffect, useRef, Component, type ReactNode, type ComponentType } from 'react'
 import { hydrateRoot, createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route, useLocation, Link } from 'react-router-dom'
@@ -110,10 +111,10 @@ console.log(`%c${ASCII_ART}`, 'color: #f97316; font-size: 12px; font-family: mon
 console.log('%c Most people scroll. You inspect. I like that. ', 'background: #f97316; color: #1a1a1a; font-size: 14px; font-weight: bold; padding: 4px 8px; border-radius: 3px;')
 console.log('%cThe %cbest %cwork %cis %cinvisible.', 'color: #94a3b8; font-size: 13px;', 'color: #7e8d9d; font-size: 13px;', 'color: #687882; font-size: 13px;', 'color: #526268; font-size: 13px;', 'color: #3d4d52; font-size: 13px;')
 console.log('%cYou just found some of it.', 'color: #94a3b8; font-size: 13px;')
-console.log('%c I build the details. Let\'s solve something hard → hi@santifer.io ', 'background: #f97316; color: #1a1a1a; font-size: 13px; font-weight: bold; padding: 4px 8px; border-radius: 3px;')
+console.log(`%c TODO: your console easter-egg line → ${site.email} `, 'background: #f97316; color: #1a1a1a; font-size: 13px; font-weight: bold; padding: 4px 8px; border-radius: 3px;')
 
-// Debug API for technical recruiters — type window.__santifer in console
-Object.defineProperty(window, '__santifer', {
+// Debug API for technical recruiters — type window.__portfolio in console
+Object.defineProperty(window, '__portfolio', {
   value: Object.freeze({
     stack: 'React 19 + TypeScript + Vite + Tailwind v4 + Motion',
     llm: 'claude-sonnet-4-5 (streaming SSE)',
@@ -122,7 +123,7 @@ Object.defineProperty(window, '__santifer', {
     observability: 'Langfuse (traces, LLM-as-Judge, intent tags)',
     render: 'Pre-rendered HTML + critical CSS inlined + client hydration',
     perf: () => { const n = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming; console.table({ TTFB: `${Math.round(n.responseStart - n.requestStart)}ms`, DOMContentLoaded: `${Math.round(n.domContentLoadedEventEnd - n.startTime)}ms`, Load: `${Math.round(n.loadEventEnd - n.startTime)}ms` }); },
-    hire_me: 'hi@santifer.io',
+    hire_me: site.email,
   }),
   configurable: false,
 })
@@ -135,7 +136,7 @@ function NotFound() {
     let robots = document.querySelector('meta[name="robots"]') as HTMLMetaElement
     if (!robots) { robots = document.createElement('meta'); robots.name = 'robots'; document.head.appendChild(robots) }
     robots.content = 'noindex, nofollow'
-    document.title = '404 — Page not found | santifer.io'
+    document.title = `404 — Page not found | ${site.domain}`
     return () => { robots.content = 'index, follow' }
   }, [])
 
