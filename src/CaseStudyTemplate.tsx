@@ -47,7 +47,7 @@ export default function CaseStudyTemplate({ lang }: { lang: Lang }) {
     publishedTime: t.dateISO,
     // String literal on purpose: `scripts/validate-articles.ts --fix` rewrites
     // this date in place, and it can only see literals, not expressions.
-    modifiedTime: '2026-01-01',
+    modifiedTime: '2026-08-20',
     image: `${site.origin}/og-image.webp`,
     articleTags: 'TODO, comma, separated',
     jsonLd,

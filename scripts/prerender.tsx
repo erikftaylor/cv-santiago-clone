@@ -27,7 +27,7 @@ import AboutPage from '../src/AboutPage.tsx';
 import { aboutContent } from '../src/about-i18n.ts';
 import PrivacyPolicy from '../src/PrivacyPolicy.tsx';
 import { seo } from '../src/i18n.ts';
-import { site } from '../src/site.config.ts';
+import { site, SECONDARY_PATH } from '../src/site.config.ts';
 
 // Map article id → i18n content for JSON-LD generation.
 //
@@ -59,14 +59,14 @@ function stripReactSSRTags(html: string): string {
 // SSR render per language (home page)
 // ---------------------------------------------------------------------------
 function renderApp(lang: 'es' | 'en'): string {
-  const path = lang === 'en' ? '/en' : '/';
+  const path = lang === site.lang.primary ? '/' : SECONDARY_PATH;
   return stripReactSSRTags(renderToString(
     <StaticRouter location={path}>
       <div>
         <Suspense fallback={null}>
           <Routes>
             <Route path="/" element={<App />} />
-            <Route path="/en" element={<App />} />
+            <Route path={SECONDARY_PATH} element={<App />} />
           </Routes>
         </Suspense>
       </div>
@@ -107,53 +107,50 @@ try {
   process.exit(1);
 }
 
-// --- ES version (inject into existing index.html) ---
-let esHtml: string;
-try {
-  esHtml = renderApp('es');
-} catch (err) {
-  console.error('[prerender] SSR failed for ES, falling back to empty root:', err);
-  esHtml = '';
+// ---------------------------------------------------------------------------
+// Home pages — primary at `/`, secondary at SECONDARY_PATH
+//
+// Upstream assumed Spanish-at-root. These are now expressed in terms of
+// primary/secondary so flipping `lang.primary` in site.identity.json moves the
+// whole site without touching this file.
+// ---------------------------------------------------------------------------
+const PRIMARY = site.lang.primary;
+const SECONDARY = site.lang.secondary;
+
+const LOCALE: Record<'es' | 'en', string> = { es: 'es_ES', en: 'en_US' };
+
+function renderHome(lang: 'es' | 'en'): string {
+  try {
+    return renderApp(lang);
+  } catch (err) {
+    console.error(`[prerender] SSR failed for ${lang.toUpperCase()}, falling back to empty root:`, err);
+    return '';
+  }
 }
 
-const esSeo = seo.es;
-
-const injectedEs = indexHtml
-  .replace('<div id="root"></div>', `<div id="root">${esHtml}</div>`)
-  .replace(/<title>[^<]*<\/title>/, `<title>${esc(esSeo.title)}</title>`)
-  .replace(/<meta name="title" content="[^"]*" \/>/, `<meta name="title" content="${esc(esSeo.title)}" />`)
-  .replace(/<meta name="description" content="[^"]*" \/>/, `<meta name="description" content="${esc(esSeo.description)}" />`)
-  .replace(/<meta property="og:title" content="[^"]*" \/>/, `<meta property="og:title" content="${esc(esSeo.title)}" />`)
-  .replace(/<meta property="og:description" content="[^"]*" \/>/, `<meta property="og:description" content="${esc(esSeo.description)}" />`)
-  .replace(/<meta name="twitter:title" content="[^"]*" \/>/, `<meta name="twitter:title" content="${esc(esSeo.title)}" />`)
-  .replace(/<meta name="twitter:description" content="[^"]*" \/>/, `<meta name="twitter:description" content="${esc(esSeo.description)}" />`);
-
-// --- EN version ---
-let enHtml: string;
-try {
-  enHtml = renderApp('en');
-} catch (err) {
-  console.error('[prerender] SSR failed for EN, falling back to empty root:', err);
-  enHtml = '';
+/** Build a full home page document for one language. */
+function buildHomePage(lang: 'es' | 'en', bodyHtml: string, url: string): string {
+  const pageSeo = seo[lang];
+  const alt: 'es' | 'en' = lang === 'es' ? 'en' : 'es';
+  return indexHtml
+    .replace('<div id="root"></div>', `<div id="root">${bodyHtml}</div>`)
+    .replace(/<html lang="[a-z-]*"/, `<html lang="${lang}"`)
+    .replace(/<title>[^<]*<\/title>/, `<title>${esc(pageSeo.title)}</title>`)
+    .replace(/<meta name="title" content="[^"]*" \/>/, `<meta name="title" content="${esc(pageSeo.title)}" />`)
+    .replace(/<meta name="description" content="[^"]*" \/>/, `<meta name="description" content="${esc(pageSeo.description)}" />`)
+    .replace(/<link rel="canonical" href="[^"]*" \/>/, `<link rel="canonical" href="${url}" />`)
+    .replace(/<meta property="og:url" content="[^"]*" \/>/, `<meta property="og:url" content="${url}" />`)
+    .replace(/<meta property="og:title" content="[^"]*" \/>/, `<meta property="og:title" content="${esc(pageSeo.title)}" />`)
+    .replace(/<meta property="og:description" content="[^"]*" \/>/, `<meta property="og:description" content="${esc(pageSeo.description)}" />`)
+    .replace(/<meta property="og:locale" content="[^"]*" \/>/, `<meta property="og:locale" content="${LOCALE[lang]}" />`)
+    .replace(/<meta property="og:locale:alternate" content="[^"]*" \/>/, `<meta property="og:locale:alternate" content="${LOCALE[alt]}" />`)
+    .replace(/<meta name="twitter:url" content="[^"]*" \/>/, `<meta name="twitter:url" content="${url}" />`)
+    .replace(/<meta name="twitter:title" content="[^"]*" \/>/, `<meta name="twitter:title" content="${esc(pageSeo.title)}" />`)
+    .replace(/<meta name="twitter:description" content="[^"]*" \/>/, `<meta name="twitter:description" content="${esc(pageSeo.description)}" />`);
 }
 
-const enSeo = seo.en;
-
-let enPage = indexHtml
-  .replace('<div id="root"></div>', `<div id="root">${enHtml}</div>`)
-  .replace('<html lang="es" class="dark">', '<html lang="en" class="dark">')
-  .replace(/<title>[^<]*<\/title>/, `<title>${esc(enSeo.title)}</title>`)
-  .replace(/<meta name="title" content="[^"]*" \/>/, `<meta name="title" content="${esc(enSeo.title)}" />`)
-  .replace(/<meta name="description" content="[^"]*" \/>/, `<meta name="description" content="${esc(enSeo.description)}" />`)
-  .replace(/<link rel="canonical" href="[^"]*" \/>/, `<link rel="canonical" href="${site.origin}/en" />`)
-  .replace(/<meta property="og:url" content="[^"]*" \/>/, `<meta property="og:url" content="${site.origin}/en" />`)
-  .replace(/<meta property="og:title" content="[^"]*" \/>/, `<meta property="og:title" content="${esc(enSeo.title)}" />`)
-  .replace(/<meta property="og:description" content="[^"]*" \/>/, `<meta property="og:description" content="${esc(enSeo.description)}" />`)
-  .replace(/<meta property="og:locale" content="es_ES" \/>/, '<meta property="og:locale" content="en_US" />')
-  .replace(/<meta property="og:locale:alternate" content="en_US" \/>/, '<meta property="og:locale:alternate" content="es_ES" />')
-  .replace(/<meta name="twitter:url" content="[^"]*" \/>/, `<meta name="twitter:url" content="${site.origin}/en" />`)
-  .replace(/<meta name="twitter:title" content="[^"]*" \/>/, `<meta name="twitter:title" content="${esc(enSeo.title)}" />`)
-  .replace(/<meta name="twitter:description" content="[^"]*" \/>/, `<meta name="twitter:description" content="${esc(enSeo.description)}" />`);
+const primaryPage = buildHomePage(PRIMARY, renderHome(PRIMARY), `${site.origin}/`);
+const secondaryPage = buildHomePage(SECONDARY, renderHome(SECONDARY), `${site.origin}${SECONDARY_PATH}`);
 
 // ---------------------------------------------------------------------------
 // About / Entity Home — ES (/sobre-mi) + EN (/about)
@@ -536,8 +533,8 @@ for (const [lang, slug, altSlug] of [['es', 'privacidad', 'privacy'], ['en', 'pr
 
 async function inlineCriticalCSS() {
   // Home pages
-  await writePage(injectedEs, indexPath, 'ES: dist/index.html updated');
-  await writePage(enPage, resolve(distDir, 'en', 'index.html'), 'EN: dist/en/index.html created');
+  await writePage(primaryPage, indexPath, `${PRIMARY.toUpperCase()}: dist/index.html updated`);
+  await writePage(secondaryPage, resolve(distDir, SECONDARY, 'index.html'), `${SECONDARY.toUpperCase()}: dist/${SECONDARY}/index.html created`);
 
   // About pages
   for (const { slug, html } of aboutPages) {
@@ -596,8 +593,8 @@ function validateHydrationStructure(html: string, label: string) {
 }
 
 // Validate home pages
-validateHydrationStructure(injectedEs, 'home-es');
-validateHydrationStructure(enPage, 'home-en');
+validateHydrationStructure(primaryPage, `home-${PRIMARY}`);
+validateHydrationStructure(secondaryPage, `home-${SECONDARY}`);
 
 // Validate about pages
 for (const { slug, html } of aboutPages) {

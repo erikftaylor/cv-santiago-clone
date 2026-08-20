@@ -1,3 +1,4 @@
+import { site, SECONDARY_PATH } from '../site.config'
 import type { ComponentType } from 'react'
 
 export interface ArticleSeo {
@@ -99,7 +100,7 @@ export const articleRegistry: ArticleConfig[] = [
     ragReady: false,
     seoMeta: {
       datePublished: '2026-01-01',
-      dateModified: '2026-01-01',
+      dateModified: '2026-08-20',
       // 10+ keywords is the validator's minimum — these feed article JSON-LD.
       keywords: [
         'TODO-keyword-1', 'TODO-keyword-2', 'TODO-keyword-3', 'TODO-keyword-4',
@@ -129,8 +130,8 @@ export const articleRegistry: ArticleConfig[] = [
 // Derived maps for GlobalNav and routing
 export function getAltPaths(): Record<string, string> {
   const map: Record<string, string> = {
-    '/': '/en',
-    '/en': '/',
+    '/': SECONDARY_PATH,
+    [SECONDARY_PATH]: '/',
     '/sobre-mi': '/about',
     '/about': '/sobre-mi',
     '/privacidad': '/privacy',
@@ -146,7 +147,7 @@ export function getAltPaths(): Record<string, string> {
 export function getPageTitles(): Record<string, string> {
   const map: Record<string, string> = {
     '/': 'Portfolio',
-    '/en': 'Portfolio',
+    [SECONDARY_PATH]: 'Portfolio',
     '/sobre-mi': 'Sobre Mí',
     '/about': 'About',
   }
@@ -166,9 +167,14 @@ export function getSectionLabels(): Record<string, Record<string, string>> {
   return map
 }
 
-/** All ES slugs (for lang detection: if pathname matches an ES slug → lang is 'es') */
+/**
+ * Paths served in Spanish. `/` is included only when Spanish is the primary
+ * language — see `site.lang` in site.identity.json.
+ */
 export function getEsSlugs(): Set<string> {
-  const slugs = new Set<string>(['/', '/privacidad', '/sobre-mi'])
+  const slugs = new Set<string>(['/privacidad', '/sobre-mi'])
+  if (site.lang.primary === 'es') slugs.add('/')
+  if (site.lang.secondary === 'es') slugs.add(SECONDARY_PATH)
   for (const article of articleRegistry) {
     slugs.add(`/${article.slugs.es}`)
   }

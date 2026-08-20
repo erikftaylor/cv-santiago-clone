@@ -1,9 +1,9 @@
-import { site } from './site.config'
+import { site, SECONDARY_PATH, langForPath } from './site.config'
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { Sun, Moon, House, X, ChevronRight } from 'lucide-react'
 import { translations, type Lang } from './i18n'
-import { getAltPaths, getPageTitles, getSectionLabels, getEsSlugs } from './articles/registry'
+import { getAltPaths, getPageTitles, getSectionLabels } from './articles/registry'
 
 /**
  * GlobalNav — unified navigation across all pages.
@@ -22,7 +22,6 @@ const ALT_PATH = getAltPaths()
 const BANNER_DISMISSED_KEY = 'lang-banner-dismissed'
 const PAGE_TITLE = getPageTitles()
 const SECTION_LABELS = getSectionLabels()
-const ES_SLUGS = getEsSlugs()
 
 /** Observes h2[id] elements and returns the currently visible section ID */
 function useActiveSection(pathname: string, enabled: boolean) {
@@ -81,8 +80,8 @@ function useActiveSection(pathname: string, enabled: boolean) {
 
 function useLang() {
   const { pathname } = useLocation()
-  const isHome = pathname === '/' || pathname === '/en'
-  const lang: 'es' | 'en' = ES_SLUGS.has(pathname) ? 'es' : 'en'
+  const isHome = pathname === '/' || pathname === SECONDARY_PATH
+  const lang: 'es' | 'en' = langForPath(pathname)
   const pageTitle = PAGE_TITLE[pathname] ?? null
   return { pathname, isHome, lang, pageTitle }
 }
@@ -240,7 +239,7 @@ export default function GlobalNav() {
   const navigate = useNavigate()
   const activeSection = useActiveSection(pathname, !isHome)
 
-  const altPath = ALT_PATH[pathname] || (lang === 'es' ? '/en' : '/')
+  const altPath = ALT_PATH[pathname] || (lang === site.lang.primary ? SECONDARY_PATH : '/')
   const altLabel = lang === 'es' ? 'ES' : 'EN'
 
   const t = translations[lang]
@@ -313,7 +312,7 @@ export default function GlobalNav() {
                 style={animateBackLink ? fade('0.4s') : undefined}
               >
                 <Link
-                  to={lang === 'en' ? '/en' : '/'}
+                  to={lang === site.lang.primary ? '/' : SECONDARY_PATH}
                   className="inline-flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors shrink-0"
                 >
                   <House className="w-4 h-4" />

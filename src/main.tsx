@@ -1,4 +1,4 @@
-import { site } from './site.config'
+import { site, SECONDARY_PATH, langForPath } from './site.config'
 import { StrictMode, lazy, Suspense, useState, useEffect, useRef, Component, type ReactNode, type ComponentType } from 'react'
 import { hydrateRoot, createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route, useLocation, Link } from 'react-router-dom'
@@ -130,7 +130,10 @@ Object.defineProperty(window, '__portfolio', {
 
 function NotFound() {
   const { pathname } = useLocation()
-  const isEn = pathname.startsWith('/en') || /^\/[a-z]+-[a-z]+-[a-z]+/.test(pathname)
+  const isSecondary = pathname.startsWith(SECONDARY_PATH)
+  // The 404 copy follows the LANGUAGE of the route the visitor landed on,
+  // which is not the same question as which route to send them back to.
+  const isEnglish = langForPath(isSecondary ? SECONDARY_PATH : '/') === 'en'
 
   useEffect(() => {
     let robots = document.querySelector('meta[name="robots"]') as HTMLMetaElement
@@ -144,18 +147,18 @@ function NotFound() {
     <div className="min-h-[80vh] flex flex-col items-center justify-center text-center px-6">
       <p className="text-8xl font-display font-bold text-primary mb-4">404</p>
       <h1 className="text-2xl font-display font-semibold text-foreground mb-2">
-        {isEn ? 'Page not found' : 'Página no encontrada'}
+        {isEnglish ? 'Page not found' : 'Página no encontrada'}
       </h1>
       <p className="text-muted-foreground mb-8 max-w-md">
-        {isEn
+        {isEnglish
           ? "The page you're looking for doesn't exist or has been moved."
           : 'La página que buscas no existe o ha sido movida.'}
       </p>
       <Link
-        to={isEn ? '/en' : '/'}
+        to={isSecondary ? SECONDARY_PATH : '/'}
         className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors"
       >
-        {isEn ? '← Back to home' : '← Volver al inicio'}
+        {isEnglish ? '← Back to home' : '← Volver al inicio'}
       </Link>
     </div>
   )
@@ -170,7 +173,7 @@ const app = (
         <Suspense fallback={null}>
           <Routes>
             <Route path="/" element={<App />} />
-            <Route path="/en" element={<App />} />
+            <Route path={SECONDARY_PATH} element={<App />} />
             <Route path="/ops" element={<OpsDashboard />} />
             <Route path="/sobre-mi" element={<AboutPage lang="es" />} />
             <Route path="/about" element={<AboutPage lang="en" />} />

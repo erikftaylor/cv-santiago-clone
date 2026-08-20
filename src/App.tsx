@@ -3,7 +3,7 @@ import { useLocation, Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'motion/react'
 import { Mail, ExternalLink, Briefcase, GraduationCap, Award, Code, Users, Globe, Bot, BadgeCheck, FolderGit2, Sparkles, Github, FileText, Calendar, SkipForward, ChevronRight, List } from 'lucide-react'
 import { translations, seo, type Lang } from './i18n'
-import { site } from './site.config'
+import { site, langForPath } from './site.config'
 import { useHomeSeo } from './articles/use-article-seo'
 import { getTechIcon } from './tech-icons'
 
@@ -1432,7 +1432,9 @@ function CertLogo({ logo }: { logo: string }) {
 
 function App() {
   const location = useLocation()
-  const lang: Lang = location.pathname === '/en' ? 'en' : 'es'
+  // `/` serves the primary language; the secondary lives at `/<lang code>`.
+  // Both derive from `lang` in site.identity.json — see langForPath().
+  const lang: Lang = langForPath(location.pathname)
   const t = translations[lang]
   const hydrated = useHydrated()
   useHeroStyles()
@@ -1897,6 +1899,7 @@ function App() {
                 <Mail className="w-4 h-4" />
                 {t.cta.contact}
               </a>
+              {site.social.linkedin && (
               <a
                 href={site.social.linkedin}
                 target="_blank"
@@ -1907,6 +1910,7 @@ function App() {
                 LinkedIn
                 <ExternalLink className="w-3 h-3" aria-hidden="true" />
               </a>
+              )}
             </div>
           </AnimatedSection>
           <p className="mt-12 text-xs text-muted-foreground">

@@ -1,4 +1,4 @@
-import { site } from '../src/site.config.ts'
+import { site, SECONDARY_PATH } from '../src/site.config.ts'
 /**
  * Auto-generates sitemap.xml from the article registry.
  *
@@ -72,20 +72,26 @@ function urlBlock(u: SitemapUrl): string {
 const base = site.origin
 const urls: SitemapUrl[] = []
 
-// Home ES + EN
+// Home: primary at `/`, secondary at SECONDARY_PATH. Derived from
+// site.lang so flipping the primary language rewrites the sitemap too.
+const primaryUrl = `${base}/`
+const secondaryUrl = `${base}${SECONDARY_PATH}`
+const hreflangEs = site.lang.primary === 'es' ? primaryUrl : secondaryUrl
+const hreflangEn = site.lang.primary === 'en' ? primaryUrl : secondaryUrl
+
 urls.push({
-  loc: `${base}/`,
-  hreflangEs: `${base}/`,
-  hreflangEn: `${base}/en`,
-  xDefault: `${base}/`,
+  loc: primaryUrl,
+  hreflangEs,
+  hreflangEn,
+  xDefault: primaryUrl,
   lastmod: homeLastmod,
   priority: '1.0',
 })
 urls.push({
-  loc: `${base}/en`,
-  hreflangEs: `${base}/`,
-  hreflangEn: `${base}/en`,
-  xDefault: `${base}/`,
+  loc: secondaryUrl,
+  hreflangEs,
+  hreflangEn,
+  xDefault: primaryUrl,
   lastmod: homeLastmod,
   priority: '0.9',
 })

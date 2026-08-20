@@ -59,6 +59,24 @@ export const site = {
   },
 }
 
+/**
+ * Route that serves the secondary language. `/` always serves the primary.
+ * Upstream hardcoded `/` = Spanish and `/en` = English; deriving it from
+ * `lang` means flipping `primary` in site.identity.json moves the whole site.
+ */
+export const SECONDARY_PATH = `/${base.lang.secondary}`
+
+/** Which language a given pathname is served in. */
+export function langForPath(pathname: string): 'es' | 'en' {
+  if (pathname === '/') return base.lang.primary
+  if (pathname === SECONDARY_PATH) return base.lang.secondary
+  // Article and static pages carry language in the slug itself.
+  return ES_PATHS.has(pathname) ? 'es' : 'en'
+}
+
+/** Static (non-article) paths that are inherently Spanish. */
+const ES_PATHS = new Set(['/privacidad', '/sobre-mi'])
+
 export const siteTitle = `${site.brand} | ${site.tagline}`
 
 export default site
