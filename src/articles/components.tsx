@@ -176,12 +176,12 @@ interface ArticleFooterProps {
 const FOOTER_I18N = {
   es: {
     role: site.tagline,
-    bio: 'TODO: una o dos frases de bio de autor, en tercera persona.',
+    bio: 'Erik Taylor es un diseñador de producto senior con más de 15 años de experiencia en IBM, Transamerica y Tovuti LMS. Trabaja upstream: investigación, arquitectura de información y sistemas de diseño.',
     copyright: 'Todos los derechos reservados.',
   },
   en: {
     role: site.tagline,
-    bio: 'TODO: one or two sentences of author bio, third person.',
+    bio: 'Erik Taylor is a Denver-based senior product designer with 15+ years across IBM, Transamerica, and Tovuti LMS. He works upstream — research, information architecture, and design systems.',
     copyright: 'All rights reserved.',
   },
 } as const
