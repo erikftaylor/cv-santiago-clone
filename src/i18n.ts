@@ -35,7 +35,7 @@ export const seo = {
   en: {
     title: `${site.brand} | ${site.tagline}`,
     description:
-      'Denver-based product designer, 15+ years across global enterprise, financial services, and learning platforms. Research through engineering handoff.',
+      'Denver-based senior product designer, 15+ years across global enterprise, financial services, and learning platforms. Research through engineering handoff.',
   },
 }
 
@@ -79,14 +79,14 @@ export const translations = {
   en: {
     greeting: 'who works upstream of the build',
     greetingRoles: [
-      'Product Designer',
+      'Senior Product Designer',
       'UX Designer',
       'Design Systems Builder',
       'AI × UX Practitioner',
     ],
     /** The three words in the hero's beam pill. */
     heroPill: ['Research', 'Systems', 'Handoff'],
-    pillLabels: ['Product Designer', 'AI × UX'],
+    pillLabels: ['Senior Product Designer', 'AI × UX'],
     email: site.email,
     role: '',
     location: site.location,
@@ -163,7 +163,7 @@ export const translations = {
         {
           company: 'Freelance',
           location: 'Denver, CO · Remote',
-          role: 'Product Designer',
+          role: 'Senior Product Designer',
           period: '2026 – Present',
           desc: 'Product design for teams shipping software — discovery through engineering handoff.',
           highlights: [],
@@ -171,13 +171,13 @@ export const translations = {
         {
           company: 'Tovuti LMS',
           location: 'Remote',
-          role: 'Product Designer',
+          role: 'Senior Product Designer',
           period: '2025 – 2026',
-          desc: 'Designed admin and learner experiences for the LMS platform.',
+          desc: 'Led design across admin and learner surfaces, and owned the design system.',
           highlights: [
-            'A feature was drawing negative feedback with opaque root causes — a ticket saying "confusing" does not say which step confused anyone. Rather than hand-synthesize help docs, demo transcripts, and scattered complaints over weeks, I built a tool that generates persona-based journey maps from help-center content.',
-            'Wired Zendesk and Slack into the maps so every incoming complaint pins to a journey step and auto-classifies by owner, which turned scattered feedback into something a specific team could act on.',
-            'The bet was a week lost if the tool was wrong against months of manual audit saved if it worked. Solo build, prototype to shipped tool to engineering handoff, inside the eight-week window.',
+            'Designed and shipped JEM, an AI journey-mapping tool. Teams were losing 10–15 hours per discovery cycle hand-synthesizing help docs, transcripts, and support tickets, so I designed the product — source ingestion, a guided AI scoping chat, an editable persona-by-stage canvas — defined its data model, and shipped it with the platform\'s lead engineer. Ten fixes landed in the first week of production.',
+            'Led discovery on Checkpoints, an approval-workflow feature carrying $500K+ ARR and a set of at-risk accounts: synthesized 60+ support tickets, Slack signals, and internal case notes into four persona journey maps and five go/no-go gates before GA — including silent auto-approvals, a compliance risk no ticket had named.',
+            'Owned the design system: token layer defined first, with a governance rule that every custom component traces back to a real primitive — so 8–12 engineers build from one shared taxonomy instead of drifting into one-offs. Specs held to WCAG AA.',
           ],
         },
         {
@@ -187,6 +187,7 @@ export const translations = {
           period: '2020 – 2024',
           desc: 'Designed the World Financial Group (WFG) agent portal — the tools licensed agents work in daily.',
           highlights: [
+            'Redesigned new-agent onboarding on a research base of 100+ financial advisors across the US and Canada — a card-based homepage over a blank dashboard, entitlements shaping what recruits versus licensed agents see. Onboarding adoption among new agents rose 30% after launch.',
             'Joined a redesign whose direction was already set and pushed to add user interviews and usability testing, so the work was grounded in actual agent pain points rather than assumptions carried over from the prior portal. It cost time the team had not budgeted; skipping it risked solving the wrong friction.',
             'Built a custom design system for WFG rather than reusing an off-the-shelf component set, because WFG branding and functional requirements did not map cleanly onto existing patterns.',
             'Rebuilt global navigation around frequency of use rather than the org chart — agents were not asking for fewer features, they were asking for fewer steps to the ones they used constantly, like Commissions and Client Management.',
@@ -201,7 +202,8 @@ export const translations = {
           desc: 'Owned the Digital Sellers Guidebook — an adoption problem wearing a platform problem as a disguise.',
           highlights: [
             'Sellers treated the existing platform as overhead rather than help. Stakeholder interviews with sellers and managers surfaced the real constraint: high cognitive load and no time for training. Any fix that asked sellers to learn something new, somewhere new, would have failed the same way.',
-            'Built the guidebook on WordPress instead of a purpose-built platform so it integrated with tools IBM sellers already used and asked no one to learn new infrastructure. The tradeoff was less flexibility.',
+            'Ran a five-platform evaluation — WordPress, w3 Publisher, custom w3DS, Seismic, IBM Connections — and moved the guidebook to w3 Publisher for supported metrics and search indexing, keeping WordPress only for the knowledge base. The tradeoff, named up front: less customization and no embedded video.',
+            'Restructured that knowledge base around seller journeys — Clients, Contacts, Communications, Opportunity — with manager and seller paths separated, instead of mirroring how the content team was organized.',
           ],
         },
         {
@@ -232,16 +234,22 @@ export const translations = {
       viewPrototype: 'View prototype',
       items: [
         {
-          title: 'Journey Map Generator',
+          title: 'JEM (Journey Experience Mapper)',
           badge: 'Tovuti LMS · 8 weeks',
-          desc: 'A feature was drawing negative feedback and the root causes were opaque — a ticket saying "confusing" does not say which step confused anyone. Rather than hand-synthesize help docs, demo transcripts, and scattered complaints over weeks, I built a tool that generates persona-based journey maps from help-center content and wires in Zendesk and Slack so every complaint pins to a journey step, auto-classified by owner. The bet: a week lost if it was wrong, months of manual audit saved if it worked. Prototype to shipped tool to engineering handoff inside the eight-week window.',
+          desc: 'Product teams were losing 10–15 hours per discovery cycle hand-synthesizing help docs, transcripts, and support tickets into journey maps. I designed JEM — source ingestion, a guided AI scoping chat, an editable persona-by-stage canvas — defined its data model, and shipped it with Tovuti\'s lead engineer inside the eight-week window. The bet: a week lost if it was wrong, those hours back every cycle if it worked. Ten fixes shipped in the first week of production.',
           tech: ['Journey Mapping', 'Zendesk', 'Slack', 'Research Synthesis', 'AI-Assisted Build'],
           link: 'etaylor.co/i-vibe-coded-a-journey-map-generator-auto-synthesizing-docs-and-demos-into-actionable-friction-maps',
         },
         {
+          title: 'Checkpoints Go/No-Go',
+          badge: 'Tovuti LMS',
+          desc: 'An approval-workflow feature carrying $500K+ ARR was "broken again" in support channels, and nobody could say precisely how. I synthesized 60+ Zendesk tickets, Slack signals, and internal case notes into four persona journey maps and a five-gate go/no-go assessment — surfacing silent auto-approvals, a compliance risk no ticket had named. The gates went to leadership before GA; the fixes are theirs to sequence.',
+          tech: ['Discovery', 'Journey Mapping', 'Zendesk', 'Risk Assessment'],
+        },
+        {
           title: 'WFG Agent Portal',
           badge: 'Transamerica',
-          desc: 'The agent portal was unintuitive and impersonal — essential tools were hard to find and nothing adapted to the agent using it. I joined after direction was set and argued for user interviews and usability testing anyway, then built a design system tailored to WFG rather than bending the experience into an off-the-shelf component set.',
+          desc: 'The agent portal was unintuitive and impersonal — essential tools were hard to find and nothing adapted to the agent using it. I joined after direction was set and argued for user interviews and usability testing anyway, then built a design system tailored to WFG rather than bending the experience into an off-the-shelf component set. The research base ran to 100+ financial advisors across the US and Canada; onboarding adoption among new agents rose 30% after launch.',
           tech: ['Design Systems', 'Figma', 'Usability Testing', 'Stakeholder Interviews'],
           link: 'etaylor.co/empowering-financial-agents-with-a-redesigned-portal-experience',
         },
@@ -255,7 +263,7 @@ export const translations = {
         {
           title: 'IBM Digital Sellers Guidebook',
           badge: 'IBM',
-          desc: 'Sellers saw the platform as overhead, not help, and managers had no way to demonstrate value in the time sellers had. The real constraint was cognitive load, not awareness — so the guidebook was built on tooling sellers already used rather than asking them to learn somewhere new.',
+          desc: 'Sellers saw the platform as overhead, not help — the real constraint was cognitive load, not awareness. A five-platform evaluation moved the guidebook to w3 Publisher, kept WordPress for the knowledge base, and the KB itself was restructured around seller journeys rather than how the content team was organized.',
           tech: ['WordPress', 'Stakeholder Interviews', 'Content Design', 'Adoption'],
           link: 'etaylor.co/driving-adoption-and-engagement-with-ibms-digital-sellers-guidebook',
         },

@@ -22,7 +22,7 @@ export const aboutContent = {
     seo: {
       title: `${site.fullName} | ${site.tagline}`,
       description:
-        'Erik Taylor is a Denver-based product designer with 15+ years across IBM, Transamerica, and Tovuti LMS, working upstream where AI meets UX. Now freelance.',
+        'Erik Taylor is a Denver-based senior product designer with 15+ years across IBM, Transamerica, and Tovuti LMS — upstream, where AI meets UX. Now freelance.',
     },
     heading: site.fullName,
     manifesto: 'The decisions that matter get made upstream of the build — before anything gets generated.',
@@ -31,8 +31,8 @@ export const aboutContent = {
     location: site.location,
     lastUpdated: 'August 2026',
     bio: [
-      'Erik Taylor has been working on software since 2008, when he joined IBM as a copywriter. Over the twelve years that followed he moved from copywriting to team lead to product owner and UX designer, ending with ownership of the Digital Sellers Guidebook — an adoption problem wearing a platform problem as a disguise. Stakeholder interviews surfaced the real constraint: sellers had high cognitive load and no time for training, so any fix that asked them to learn something new, somewhere new, would have failed the same way.',
-      'At Transamerica he designed the World Financial Group agent portal, the tools licensed agents work in daily. He joined a redesign whose direction was already set and argued for user interviews and usability testing anyway, built a design system tailored to WFG rather than bending its requirements onto an off-the-shelf component set, and rebuilt global navigation around frequency of use instead of the org chart. At Tovuti LMS he designed admin and learner experiences, and built a journey map generator that turns help-center content into persona-based journey maps with Zendesk and Slack wired in, so every incoming complaint pins to a journey step and auto-classifies by owner.',
+      'Erik Taylor has been working on software since 2008, when he joined IBM as a copywriter. Over the twelve years that followed he moved from copywriting to team lead to product owner and UX designer, ending with ownership of the Digital Sellers Guidebook — an adoption problem wearing a platform problem as a disguise. Stakeholder interviews surfaced the real constraint: sellers had high cognitive load and no time for training, so any fix that asked them to learn something new, somewhere new, would have failed the same way. He ran the five-platform evaluation that moved the guidebook to w3 Publisher — keeping WordPress only for the knowledge base — and restructured that knowledge base around seller journeys.',
+      'At Transamerica he designed the World Financial Group agent portal, the tools licensed agents work in daily. He joined a redesign whose direction was already set and argued for user interviews and usability testing anyway, built a design system tailored to WFG rather than bending its requirements onto an off-the-shelf component set, and rebuilt global navigation around frequency of use instead of the org chart. The onboarding redesign that followed, grounded in a research base of 100+ financial advisors, lifted onboarding adoption among new agents 30%. At Tovuti LMS he owned the design system — token layer first, every component traced back to a real primitive, specs consumed by eight to twelve engineers — led the go/no-go discovery on a $500K+ ARR approval-workflow feature, and designed JEM, an AI journey-mapping tool shipped with the platform\'s lead engineer that gives teams back 10–15 hours per discovery cycle.',
       'He is freelance as of 2026, based in Denver and working remotely, focused on where AI is changing what design owns. He audits organizations against WCAG 2.2 AA and holds his own work to the same bar. This site is part of the record rather than a description of it: the assistant behind the "Ask me" button is a retrieval-augmented build on Claude, with automated evaluations and tracing behind it.',
     ],
     seeking: 'Open to full-time roles in:',
@@ -40,8 +40,8 @@ export const aboutContent = {
 
     timelineHeading: 'Timeline',
     timeline: [
-      { period: '2026 –', role: 'Product Designer', company: 'Freelance', desc: 'Product design for teams shipping software, discovery through engineering handoff.' },
-      { period: '2025 – 2026', role: 'Product Designer', company: 'Tovuti LMS', desc: 'Admin and learner experiences for the LMS platform.' },
+      { period: '2026 –', role: 'Senior Product Designer', company: 'Freelance', desc: 'Product design for teams shipping software, discovery through engineering handoff.' },
+      { period: '2025 – 2026', role: 'Senior Product Designer', company: 'Tovuti LMS', desc: 'Led design across admin and learner surfaces; owned the design system.' },
       { period: '2020 – 2024', role: 'UX Designer', company: 'Transamerica', desc: 'The World Financial Group agent portal and its design system.' },
       { period: '2017 – 2020', role: 'Product Owner / UX Designer', company: 'IBM', desc: 'Owned the Digital Sellers Guidebook.' },
       { period: '2010 – 2017', role: 'Team Lead', company: 'IBM', desc: 'Team lead prior to moving into product ownership and design.' },
@@ -51,8 +51,8 @@ export const aboutContent = {
     projectsHeading: 'Projects',
     projects: [
       {
-        name: 'Journey Map Generator',
-        desc: 'Tovuti LMS · Persona-based journey maps from help-center content, with Zendesk and Slack pinned to each step.',
+        name: 'JEM (Journey Experience Mapper)',
+        desc: 'Tovuti LMS · An AI tool that turns raw research sources into editable, persona-based journey maps.',
         href: 'https://etaylor.co/i-vibe-coded-a-journey-map-generator-auto-synthesizing-docs-and-demos-into-actionable-friction-maps',
       },
       {
@@ -90,11 +90,11 @@ export const aboutContent = {
     faq: [
       {
         q: `Who is ${site.fullName}?`,
-        a: 'Erik Taylor is a product designer based in Denver, Colorado, working remotely, with more than fifteen years of experience. He started at IBM in 2008 as a copywriter and moved through team lead into product ownership and UX design, then spent four years at Transamerica designing the World Financial Group agent portal for licensed financial agents, and a year at Tovuti LMS on admin and learner experiences for its learning platform. He works upstream — research, information architecture, and design systems, where the decisions get made — rather than downstream on visual polish. He is currently freelance and open to full-time roles.',
+        a: 'Erik Taylor is a senior product designer based in Denver, Colorado, working remotely, with more than fifteen years of experience. He started at IBM in 2008 as a copywriter and moved through team lead into product ownership and UX design, then spent four years at Transamerica designing the World Financial Group agent portal for licensed financial agents, and a year at Tovuti LMS on admin and learner experiences for its learning platform. He works upstream — research, information architecture, and design systems, where the decisions get made — rather than downstream on visual polish. He is currently freelance and open to full-time roles.',
       },
       {
         q: `What has ${site.shortName} built?`,
-        a: 'At IBM he owned the Digital Sellers Guidebook, built on WordPress so it integrated with tools sellers already used instead of asking anyone to learn new infrastructure. At Transamerica he built a design system for the World Financial Group agent portal and rebuilt its global navigation around frequency of use rather than the org chart, accepting that the tradeoff deprioritizes rarely-used tools. At Tovuti LMS he built a journey map generator that synthesizes help-center content into persona-based journey maps and wires in Zendesk and Slack so every support complaint pins to a journey step and auto-classifies by owner, going from prototype to engineering handoff inside eight weeks. He also built this site, including the retrieval-augmented assistant that answers questions about his work.',
+        a: 'At IBM he owned the Digital Sellers Guidebook: a five-platform evaluation moved it to w3 Publisher, WordPress stayed on for the knowledge base only, and the knowledge base was restructured around seller journeys. At Transamerica he built a design system for the World Financial Group agent portal, redesigned new-agent onboarding on a research base of 100+ financial advisors — adoption rose 30% — and rebuilt global navigation around frequency of use rather than the org chart. At Tovuti LMS he owned the design system, led go/no-go discovery on a $500K+ ARR approval-workflow feature, and designed JEM, an AI journey-mapping tool shipped with the platform\'s lead engineer that saves teams 10–15 hours per discovery cycle. He also built this site, including the retrieval-augmented assistant that answers questions about his work.',
       },
     ],
 
