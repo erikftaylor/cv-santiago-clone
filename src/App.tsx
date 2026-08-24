@@ -1471,15 +1471,17 @@ function App() {
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
               className="relative"
             >
-              <div className="relative w-40 h-40 md:w-48 md:h-48">
+              <div className="group relative w-40 h-40 md:w-48 md:h-48">
                 {/* Glow effect */}
                 <div className="absolute inset-0 rounded-full bg-gradient-theme-30 blur-xl" />
                 {/* Glassmorphism frame */}
                 <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/20 to-white/5 md:backdrop-blur-sm border border-white/20 shadow-2xl" />
                 {/* Inner border */}
                 <div className="absolute inset-2 rounded-full bg-gradient-theme-50 p-[2px]">
-                  <div className="w-full h-full rounded-full overflow-hidden">
-                    <img src="/foto-avatar-sm.webp" srcSet="/foto-avatar-sm.webp 192w, /foto-avatar.webp 384w" sizes="(max-width: 768px) 160px, 192px" alt={site.fullName} className="w-full h-full object-cover" width={192} height={192} fetchPriority="high" />
+                  <div className="relative w-full h-full rounded-full overflow-hidden">
+                    <img src="/foto-avatar-sm.webp" srcSet="/foto-avatar-sm.webp 192w, /foto-avatar.webp 384w" sizes="(max-width: 768px) 160px, 192px" alt={site.fullName} className="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0" width={192} height={192} fetchPriority="high" />
+                    {/* Yarn twin — crossfades in with a springy settle on hover */}
+                    <img src="/foto-avatar-yarn-sm.webp" srcSet="/foto-avatar-yarn-sm.webp 192w, /foto-avatar-yarn.webp 384w" sizes="(max-width: 768px) 160px, 192px" alt="" aria-hidden="true" loading="lazy" className="absolute inset-0 w-full h-full object-cover opacity-0 scale-110 rotate-6 transition-[opacity,scale,rotate] duration-500 [transition-timing-function:cubic-bezier(.34,1.56,.64,1)] group-hover:opacity-100 group-hover:scale-100 group-hover:rotate-0 motion-reduce:scale-100 motion-reduce:rotate-0 motion-reduce:transition-opacity" width={192} height={192} />
                   </div>
                 </div>
               </div>

@@ -74,15 +74,28 @@ export default function AboutPage({ lang = 'en' }: { lang?: AboutLang }) {
 
         {/* Header */}
         <header className="flex flex-col sm:flex-row items-center sm:items-start gap-6 mb-10">
-          <img
-            src="/foto-avatar-sm.webp"
-            srcSet="/foto-avatar-sm.webp 192w, /foto-avatar.webp 384w"
-            sizes="96px"
-            alt={site.fullName}
-            className="w-24 h-24 rounded-full border-2 border-border shadow-lg"
-            width={96}
-            height={96}
-          />
+          <div className="group relative w-24 h-24 shrink-0 rounded-full border-2 border-border shadow-lg overflow-hidden">
+            <img
+              src="/foto-avatar-sm.webp"
+              srcSet="/foto-avatar-sm.webp 192w, /foto-avatar.webp 384w"
+              sizes="96px"
+              alt={site.fullName}
+              className="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0"
+              width={96}
+              height={96}
+            />
+            {/* Yarn twin — crossfades in with a springy settle on hover */}
+            <img
+              src="/foto-avatar-yarn-sm.webp"
+              sizes="96px"
+              alt=""
+              aria-hidden="true"
+              loading="lazy"
+              className="absolute inset-0 w-full h-full object-cover opacity-0 scale-110 rotate-6 transition-[opacity,scale,rotate] duration-500 [transition-timing-function:cubic-bezier(.34,1.56,.64,1)] group-hover:opacity-100 group-hover:scale-100 group-hover:rotate-0 motion-reduce:scale-100 motion-reduce:rotate-0 motion-reduce:transition-opacity"
+              width={96}
+              height={96}
+            />
+          </div>
           <div className="text-center sm:text-left">
             <h1 className="font-display text-2xl sm:text-3xl font-bold text-foreground mb-1">
               {t.heading}
