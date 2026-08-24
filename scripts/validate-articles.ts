@@ -26,7 +26,8 @@ const FIX_MODE = process.argv.includes('--fix')
 
 /** Map article id → source file (relative to root) */
 const SOURCE_MAP: Record<string, string> = {
-  'example-case-study': 'src/CaseStudyTemplate.tsx',
+  'jem-case-study': 'src/JemCaseStudy.tsx',
+  'checkpoints-case-study': 'src/CheckpointsCaseStudy.tsx',
 }
 
 /** Map article id → i18n source file (relative to root). Content edits go here. */

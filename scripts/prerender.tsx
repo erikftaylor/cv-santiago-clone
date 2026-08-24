@@ -36,11 +36,18 @@ import { site } from '../src/site.config.ts';
 //
 // Kept as an explicit map (rather than a glob) so a missing entry fails loudly
 // at build time instead of silently prerendering an article with no JSON-LD.
-import { caseStudyContent } from '../src/case-study-i18n.ts';
+import { jemContent } from '../src/jem-i18n.ts';
+import { checkpointsContent } from '../src/checkpoints-i18n.ts';
 
 const i18nMap: Record<string, Record<string, { header: { h1: string }; nav: { breadcrumbHome: string; breadcrumbCurrent: string }; faq: { items: readonly { q: string; a: string }[] } }>> = {
-  'example-case-study': Object.fromEntries(
-    Object.entries(caseStudyContent).map(([lang, c]) => [
+  'jem-case-study': Object.fromEntries(
+    Object.entries(jemContent).map(([lang, c]) => [
+      lang,
+      { header: { h1: c.h1 }, nav: c.nav, faq: c.faq },
+    ])
+  ),
+  'checkpoints-case-study': Object.fromEntries(
+    Object.entries(checkpointsContent).map(([lang, c]) => [
       lang,
       { header: { h1: c.h1 }, nav: c.nav, faq: c.faq },
     ])
