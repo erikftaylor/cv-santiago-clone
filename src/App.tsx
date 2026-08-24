@@ -1738,11 +1738,13 @@ function App() {
       )}
 
 
-      {/* Education & Certifications */}
+      {/* Education & Certifications — hidden while both lists are empty */}
+      {(t.education.items.length > 0 || t.certifications.items.length > 0) && (
       <section id="education" className="py-16 md:py-24" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 1000px' }}>
         <div className="max-w-5xl mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-12">
-            {/* Education */}
+            {/* Education — hidden when empty */}
+            {t.education.items.length > 0 && (
             <div>
               <AnimatedSection>
                 <h2 className="font-display text-2xl font-semibold mb-8 flex items-center gap-3">
@@ -1772,8 +1774,10 @@ function App() {
 
               </div>
             </div>
+            )}
 
-            {/* Certifications */}
+            {/* Certifications — hidden when empty */}
+            {t.certifications.items.length > 0 && (
             <div>
               <AnimatedSection>
                 <h2 className="font-display text-2xl font-semibold mb-8 flex items-center gap-3">
@@ -1811,9 +1815,11 @@ function App() {
                 })}
               </div>
             </div>
+            )}
           </div>
         </div>
       </section>
+      )}
 
       {/* Skills */}
       <section id="tech" className="py-16 md:py-24 bg-muted/30" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 600px' }}>
