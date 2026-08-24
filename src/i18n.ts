@@ -166,9 +166,7 @@ export const translations = {
           role: 'Product Designer',
           period: '2026 – Present',
           desc: 'Product design for teams shipping software — discovery through engineering handoff.',
-          highlights: [
-            'TODO: name an engagement worth listing, or delete this line and let the description stand alone.',
-          ],
+          highlights: [],
         },
         {
           company: 'Tovuti LMS',
@@ -177,7 +175,9 @@ export const translations = {
           period: '2025 – 2026',
           desc: 'Designed admin and learner experiences for the LMS platform.',
           highlights: [
-            'TODO: confirm attribution — the Journey Map Generator (see Projects) reads like this role, but the case study never names the employer. If it belongs here, move its highlights up.',
+            'A feature was drawing negative feedback with opaque root causes — a ticket saying "confusing" does not say which step confused anyone. Rather than hand-synthesize help docs, demo transcripts, and scattered complaints over weeks, I built a tool that generates persona-based journey maps from help-center content.',
+            'Wired Zendesk and Slack into the maps so every incoming complaint pins to a journey step and auto-classifies by owner, which turned scattered feedback into something a specific team could act on.',
+            'The bet was a week lost if the tool was wrong against months of manual audit saved if it worked. Solo build, prototype to shipped tool to engineering handoff, inside the eight-week window.',
           ],
         },
         {
@@ -233,7 +233,7 @@ export const translations = {
       items: [
         {
           title: 'Journey Map Generator',
-          badge: 'Solo build · 8 weeks',
+          badge: 'Tovuti LMS · 8 weeks',
           desc: 'A feature was drawing negative feedback and the root causes were opaque — a ticket saying "confusing" does not say which step confused anyone. Rather than hand-synthesize help docs, demo transcripts, and scattered complaints over weeks, I built a tool that generates persona-based journey maps from help-center content and wires in Zendesk and Slack so every complaint pins to a journey step, auto-classified by owner. The bet: a week lost if it was wrong, months of manual audit saved if it worked. Prototype to shipped tool to engineering handoff inside the eight-week window.',
           tech: ['Journey Mapping', 'Zendesk', 'Slack', 'Research Synthesis', 'AI-Assisted Build'],
           link: 'etaylor.co/i-vibe-coded-a-journey-map-generator-auto-synthesizing-docs-and-demos-into-actionable-friction-maps',

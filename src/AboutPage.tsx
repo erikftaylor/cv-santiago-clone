@@ -106,7 +106,8 @@ export default function AboutPage({ lang = 'en' }: { lang?: AboutLang }) {
           {t.manifesto}
         </blockquote>
 
-        {/* Story CTA — la tesis de arriba lleva a su historia */}
+        {/* Story CTA — hidden until it has a destination */}
+        {t.storyCta.href && t.storyCta.label && (
         <Link
           to={t.storyCta.href}
           className="flex items-center justify-between mb-10 p-4 rounded-lg bg-primary/5 border border-primary/20 hover:border-primary/50 hover:bg-primary/10 transition-all group"
@@ -117,6 +118,7 @@ export default function AboutPage({ lang = 'en' }: { lang?: AboutLang }) {
           </div>
           <ChevronRight className="w-4 h-4 text-primary group-hover:translate-x-0.5 transition-transform shrink-0" />
         </Link>
+        )}
 
         {/* Bio */}
         <section className="mb-10">
@@ -160,7 +162,8 @@ export default function AboutPage({ lang = 'en' }: { lang?: AboutLang }) {
           </div>
         </section>
 
-        {/* Projects */}
+        {/* Projects — hidden when empty */}
+        {t.projects.length > 0 && (
         <section className="mb-10">
           <h2 className="font-display text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
             <Briefcase className="w-4 h-4 text-primary" />
@@ -168,22 +171,26 @@ export default function AboutPage({ lang = 'en' }: { lang?: AboutLang }) {
           </h2>
           <div className="space-y-2">
             {t.projects.map((project) => (
-              <Link
+              <a
                 key={project.name}
-                to={project.href}
+                href={project.href}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center justify-between p-3 rounded-lg bg-card border border-border hover:border-primary/30 hover:bg-primary/5 transition-all group"
               >
                 <div>
                   <p className="font-medium text-foreground text-sm group-hover:text-primary transition-colors">{project.name}</p>
                   <p className="text-xs text-muted-foreground">{project.desc}</p>
                 </div>
-                <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all shrink-0" />
-              </Link>
+                <ExternalLink className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary transition-colors shrink-0" />
+              </a>
             ))}
           </div>
         </section>
+        )}
 
-        {/* Certifications */}
+        {/* Certifications — hidden when empty */}
+        {t.certifications.length > 0 && (
         <section className="mb-10">
           <h2 className="font-display text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
             <Award className="w-4 h-4 text-primary" />
@@ -202,8 +209,10 @@ export default function AboutPage({ lang = 'en' }: { lang?: AboutLang }) {
             ))}
           </div>
         </section>
+        )}
 
-        {/* Education */}
+        {/* Education — hidden when empty */}
+        {t.education.length > 0 && (
         <section className="mb-10">
           <h2 className="font-display text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
             <GraduationCap className="w-4 h-4 text-primary" />
@@ -215,8 +224,10 @@ export default function AboutPage({ lang = 'en' }: { lang?: AboutLang }) {
             ))}
           </ul>
         </section>
+        )}
 
-        {/* Press */}
+        {/* Press — hidden when empty */}
+        {t.press.length > 0 && (
         <section className="mb-10">
           <h2 className="font-display text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
             <Newspaper className="w-4 h-4 text-primary" />
@@ -238,8 +249,10 @@ export default function AboutPage({ lang = 'en' }: { lang?: AboutLang }) {
             </a>
           ))}
         </section>
+        )}
 
-        {/* Community */}
+        {/* Community — hidden when empty */}
+        {t.community.length > 0 && (
         <section className="mb-10">
           <h2 className="font-display text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
             <Users className="w-4 h-4 text-primary" />
@@ -263,6 +276,7 @@ export default function AboutPage({ lang = 'en' }: { lang?: AboutLang }) {
             ))}
           </div>
         </section>
+        )}
 
         {/* FAQ */}
         <section className="mb-10">
