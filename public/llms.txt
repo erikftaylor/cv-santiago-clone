@@ -1,42 +1,50 @@
 # Erik Taylor
 
-> TODO: One line — what you do and the single most credible proof of it.
+> Denver-based senior product designer, 15+ years from IBM copywriter to AI product design — most recently designed and shipped JEM, an AI journey-mapping tool at Tovuti LMS.
 
 ## About
 
-TODO: Two or three sentences in the third person. This file is read by AI search
-engines and assistants; what you write here is close to verbatim what they will
-say when someone asks about you. Be specific and factual — no adjectives you
-cannot evidence.
+Erik Taylor is a senior product designer who works upstream of the build:
+research, information architecture, and design systems. He started at IBM in
+2008, spent four years at Transamerica on the World Financial Group agent
+portal, and a year at Tovuti LMS where he owned the design system and designed
+JEM, an AI journey-mapping tool shipped with the platform's lead engineer. He
+is currently freelance and open to senior product design roles.
 
 ## Contact & Availability
 
-- **Location:** TODO: City, Country
-- **Open to:** TODO: what kind of work, and where
+- **Location:** Denver, CO, USA (remote)
+- **Open to:** Senior Product Designer, Senior UX Designer, and AI Product Designer roles — full-time, remote; freelance in the meantime
 - **Email:** erik@etaylor.co
 - **Website:** https://etaylor.co
 - **GitHub:** https://github.com/erikftaylor
-<!-- TODO: add LinkedIn / X / other profiles once confirmed. Only list URLs that
-     resolve — a dead link here degrades entity resolution. -->
+- **LinkedIn:** https://www.linkedin.com/in/erikftaylor/
 
 ## Experience
 
-TODO: For each role — Company (dates), your title, and two or three lines on what
-you actually built and what it produced. Numbers over adjectives.
+- **Freelance (2026–present), Senior Product Designer.** Product design for teams shipping software — discovery through engineering handoff.
+- **Tovuti LMS (2025–2026), Senior Product Designer.** Designed and shipped JEM, an AI journey-mapping tool that saves teams 10–15 hours per discovery cycle (ten fixes in its first production week). Led go/no-go discovery on Checkpoints, an approval-workflow feature carrying $500K+ ARR — 60+ tickets synthesized into four persona journey maps and five go/no-go gates. Owned the design system: token-first, WCAG AA, specs consumed by 8–12 engineers.
+- **Transamerica (2020–2024), UX Designer.** World Financial Group agent portal and design system. New-agent onboarding redesigned on a research base of 100+ financial advisors across the US and Canada; onboarding adoption rose 30%. Global navigation rebuilt around frequency of use rather than the org chart.
+- **IBM (2008–2020), Copywriter → Team Lead → Product Owner / UX Designer.** Owned the Digital Sellers Guidebook: five-platform evaluation, migration to w3 Publisher (WordPress retained for the knowledge base only), and a journey-based knowledge-base restructure with separate manager and seller paths.
 
 ## Projects
 
-TODO: For each project — name, one-line description, the stack, and a link.
+- **JEM (Journey Experience Mapper)** — AI tool turning raw research sources into editable persona-based journey maps; guided AI scoping chat; Claude-powered. Shipped at Tovuti LMS.
+- **Checkpoints Go/No-Go** — discovery synthesis and risk assessment on a $500K+ ARR approval-workflow feature.
+- **This site** — React 19 + Vite portfolio with an agentic-RAG chatbot (text + voice) built on Claude, automated evals in CI, and Langfuse observability.
 
 ## Case Studies
 
-<!-- Populated as you publish. Each entry should be:
-     - [Title](https://etaylor.co/slug): one line on the problem and outcome. -->
+- [JEM / Journey Map Generator](https://etaylor.co/i-vibe-coded-a-journey-map-generator-auto-synthesizing-docs-and-demos-into-actionable-friction-maps): AI journey-mapping tool from concept to production at Tovuti LMS.
+- [WFG Agent Portal](https://etaylor.co/empowering-financial-agents-with-a-redesigned-portal-experience): agent portal redesign grounded in research with 100+ financial advisors; onboarding adoption rose 30%.
+- [Advisor Navigation](https://etaylor.co/boosting-advisor-efficiency-with-a-renovated-navigation-experience): frequency-of-use navigation overhaul; no post-launch metrics claimed.
+- [IBM Digital Sellers Guidebook](https://etaylor.co/driving-adoption-and-engagement-with-ibms-digital-sellers-guidebook): sales-enablement platform migration and journey-based knowledge-base architecture.
 
 ## Skills
 
-TODO: Grouped, honest, and specific. "Claude API, Vercel Edge, pgvector" beats
-"AI, cloud, databases".
+- **Research:** usability testing, stakeholder interviews, journey mapping, support-ticket synthesis (Zendesk), competitive analysis
+- **Design:** Figma, design systems (token-first governance), prototyping, information architecture, WCAG 2.2 AA
+- **AI:** AI product design (JEM), Claude, prompt-to-prototype, research synthesis workflows
 
 ## Site
 
