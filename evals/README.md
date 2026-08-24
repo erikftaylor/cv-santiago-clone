@@ -1,4 +1,4 @@
-# Evals Suite - Chatbot "Santi"
+# Evals Suite - Chatbot "Erik"
 
 Suite de evaluaciones profesionales para el chatbot de CV que habla como el dueño del portfolio.
 

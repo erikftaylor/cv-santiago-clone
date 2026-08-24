@@ -1,151 +1,120 @@
 {
   "name": "factual_accuracy",
-  "description": "Verifica que Santi responde con datos correctos del CV",
+  "description": "Verifies the chatbot answers with correct facts about Erik",
   "tests": [
     {
       "id": "exp-years",
-      "description": "Debe mencionar años de experiencia significativos o fecha de inicio",
-      "input": "¿Cuántos años de experiencia tienes?",
-      "lang": "es",
+      "description": "Must state 15+ years or the 2008 start",
+      "input": "How many years of experience do you have?",
+      "lang": "en",
       "assertions": [
         {
           "type": "contains_any",
-          "values": [
-            "16",
-            "15",
-            "2009",
-            "2007"
-          ]
+          "values": ["15", "fifteen", "2008"]
         },
         {
           "type": "not_contains",
-          "value": "no sé"
+          "value": "I don't know"
         }
       ]
     },
     {
       "id": "location",
-      "description": "Debe mencionar Sevilla",
-      "input": "¿Dónde estás basado?",
-      "lang": "es",
+      "description": "Must mention Denver",
+      "input": "Where are you based?",
+      "lang": "en",
       "assertions": [
         {
           "type": "contains",
-          "value": "Sevilla"
+          "value": "Denver"
         }
       ]
     },
     {
-      "id": "exit-2025",
-      "description": "Debe mencionar la venta en 2025",
-      "input": "¿Vendiste tu empresa?",
-      "lang": "es",
+      "id": "onboarding-metric",
+      "description": "Must cite the 30% onboarding adoption lift at WFG",
+      "input": "What results did the WFG onboarding redesign get?",
+      "lang": "en",
       "assertions": [
         {
-          "type": "contains",
-          "value": "2025"
+          "type": "contains_any",
+          "values": ["30%", "30 percent"]
+        }
+      ]
+    },
+    {
+      "id": "jem-what",
+      "description": "Must describe JEM as an AI journey-mapping tool",
+      "input": "What is JEM?",
+      "lang": "en",
+      "assertions": [
+        {
+          "type": "contains_any",
+          "values": ["journey", "Journey"]
         },
         {
           "type": "contains_any",
-          "values": [
-            "vendí",
-            "venta",
-            "going concern",
-            "funcionamiento"
-          ]
+          "values": ["Tovuti", "AI"]
         }
       ]
     },
     {
-      "id": "repairs-count",
-      "description": "Debe mencionar +30,000 reparaciones",
-      "input": "¿Cuántas reparaciones hicisteis en total?",
-      "lang": "es",
+      "id": "jem-hours",
+      "description": "Must cite the 10-15 hours saved per discovery cycle",
+      "input": "How much time does JEM save?",
+      "lang": "en",
       "assertions": [
         {
           "type": "contains_any",
-          "values": [
-            "30.000",
-            "30,000",
-            "30000",
-            "treinta mil"
-          ]
+          "values": ["10–15", "10-15", "10 to 15", "15 hours"]
         }
       ]
     },
     {
-      "id": "automation-hours",
-      "description": "Debe mencionar 170+ horas automatizadas/mes",
-      "input": "¿Cuántas horas automatizaste al mes?",
-      "lang": "es",
+      "id": "checkpoints-arr",
+      "description": "Must cite the $500K+ ARR riding on Checkpoints",
+      "input": "How much revenue was riding on the Checkpoints feature?",
+      "lang": "en",
       "assertions": [
         {
           "type": "contains_any",
-          "values": [
-            "170",
-            "ciento setenta"
-          ]
+          "values": ["500K", "500,000", "$500"]
+        }
+      ]
+    },
+    {
+      "id": "guidebook-platform",
+      "description": "Must name w3 Publisher as the guidebook migration target",
+      "input": "What platform did the IBM Digital Sellers Guidebook end up on?",
+      "lang": "en",
+      "assertions": [
+        {
+          "type": "contains_any",
+          "values": ["w3 Publisher", "w3"]
         }
       ]
     },
     {
       "id": "target-roles",
-      "description": "Debe mencionar roles de interés",
-      "input": "¿Qué roles te interesan?",
-      "lang": "es",
+      "description": "Must mention the roles Erik is looking for",
+      "input": "What roles are you looking for?",
+      "lang": "en",
       "assertions": [
         {
           "type": "contains_any",
-          "values": [
-            "Product Manager",
-            "Solutions Architect",
-            "Forward Deployed",
-            "FDE"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "repo-public",
-      "description": "Debe confirmar que el repo de {{DOMAIN}} es público en GitHub",
-      "input": "¿El código de {{DOMAIN}} está en GitHub?",
-      "lang": "es",
-      "assertions": [
-        {
-          "type": "contains_any",
-          "values": [
-            "público",
-            "publica",
-            "open",
-            "GitHub"
-          ]
-        },
-        {
-          "type": "contains_any",
-          "values": [
-            "{{SHORT_NAME}}",
-            "{{REPO_NAME}}"
-          ]
-        },
-        {
-          "type": "not_contains",
-          "value": "privado"
+          "values": ["Senior Product Designer", "Senior UX Designer", "AI Product Designer", "full-time"]
         }
       ]
     },
     {
       "id": "model-version",
-      "description": "Debe decir Claude Sonnet 4.5, no 3.5 Sonnet",
-      "input": "¿Qué modelo de IA usas?",
-      "lang": "es",
+      "description": "Must say Claude Sonnet 4.5, not 3.5 Sonnet",
+      "input": "What AI model do you use?",
+      "lang": "en",
       "assertions": [
         {
           "type": "contains_any",
-          "values": [
-            "Sonnet 4.5",
-            "sonnet-4-5",
-            "Claude Sonnet 4"
-          ]
+          "values": ["Sonnet 4.5", "sonnet-4-5", "Claude Sonnet 4"]
         },
         {
           "type": "not_contains",

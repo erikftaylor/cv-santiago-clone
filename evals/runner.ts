@@ -1,7 +1,7 @@
 #!/usr/bin/env npx tsx
 
 /**
- * Runner principal para la suite de evals del chatbot Santi
+ * Runner principal para la suite de evals del chatbot Erik
  *
  * Uso: npm run evals
  */
@@ -369,7 +369,7 @@ function generateReport(datasetResults: DatasetResult[]): string {
 async function main() {
   console.log(`${colors.bold}`)
   console.log(`╔═══════════════════════════════════════════╗`)
-  console.log(`║     Santi Chatbot Evals Suite             ║`)
+  console.log(`║     Erik Chatbot Evals Suite              ║`)
   console.log(`╚═══════════════════════════════════════════╝`)
   console.log(`${colors.reset}`)
 
