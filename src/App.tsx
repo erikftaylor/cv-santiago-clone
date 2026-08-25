@@ -1477,9 +1477,7 @@ function App() {
                 {t.heroSupport}
               </p>
 
-              <p className="text-lg md:text-xl leading-relaxed">
-                {t.greeting}
-                {' '}
+              <p className="text-lg md:text-xl leading-relaxed font-bold">
                 <BeamPill>
                   {t.heroPill.map((word, i) => (
                     <span key={word}>
