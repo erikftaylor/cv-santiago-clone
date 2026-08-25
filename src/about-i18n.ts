@@ -46,7 +46,7 @@ export const aboutContent = {
     timeline: [
       { period: '2026 –', role: 'Senior Product Designer', company: 'Freelance', desc: 'Product design for teams shipping software, discovery through implementation.' },
       { period: '2025 – 2026', role: 'Senior Product Designer', company: 'Tovuti LMS', desc: 'Led design across admin and learner surfaces; owned the design system.' },
-      { period: '2020 – 2024', role: 'UX Designer', company: 'Transamerica', desc: 'The World Financial Group agent portal and its design system.' },
+      { period: '2020 – 2024', role: 'Senior UX Designer', company: 'Transamerica', desc: 'The World Financial Group agent portal and its design system.' },
       { period: '2017 – 2020', role: 'Product Owner / UX Designer', company: 'IBM', desc: 'Owned the Digital Sellers Guidebook.' },
       { period: '2010 – 2017', role: 'Team Lead', company: 'IBM', desc: 'Team lead prior to moving into product ownership and design.' },
       { period: '2008 – 2010', role: 'Copywriter', company: 'IBM', desc: 'Where the tenure count starts — writing before designing.' },
