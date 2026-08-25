@@ -1509,8 +1509,7 @@ function App() {
                 {hydrated && <span className="inline-block w-[3px] h-[0.85em] bg-primary ml-1 rounded-sm translate-y-[2px]" style={{ animation: 'blink 1s step-end infinite' }} />}
                 <br />
                 {t.greeting}
-                <br />
-                {'with '}
+                {' with '}
                 <BeamPill>
                   {t.heroPill.map((word, i) => (
                     <span key={word}>
