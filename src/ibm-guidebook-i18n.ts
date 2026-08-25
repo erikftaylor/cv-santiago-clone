@@ -20,7 +20,8 @@ export const ibmGuidebookContent = {
     problem: {
       heading: 'The problem',
       body: [
-        'IBM\'s Cognitive Sales Advisor platform was designed to enhance the sales process, but adoption rates were low. Sellers, focused on closing deals, viewed the platform as an additional burden rather than a helpful tool. Managers, despite incentives to promote it, lacked the engagement and resources to effectively demonstrate its value — a barrier to adoption across the organization that a comprehensive, user-friendly resource was needed to close.',
+        'IBM\'s Cognitive Sales Advisor platform was designed to improve selling, but the experience asked sellers to absorb another tool while they were focused on closing deals. Managers were expected to encourage adoption without having a simple way to demonstrate the platform\'s value. The problem was not awareness alone; it was the lack of a low-friction path from a seller\'s immediate goal to useful guidance.',
+        'The key design decision: the guidebook was organized around how sellers and managers needed to use the platform — product pages made value easier to explain, role-based knowledge content reduced irrelevant reading, and the video library was searchable by user goal. That structure turned a broad adoption problem into a resource people could use inside their existing workflow.',
       ],
     },
 
@@ -54,12 +55,12 @@ export const ibmGuidebookContent = {
     results: {
       heading: 'What it surfaced',
       body: [
-        'This case study reports what the source material claims, not an independently verified figure: no adoption percentage was tracked, and none is claimed here.',
+        'This case study reports directional evidence from the source material, not an independently verified percentage: no adoption percentage was tracked, and none is claimed here.',
       ],
       factors: [
         {
-          label: 'Increased platform adoption',
-          detail: 'A noticeable uptick in Cognitive Sales Advisor usage among both managers and sellers, per the original case study — not a measured percentage.',
+          label: 'Reported adoption signal',
+          detail: 'The original case study describes a noticeable uptick in Cognitive Sales Advisor usage among both managers and sellers — a directional observation, not a measured percentage.',
         },
         {
           label: 'Executive recognition',
