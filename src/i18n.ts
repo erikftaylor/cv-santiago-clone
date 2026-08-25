@@ -77,7 +77,7 @@ export const translations = {
   // ENGLISH
   // ═══════════════════════════════════════════════════════════════════════════
   en: {
-    greeting: 'who works upstream of the build',
+    greeting: 'designs the decisions before the build starts',
     greetingRoles: [
       'Senior Product Designer',
       'UX Designer',

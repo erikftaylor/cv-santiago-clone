@@ -1514,7 +1514,7 @@ function App() {
                 <BeamPill>
                   {t.heroPill.map((word, i) => (
                     <span key={word}>
-                      {i > 0 && <span className="opacity-60"> + </span>}
+                      {i > 0 && <span className="opacity-60"> → </span>}
                       {word}
                     </span>
                   ))}
