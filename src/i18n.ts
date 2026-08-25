@@ -348,12 +348,12 @@ export const translations = {
       // in `skills.softSkills` above — these cards are tools and tech only.
       // WCAG stays 2.2 AA site-wide even though the resume says 2.1.
       categories: [
-        { name: 'Design', items: ['Figma', 'FigJam', 'Design Tokens', 'Auto-layout', 'Dev Mode', 'Prototyping'] },
-        { name: 'Design Systems', items: ['Component-Driven Design', 'Atomic Design', 'Vuetify 3', 'Bootstrap 5', 'Material Design 3', 'Component Spec Framework'] },
-        { name: 'AI', items: ['Claude', 'Claude Code', 'Claude API', 'ChatGPT', 'Gemini', 'Ollama', 'Custom Skill Authoring', 'Prompt Engineering', 'Workflow Automation'] },
+        { name: 'Design', items: ['Figma', 'FigJam', 'Sketch', 'Adobe Creative Suite', 'Miro', 'Lucidspark', 'Lucidchart', 'Design Tokens', 'Auto-layout', 'Dev Mode', 'Prototyping'] },
+        { name: 'Design Systems', items: ['Component-Driven Design', 'Atomic Design', 'Vuetify 3', 'Bootstrap 5', 'Material Design 3', 'Apple HIG', 'IBM Carbon', 'Component Spec Framework'] },
+        { name: 'AI', items: ['Claude', 'Claude Code', 'Claude API', 'ChatGPT', 'Gemini', 'Ollama', 'Cursor', 'NotebookLM', 'Custom Skill Authoring', 'Prompt Engineering', 'Workflow Automation'] },
         { name: 'Front-End', items: ['HTML', 'CSS', 'Vue 3', 'Nuxt 3', 'Cloudflare D1', 'React (read)', 'TypeScript (read)'] },
         { name: 'Accessibility', items: ['WCAG 2.2 AA', 'Inclusive Design', 'Accessible Component Architecture'] },
-        { name: 'Platforms', items: ['WordPress', 'Zendesk', 'Slack'] },
+        { name: 'Platforms', items: ['WordPress', 'Zendesk', 'Slack', 'Notion', 'Obsidian', 'VS Code', 'Camtasia', 'Ubuntu Linux'] },
       ],
     },
 
