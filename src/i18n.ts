@@ -350,7 +350,7 @@ export const translations = {
       categories: [
         { name: 'Design', items: ['Figma', 'FigJam', 'Design Tokens', 'Auto-layout', 'Dev Mode', 'Prototyping'] },
         { name: 'Design Systems', items: ['Component-Driven Design', 'Atomic Design', 'Vuetify 3', 'Bootstrap 5', 'Material Design 3', 'Component Spec Framework'] },
-        { name: 'AI', items: ['Claude', 'Claude Code', 'Claude API', 'Custom Skill Authoring', 'Prompt Engineering', 'Workflow Automation', 'Gemini'] },
+        { name: 'AI', items: ['Claude', 'Claude Code', 'Claude API', 'ChatGPT', 'Gemini', 'Ollama', 'Custom Skill Authoring', 'Prompt Engineering', 'Workflow Automation'] },
         { name: 'Front-End', items: ['HTML', 'CSS', 'Vue 3', 'Nuxt 3', 'Cloudflare D1', 'React (read)', 'TypeScript (read)'] },
         { name: 'Accessibility', items: ['WCAG 2.2 AA', 'Inclusive Design', 'Accessible Component Architecture'] },
         { name: 'Platforms', items: ['WordPress', 'Zendesk', 'Slack'] },
