@@ -1485,11 +1485,11 @@ function App() {
                 <span className="text-gradient-theme">{t.greetingRoles[0]}</span>
               </h1>
 
-              <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-4 max-w-2xl">
+              <p className="text-lg md:text-xl text-muted-foreground leading-normal mb-4 max-w-2xl">
                 {t.heroSupport}
               </p>
 
-              <p className="text-lg md:text-xl leading-relaxed font-bold">
+              <p className="text-lg md:text-xl leading-relaxed font-bold mt-5">
                 <BeamPill>
                   {t.heroPill.map((word, i) => (
                     <span key={word}>
