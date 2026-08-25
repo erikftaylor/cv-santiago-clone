@@ -115,7 +115,7 @@ export const jemContent = {
 
     cta: {
       heading: 'Want the mechanics?',
-      body: 'Happy to walk through the data model, the scoping-chat design, or what the first week of production taught us.',
+      body: 'Happy to walk through the data model, the scoping-chat design, or what the first week of internal use taught us.',
       ctaLabel: 'Get in touch',
       ctaHref: '/#contact',
     },
