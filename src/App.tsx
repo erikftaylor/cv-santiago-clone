@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useMemo, useReducer, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { motion, AnimatePresence } from 'motion/react'
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react'
 import { Mail, ExternalLink, Briefcase, GraduationCap, Award, Code, Bot, FolderGit2, Sparkles, FileText, SkipForward, ChevronRight, List } from 'lucide-react'
 import { translations, seo, type Lang } from './i18n'
 import { site } from './site.config'
@@ -16,6 +16,51 @@ function darkBrandClass(hex: string): string {
   const n = parseInt(m[1], 16)
   const lum = 0.2126 * ((n >> 16) & 255) + 0.7152 * ((n >> 8) & 255) + 0.0722 * (n & 255)
   return lum < 60 ? 'icon-dark-brand' : ''
+}
+
+/** #rrggbb → rgba() string, for motion values that must interpolate colors. */
+function hexAlpha(hex: string, alpha: number): string {
+  const m = /^#([0-9a-f]{6})$/i.exec(hex)
+  if (!m) return `rgba(0,0,0,${alpha})`
+  const n = parseInt(m[1], 16)
+  return `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},${alpha})`
+}
+
+const NO_RING = '0 0 0 1px rgba(0,0,0,0)'
+
+/**
+ * Skills "token cascade": the chip arrives with its brand color lit as a
+ * ring, then settles to the neutral resting state — the token layer flashes
+ * once as the section enters, then recedes. Ring is box-shadow so it never
+ * fights the CSS border hover from the brand-hover system.
+ */
+function CascadeChip({ brand, delay, className, style, children }: {
+  brand: string | null
+  delay: number
+  className: string
+  style?: React.CSSProperties
+  children: React.ReactNode
+}) {
+  const reduced = useReducedMotion()
+  const ring = brand ? `0 0 0 1px ${hexAlpha(brand, 0.55)}, 0 2px 10px -4px ${hexAlpha(brand, 0.35)}` : NO_RING
+  return (
+    <motion.span
+      initial={reduced ? { opacity: 0 } : { opacity: 0, y: 6, boxShadow: ring }}
+      whileInView={reduced ? { opacity: 1 } : { opacity: 1, y: 0, boxShadow: NO_RING }}
+      viewport={{ once: true, amount: 0.5 }}
+      transition={reduced
+        ? { duration: 0.2, delay: Math.min(delay, 0.2) }
+        : {
+            opacity: { duration: 0.35, delay, ease: [0.22, 1, 0.36, 1] },
+            y: { duration: 0.35, delay, ease: [0.22, 1, 0.36, 1] },
+            boxShadow: { duration: 0.7, delay: delay + 0.2, ease: 'easeOut' },
+          }}
+      className={className}
+      style={style}
+    >
+      {children}
+    </motion.span>
+  )
 }
 
 
@@ -1655,7 +1700,10 @@ function App() {
                   {proj.link && (
                     <Link to={`/${proj.link.split('/').slice(1).join('/')}`} className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors group/link">
                       <FileText className="w-4 h-4" aria-hidden="true" />
-                      <span>{proj.linkLabel ?? proj.link} →</span>
+                      <span>
+                        {proj.linkLabel ?? proj.link}{' '}
+                        <span className="inline-block transition-transform duration-200 ease-out group-hover/link:translate-x-1 motion-reduce:group-hover/link:translate-x-0" aria-hidden="true">→</span>
+                      </span>
                     </Link>
                   )}
                 </article>
@@ -1785,9 +1833,9 @@ function App() {
           </AnimatedSection>
 
           <div className="grid md:grid-cols-2 gap-6">
-            {moreProjects.map((proj) => (
-              <AnimatedSection key={proj.title}>
-                <article className="h-full p-6 rounded-2xl border border-border bg-background/60 backdrop-blur-sm hover:border-primary/40 transition-colors duration-300 flex flex-col">
+            {moreProjects.map((proj, projIdx) => (
+              <AnimatedSection key={proj.title} delay={Math.min(projIdx, 3) * 0.08}>
+                <article className="h-full p-6 rounded-2xl border border-border bg-background/60 backdrop-blur-sm hover:border-primary/40 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/5 motion-reduce:hover:translate-y-0 transition-[border-color,transform,box-shadow] duration-300 flex flex-col">
                   <div className="flex items-start justify-between gap-3 mb-2">
                     <h3 className="font-display text-xl font-bold">{proj.title}</h3>
                     {proj.badge && (
@@ -1818,7 +1866,10 @@ function App() {
                   {proj.link && (
                     <Link to={`/${proj.link.split('/').slice(1).join('/')}`} className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors group/link">
                       <FileText className="w-4 h-4" aria-hidden="true" />
-                      <span>{proj.linkLabel ?? proj.link} →</span>
+                      <span>
+                        {proj.linkLabel ?? proj.link}{' '}
+                        <span className="inline-block transition-transform duration-200 ease-out group-hover/link:translate-x-1 motion-reduce:group-hover/link:translate-x-0" aria-hidden="true">→</span>
+                      </span>
                     </Link>
                   )}
                 </article>
@@ -1930,10 +1981,15 @@ function App() {
             <AnimatedSection delay={0.1} className="md:col-span-4">
               <h3 className="font-display font-semibold mb-4">{t.skills.soft}</h3>
               <div className="flex flex-wrap gap-2">
-                {t.skills.softSkills.map((skill) => (
-                  <span key={skill} className="inline-flex items-center px-3 py-1.5 rounded-full text-sm leading-none whitespace-nowrap bg-accent/10 text-accent border border-accent/20 hover:bg-accent/20 transition-colors cursor-default">
+                {t.skills.softSkills.map((skill, i) => (
+                  <CascadeChip
+                    key={skill}
+                    brand={null}
+                    delay={Math.min(i * 0.025, 0.3)}
+                    className="inline-flex items-center px-3 py-1.5 rounded-full text-sm leading-none whitespace-nowrap bg-accent/10 text-accent border border-accent/20 hover:bg-accent/20 transition-colors cursor-default"
+                  >
                     {skill}
-                  </span>
+                  </CascadeChip>
                 ))}
               </div>
             </AnimatedSection>
@@ -1945,14 +2001,16 @@ function App() {
                   <div key={cat.name} className="p-4 rounded-xl bg-card border border-border">
                     <span className="text-xs font-medium text-primary uppercase tracking-wide">{cat.name}</span>
                     <div className="flex flex-wrap gap-2 mt-3">
-                      {cat.items.map((item) => {
+                      {cat.items.map((item, itemIdx) => {
                         const icon = getTechIcon(item)
                         // Hover borrows the tool's own brand color from its icon
                         // data — the token layer made visible. Methodology chips
                         // fall back to primary.
                         return (
-                          <span
+                          <CascadeChip
                             key={item}
+                            brand={icon?.color ?? null}
+                            delay={Math.min(itemIdx * 0.03, 0.42)}
                             style={{ '--chip-brand': icon?.color ?? 'hsl(var(--primary))' } as React.CSSProperties}
                             className="skill-chip group/chip inline-flex items-center gap-1.5 px-2 py-1 rounded-md text-xs bg-muted text-foreground border border-transparent transition-colors duration-200 hover:border-[color-mix(in_srgb,var(--chip-brand)_55%,transparent)] hover:bg-[color-mix(in_srgb,var(--chip-brand)_12%,transparent)] cursor-default"
                           >
@@ -1962,7 +2020,7 @@ function App() {
                               </svg>
                             )}
                             {item}
-                          </span>
+                          </CascadeChip>
                         )
                       })}
                     </div>
