@@ -118,7 +118,7 @@ export const translations = {
       why: 'My work spans global enterprise at IBM, financial services at Transamerica, and learning platforms at Tovuti LMS — from the early product thinking through the systems, interfaces, and implementation that follow.',
       seeking: [
         'Freelance right now, and open to the right full-time seat.',
-        'Working where AI is changing what design owns.',
+        'Most interested in teams where AI is reshaping the design work itself.',
       ],
       // "Ask about my work" nav entry removed while CHAT_ENABLED is false in
       // main.tsx — add it back alongside re-enabling chat.
