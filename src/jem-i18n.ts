@@ -10,7 +10,7 @@ export const jemContent = {
     kicker: 'Case Study — AI Product Design at Tovuti LMS',
     h1: 'JEM: An AI Journey-Mapping Tool, From Pain Point to Production',
     subtitle:
-      'Product teams were losing 10–15 hours per discovery cycle synthesizing research by hand. I designed JEM — an AI tool that turns raw sources into editable journey maps — and shipped it with Tovuti\'s lead engineer inside eight weeks.',
+      'Product teams were spending 10–15 hours per discovery cycle synthesizing research by hand. I designed JEM — an AI tool that turns raw sources into editable journey maps — and shipped it with Tovuti\'s lead engineer inside eight weeks.',
     date: 'August 2026',
     dateISO: '2026-08-24',
     readingTime: '7 min read',
@@ -54,13 +54,19 @@ export const jemContent = {
         'What V1 deliberately did not include: a template library, real-time collaborative scoping, Figma export — and no automated Zendesk or Slack integration; sources enter by paste, upload, or link. The bet was to ship the core loop — ingest, scope, generate, edit — and let the first weeks of real use pick the roadmap, rather than guessing at integrations before anyone had used the tool in anger.',
     },
 
+    // Renders between the architecture tradeoffs and Results.
+    humanJudgment: {
+      heading: 'Human judgment stayed in the loop',
+      body: 'JEM was designed to accelerate synthesis, not decide what the team should believe. People choose and scope the sources, steer the map through the guided conversation, inspect the generated draft, edit the canvas, and decide which version is ready for handoff. The AI produces a structured starting point; the team remains responsible for interpretation and prioritization.',
+    },
+
     results: {
       heading: 'Results',
       metrics: [
         {
           value: '10–15 hrs',
-          label: 'saved per discovery cycle',
-          detail: 'Hand synthesis of docs, transcripts, and tickets → a structured draft in one working session',
+          label: 'estimated time avoided per discovery cycle',
+          detail: 'Hand synthesis of docs, transcripts, and tickets → a structured draft in one working session; not a controlled time study',
         },
         {
           value: '10',
@@ -69,8 +75,8 @@ export const jemContent = {
         },
         {
           value: '8 weeks',
-          label: 'concept to engineering handoff',
-          detail: 'Product architecture, data model, and UI — designed, built, and verified in production',
+          label: 'concept to engineering handoff and initial internal use',
+          detail: 'Product architecture, data model, and UI — designed, built, and verified in the internal test environment',
         },
       ],
     },

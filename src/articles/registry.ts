@@ -65,11 +65,12 @@ export const articleRegistry: ArticleConfig[] = [
     title: 'JEM: An AI Journey-Mapping Tool',
     seo: {
       title: `JEM: Designing an AI Journey-Mapping Tool | ${site.domain}`,
-      description: 'Product teams lost 10-15 hours per discovery cycle to hand synthesis. The design story of JEM, an AI journey-mapping tool shipped in eight weeks at Tovuti LMS.',
+      description: 'Product teams spent an estimated 10-15 hours per discovery cycle on hand synthesis. The design story of JEM, an AI journey-mapping tool shipped in eight weeks at Tovuti LMS.',
     },
     sectionLabels: {
       problem: 'The problem',
       architecture: 'Architecture',
+      'human-judgment': 'Human judgment stayed in the loop',
       results: 'Results',
       lessons: 'Lessons',
     },
@@ -109,7 +110,7 @@ export const articleRegistry: ArticleConfig[] = [
     slug: 'a-go-no-go-discovery-for-a-500k-arr-approval-workflow',
     title: 'Checkpoints: A Go/No-Go Discovery',
     seo: {
-      title: `Go/No-Go Discovery on a Business-Critical Approval Workflow | ${site.domain}`,
+      title: `Go/No-Go Discovery on an Approval Workflow | ${site.domain}`,
       description: 'How 60+ support tickets, internal case notes, and team signals became four journey maps and five go/no-go gates for a business-critical LMS approval workflow.',
     },
     sectionLabels: {
@@ -200,7 +201,8 @@ export const articleRegistry: ArticleConfig[] = [
     sectionLabels: {
       problem: 'The problem',
       architecture: 'The method',
-      results: 'What it surfaced',
+      'key-decision': 'Key design decision',
+      results: 'What the research surfaced',
       lessons: 'Lessons',
     },
     type: 'case-study',
@@ -325,9 +327,9 @@ export const articleRegistry: ArticleConfig[] = [
     },
     sectionLabels: {
       problem: 'The problem',
-      architecture: 'The action',
+      architecture: 'The operating model',
       results: 'Results',
-      lessons: 'Lessons',
+      'human-judgment': 'Where judgment stayed human',
     },
     type: 'case-study',
     ogImage: `${site.origin}/og-image.webp`,

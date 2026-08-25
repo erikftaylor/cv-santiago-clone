@@ -13,7 +13,7 @@ export const aiNativeDesignContent = {
     kicker: 'Case Study — AI Workflow & Product Strategy at Tovuti LMS',
     h1: 'An AI-Native Design Practice at Tovuti',
     subtitle:
-      'Most designers who say they "use AI" mean they\'ve added a tool to their workflow — faster, but the same shape of work. I had a different question: what if AI wasn\'t a tool in the workflow, but the infrastructure the workflow ran on? Three interlocking builds over one year answered it.',
+      'Most designers who say they "use AI" mean they\'ve added a tool to their workflow — faster, but the same shape of work. I had a different question: what if AI wasn\'t a tool in the workflow, but the infrastructure the workflow ran on?',
     date: 'Tovuti LMS, 2025–2026',
     dateISO: '2026-06-01',
     readingTime: '7 min read',
@@ -21,31 +21,33 @@ export const aiNativeDesignContent = {
     problem: {
       heading: 'The problem',
       body: [
-        'Three problems were sitting in front of me simultaneously, and none of them were design problems a new Figma component would solve. Research synthesis took 10–15 hours per feature cycle — pulling from Zendesk, transcripts, KB articles, and meeting notes into a coherent brief. Journey maps were static artifacts disconnected from the evidence that should have built them. And Tovuti\'s analytics product had no strategic vision — no defined north star for what data should surface, to whom, and why.',
+        'Over one year, I built a connected operating model for moving design work from evidence to decisions. Three bottlenecks were connected, even though they appeared in different parts of the practice: research synthesis took 10–15 hours per feature cycle, with evidence living across Zendesk, transcripts, knowledge-base articles, and meeting notes before being manually shaped into a coherent brief; journey maps were static artifacts, disconnected from the evidence that should have built them; and Tovuti\'s analytics product had no strategic vision — no defined north star for what data should surface, to whom, and why.',
+        'None of these were problems a new Figma component would solve. They were translation and decision-design problems.',
       ],
     },
 
     architecture: {
-      heading: 'The action',
+      heading: 'The operating model',
       body: [
-        'I built three interlocking things over the course of the year, each scoped to eliminate a specific structural bottleneck rather than just speed it up.',
+        'The work followed three principles. Structural leverage beats generic tooling: look for places where information is being manually translated from one form into another. AI should remove mechanical work without removing judgment: the useful output is a structured draft a designer can validate, not an automated decision. And strategy is design work: defining whose decision a product capability should serve is part of designing the product, even when the interface has not shipped.',
+        'The three builds were different layers of the same system: make evidence easier to shape, make experience models easier to work with, and define how product data should support decisions.',
       ],
       steps: [
         {
-          title: 'JEM (Journey Experience Mapper)',
-          detail: 'A 0→1 web product that ingests multi-source research and generates living, evidence-backed journey maps through guided AI conversation. Full product ownership: architecture, data model, scoping interface, map canvas, engineering collaboration. Shipped to jem-test.tovuti.ai.',
+          title: 'Research infrastructure: 10 custom Claude skills',
+          detail: 'Each scoped to a specific slow point in the design cycle — the goal was not a faster general-purpose assistant, but eliminating a translation step and producing an output a designer can actually use. Two representative examples: a research-synthesis skill that shapes Zendesk content, transcripts, knowledge-base articles, and meeting notes into a coherent brief — the workflow associated with the change from 10–15 hours to under 2 hours of typical synthesis effort per feature cycle — and a component-specification and design-handoff review skill whose value is a structured review draft for the designer to validate, not an autonomous implementation decision.',
         },
         {
-          title: '10 custom Claude skills',
-          detail: 'A library of purpose-built AI skills covering research synthesis, competitive analysis, component specification review, and design handoff — each scoped to a specific slow point in the design cycle and built to eliminate it, not just speed it up.',
+          title: 'Journey modeling: JEM',
+          detail: 'The product layer of the operating model: a 0→1 web product that ingests multi-source research and generates living, evidence-backed journey maps through guided AI conversation. I owned the product design across the system — the product architecture and data model, the scoping interface, the map canvas, and collaboration with engineering through the build. Shipped to jem-test.tovuti.ai; in its first week JEM surfaced 20 friction points, and 10 were shipped as quick wins immediately.',
         },
         {
-          title: 'Analytics vision',
-          detail: 'A product strategy defining what Tovuti\'s analytics platform should become: an AI-assisted intelligence layer surfacing friction by feature, persona, and stage — audience-by-surface coverage maps, journey maps for analytics users, and a strategic brief positioning analytics as a product capability, not a reporting tab.',
+          title: 'Decision intelligence: analytics strategy',
+          detail: 'An AI-assisted intelligence layer that could surface friction by feature, persona, and stage: audience-by-surface coverage maps, analytics-user journey maps, and a strategic brief connecting those artifacts to a north star and an AI-integration roadmap. Together they framed analytics around the decisions it should support rather than the data available to display. This was strategy work, not a shipped interface: the vision produced no post-launch product metrics.',
         },
       ],
       tradeoffs:
-        'The bar for each skill was: does this eliminate the translation step, or does it just make it faster? General-purpose AI tools were rejected in favor of skills scoped tightly enough to require minimal editing of their output — narrower scope, but output a designer could actually trust.',
+        'The same principle governed all 10 skills: does this remove a mechanical translation step, or does it merely make the step faster? The narrower scope meant less flexibility than a general-purpose tool, but it produced outputs that required minimal editing and could be used in the standard design workflow.',
     },
 
     results: {
@@ -53,8 +55,8 @@ export const aiNativeDesignContent = {
       metrics: [
         {
           value: '10–15 hrs → <2 hrs',
-          label: 'research synthesis time per cycle',
-          detail: 'Across the 10 custom Claude skills',
+          label: 'typical research-synthesis effort per feature cycle',
+          detail: 'After introducing the AI-assisted synthesis workflow — a description of that workflow, not a claim that every one of the 10 skills independently produced the reduction',
         },
         {
           value: '20',
@@ -68,25 +70,17 @@ export const aiNativeDesignContent = {
         },
       ],
       body: [
-        'More than the individual outputs: a research-to-artifact pipeline that didn\'t exist at the start of the year, journey maps built from evidence instead of memory, and a product strategy for analytics that connected data to decisions rather than adding another report. The demonstration isn\'t that AI tools were used — it\'s that AI-native design practice means building the tools you need, not just using the ones that exist.',
+        'More important than the individual outputs, the work created a research-to-decision pipeline that did not exist at the start of the year: evidence could be synthesized into structured understanding, modeled as a living journey, and connected to a strategy for decision intelligence.',
       ],
     },
 
-    lessons: {
-      heading: 'Lessons',
-      items: [
-        {
-          title: 'The leverage point is structural, not tool-specific',
-          detail: 'Synthesis isn\'t slow because it\'s hard — it\'s slow because information comes in the wrong shape. Building a skill that reshapes it, rather than a faster way to do the reshaping by hand, is where the time actually comes back.',
-        },
-        {
-          title: 'AI infrastructure should eliminate steps, not replace judgment',
-          detail: 'The skills that stuck were the ones that removed a mechanical translation step and handed a designer a structured draft to validate — not the ones that tried to make the decision for them.',
-        },
-        {
-          title: 'A product strategy is still design work, even with no shipped UI',
-          detail: 'The analytics vision produced no interface, but defining whose decision every report should serve — audience-first rather than data-first — is the same design thinking that shaped JEM\'s data model.',
-        },
+    // Replaces the former Lessons section — the md's three principles moved
+    // into the operating-model intro, and this closes the piece instead.
+    humanJudgment: {
+      heading: 'Where judgment stayed human',
+      body: [
+        'The AI-assisted workflows did not decide which findings represented meaningful product opportunities. They organized evidence, surfaced patterns, and produced structured drafts to validate. Determining what to trust, what to prioritize, and what decision a product should support remained design judgment.',
+        'That boundary was intentional: AI infrastructure should eliminate mechanical translation, not replace the reasoning that gives the translation meaning.',
       ],
     },
 

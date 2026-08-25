@@ -68,6 +68,9 @@ export default function JemCaseStudy({ lang }: { lang: Lang }) {
       <StepList items={t.architecture.steps.map((s) => ({ label: s.title, detail: s.detail }))} />
       <Callout>{t.architecture.tradeoffs}</Callout>
 
+      <H2 id="human-judgment">{t.humanJudgment.heading}</H2>
+      <Prose>{t.humanJudgment.body}</Prose>
+
       <H2 id="results">{t.results.heading}</H2>
       <MetricsGrid items={t.results.metrics} columns={3} />
 

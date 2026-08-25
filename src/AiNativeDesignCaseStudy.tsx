@@ -10,7 +10,6 @@ import {
   ArticleHeader,
   ArticleFooter,
   FaqSection,
-  LessonsSection,
   MetricsGrid,
   CaseStudyCta,
 } from './articles/components'
@@ -73,7 +72,10 @@ export default function AiNativeDesignCaseStudy({ lang }: { lang: Lang }) {
         <Prose key={i}>{p}</Prose>
       ))}
 
-      <LessonsSection heading={t.lessons.heading} items={t.lessons.items} />
+      <H2 id="human-judgment">{t.humanJudgment.heading}</H2>
+      {t.humanJudgment.body.map((p, i) => (
+        <Prose key={i}>{p}</Prose>
+      ))}
 
       <FaqSection heading={t.faq.heading} items={t.faq.items} />
 
