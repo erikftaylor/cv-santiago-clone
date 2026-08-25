@@ -13,6 +13,24 @@
     <link rel="preload" href="/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/dm-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
 
+    <!-- Boot guard: stale cached HTML references hashed bundles a newer deploy
+         deleted; the SPA fallback serves them as HTML and the entry script dies
+         on "Unexpected token '<'", leaving a static page with no hydration.
+         Reload once with a cache-busting query. -->
+    <script>
+      (function () {
+        try {
+          if (sessionStorage.getItem('boot-reload-once')) return
+          addEventListener('error', function (e) {
+            var msg = (e && e.message) || ''
+            if (msg.indexOf("Unexpected token '<'") === -1) return
+            try { sessionStorage.setItem('boot-reload-once', '1') } catch (_) { return }
+            location.replace(location.pathname + '?r=' + Date.now())
+          }, true)
+        } catch (_) { /* storage denied — no guard, no loop risk */ }
+      })()
+    </script>
+
     <!-- Primary Meta Tags -->
     <title>Erik Taylor | Product Designer · AI × UX</title>
     <meta name="title" content="Erik Taylor | Product Designer · AI × UX" />

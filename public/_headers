@@ -1,0 +1,13 @@
+# HTML documents must never be served stale across deploys — a stale page
+# references hashed bundles the new deploy has deleted, and the SPA fallback
+# then serves those bundle URLs as HTML ("Unexpected token '<'").
+/*
+  Cache-Control: no-cache
+
+# Hashed bundles are content-addressed: safe to cache forever.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Self-hosted fonts change rarely.
+/fonts/*
+  Cache-Control: public, max-age=604800
