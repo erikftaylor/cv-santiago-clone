@@ -98,7 +98,10 @@ export const translations = {
 
     // ── Intro animation ──────────────────────────────────────────────────
     story: {
-      context: '18+ years of it, starting as an IBM copywriter in 2008.',
+      // "+18 …+" is the parser's digit convention: renders as "18+" with the
+      // whole line in ONE highlight span. A bare "18+" would split the line's
+      // typography (plain "18", highlighted remainder, "+" swallowed).
+      context: '+18 years of it, starting as an IBM copywriter in 2008.+',
       reflections: ['The decision is the story.', '…not the process diagram.'],
       hookParagraphs: [
         ['I work *upstream.*'],
