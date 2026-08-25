@@ -1307,7 +1307,8 @@ function StorySection({ t }: { t: (typeof translations)[Lang] }) {
             </p>
           </motion.div>
 
-          <div className="mt-6 text-center max-w-3xl mx-auto">
+          {/* mt-10 matches the gap above the "why" paragraph (the typewriter wrapper's pb-10) */}
+          <div className="mt-10 text-center max-w-3xl mx-auto">
             {t.story.seeking.map((line, i) => {
               // Spotlight: lines 0 and 2 light up with finalReveal, line 1 stays as background
               const isSpotlit = i === 0 || i === 2
