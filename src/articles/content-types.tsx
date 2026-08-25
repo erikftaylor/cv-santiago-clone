@@ -504,7 +504,7 @@ export function DiagramZoom({ src, hdSrc, alt, caption, loading = 'lazy', width,
           decoding="async"
         />
         <span className="absolute top-3 right-3 p-1.5 rounded-md bg-black/40 text-white/50 group-hover:text-white/90 transition-colors">
-          <ZoomIn className="w-4 h-4" />
+          <ZoomIn className="w-4 h-4" aria-hidden="true" />
         </span>
         {caption && <figcaption className="px-4 py-2 text-sm text-muted-foreground text-center bg-card">{caption}</figcaption>}
       </figure>
@@ -735,7 +735,7 @@ function CodeCopyButton({ text }: { text: string }) {
       className="absolute top-3 right-3 p-1.5 rounded-md bg-[hsl(var(--codeblock-text)/0.1)] hover:bg-[hsl(var(--codeblock-text)/0.2)] text-[hsl(var(--codeblock-text)/0.5)] hover:text-[hsl(var(--codeblock-text)/0.8)] transition-colors"
       title="Copy code"
     >
-      {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+      {copied ? <Check className="w-4 h-4" aria-hidden="true" /> : <Copy className="w-4 h-4" aria-hidden="true" />}
     </button>
   )
 }
@@ -815,7 +815,7 @@ export function Accordion({ items, variant = 'simple', className, editorId }: Ac
               <details key={i} className="group bg-card border border-border rounded-2xl hover:border-primary/30 transition-colors">
                 <summary className="px-5 py-4 cursor-pointer font-medium text-foreground text-sm flex items-center justify-between">
                   {item.title}
-                  <ChevronRight className="w-4 h-4 text-muted-foreground group-open:rotate-90 transition-transform shrink-0" />
+                  <ChevronRight className="w-4 h-4 text-muted-foreground group-open:rotate-90 transition-transform shrink-0" aria-hidden="true" />
                 </summary>
                 <div className="px-5 pb-4 border-t border-border pt-3">
                   <p className="text-sm text-muted-foreground">{item.detail}</p>
@@ -1247,7 +1247,7 @@ export function FloatingToc({ ctas }: { ctas?: TocCta[] } = {}) {
               onClick={() => scrollTo(targetId)}
               className="flex items-center gap-2 w-full px-3 py-2 rounded-lg bg-primary/10 border border-primary/20 text-primary text-sm font-medium hover:bg-primary/15 transition-colors"
             >
-              <Rocket className="w-3.5 h-3.5 flex-shrink-0" />
+              <Rocket className="w-3.5 h-3.5 flex-shrink-0" aria-hidden="true" />
               <span className="truncate">{cta.label}</span>
             </button>
           )
@@ -1339,7 +1339,7 @@ export function FloatingToc({ ctas }: { ctas?: TocCta[] } = {}) {
         className="xl:hidden fixed top-[1.05rem] left-4 z-[60] w-9 h-9 rounded-lg bg-card border border-border flex items-center justify-center hover:border-primary/50 transition-colors"
         aria-label="Toggle table of contents"
       >
-        {tocOpen ? <X className="w-4 h-4 text-primary" /> : <List className="w-4 h-4 text-muted-foreground" />}
+        {tocOpen ? <X className="w-4 h-4 text-primary" aria-hidden="true" /> : <List className="w-4 h-4 text-muted-foreground" aria-hidden="true" />}
       </button>
       {tocOpen && (
         <>
@@ -1502,7 +1502,7 @@ export function ArchitectureDiagram({ src, thumbnail, alt, label, subtitle, edit
               {subtitle && <p className="text-sm text-muted-foreground mt-0.5">{subtitle}</p>}
             </div>
             <span className="px-4 py-2 rounded-lg bg-primary/10 border border-primary/30 text-sm font-medium text-primary group-hover:bg-primary/20 group-hover:border-primary/50 transition-all">
-              <ZoomIn className="w-4 h-4 inline mr-1.5 -mt-0.5" />
+              <ZoomIn className="w-4 h-4 inline mr-1.5 -mt-0.5" aria-hidden="true" />
               Explorar
             </span>
           </div>
@@ -1517,7 +1517,7 @@ export function ArchitectureDiagram({ src, thumbnail, alt, label, subtitle, edit
             className="absolute top-3 right-4 z-10 w-9 h-9 rounded-lg bg-card border border-border flex items-center justify-center hover:border-primary/50 transition-colors"
             aria-label="Close diagram"
           >
-            <X className="w-4 h-4 text-muted-foreground" />
+            <X className="w-4 h-4 text-muted-foreground" aria-hidden="true" />
           </button>
           <iframe
             ref={iframeRef}
