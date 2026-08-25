@@ -16,9 +16,10 @@
  *   2. UNPROVEN STAYS UNPROVEN. The case studies state plainly that their
  *      metrics are not yet realized. Do not convert research-backed *goals*
  *      into achieved outcomes, and do not attach numbers to any of them.
- *   3. ONE HONEST CLAIM BEATS TWO IMPRESSIVE ONES. Tenure is **15+ years**,
- *      counted from IBM in 2008. The old "8+ years" line is retired; the two
- *      must never appear together.
+ *   3. ONE HONEST CLAIM BEATS TWO IMPRESSIVE ONES. Tenure is counted from IBM
+ *      in 2008 — update the "X+ years" figure as the years turn rather than
+ *      letting it go stale. The old "8+ years" line is retired; conflicting
+ *      figures must never appear together.
  *   4. Erik is **freelance** — no longer at Tovuti LMS. All Tovuti copy is
  *      past tense.
  *   5. Ridgeframe Strategies and his co-founder are deliberately OFF this
@@ -35,7 +36,7 @@ export const seo = {
   en: {
     title: `${site.brand} | ${site.tagline}`,
     description:
-      'Denver-based senior product designer, 15+ years across global enterprise, financial services, and learning platforms. Research through engineering handoff.',
+      'Denver-based senior product designer, 18+ years across global enterprise, financial services, and learning platforms. Research through product decisions, systems, and implementation.',
   },
 }
 
@@ -85,7 +86,7 @@ export const translations = {
       'AI × UX Practitioner',
     ],
     /** The three words in the hero's beam pill. */
-    heroPill: ['Research', 'Systems', 'Handoff'],
+    heroPill: ['Research', 'Decisions', 'Systems', 'Implementation'],
     pillLabels: ['Senior Product Designer', 'AI × UX'],
     email: site.email,
     role: '',
@@ -94,7 +95,7 @@ export const translations = {
 
     // ── Intro animation ──────────────────────────────────────────────────
     story: {
-      context: '15+ years of it, starting as an IBM copywriter in 2008.',
+      context: '18+ years of it, starting as an IBM copywriter in 2008.',
       reflections: ['The decision is the story.', '…not the process diagram.'],
       hookParagraphs: [
         ['I work *upstream.*'],
@@ -103,24 +104,23 @@ export const translations = {
           '+before anything gets generated+.',
         ],
       ],
-      why: 'Enterprise at IBM, financial services at Transamerica, learning platforms at Tovuti LMS. Research through engineering handoff, and the tradeoffs named out loud.',
+      why: 'Enterprise at IBM, financial services at Transamerica, learning platforms at Tovuti LMS. Research through product decisions, systems, and implementation, with tradeoffs named out loud.',
       seeking: [
-        'Now freelance.',
+        'Freelance right now, and open to the right full-time seat.',
         'Working where AI is changing what design owns.',
-        'Open to the right full-time role.',
       ],
       nav: [
-        { icon: 'briefcase', label: 'My path', href: '#experience' },
-        { icon: 'folder', label: 'What I build', href: '#projects' },
+        { icon: 'briefcase', label: 'Experience', href: '#experience' },
+        { icon: 'folder', label: 'Work', href: '#projects' },
         { icon: 'mail', label: "Let's talk", href: '#contact' },
-        { icon: 'bot', label: 'Ask me', href: '#chat', highlight: true },
+        { icon: 'bot', label: 'Ask about my work', href: '#chat', highlight: true },
       ],
       skills: ['Product Design', 'UX Research', 'Design Systems', 'AI-Integrated Workflows'],
       skipButton: 'Skip intro',
     },
 
     summary: {
-      p2: 'Fifteen-plus years across ',
+      p2: 'Eighteen-plus years across ',
       p2Highlight: 'global enterprise, financial services, and learning platforms',
       p2End: ' — now freelance, working where AI is changing what design is responsible for.',
     },
@@ -135,7 +135,7 @@ export const translations = {
         },
         {
           title: 'Design Systems in Figma',
-          desc: 'From early wireframes to production-ready systems. I work in Figma the way engineers work in code: structure, consistency, and handoffs that do not require a meeting to decode.',
+          desc: 'From early wireframes to production-ready systems. I work in Figma the way engineers work in code: structure, consistency, and specs that do not require a meeting to decode.',
         },
         {
           title: 'Designing for AI-Generated Experiences',
@@ -165,7 +165,7 @@ export const translations = {
           location: 'Denver, CO · Remote',
           role: 'Senior Product Designer',
           period: '2026 – Present',
-          desc: 'Product design for teams shipping software — discovery through engineering handoff.',
+          desc: 'Product design for teams shipping software — discovery through implementation.',
           highlights: [],
         },
         {
@@ -219,7 +219,7 @@ export const translations = {
           location: 'Remote',
           role: 'Copywriter',
           period: '2008 – 2010',
-          desc: 'Where the fifteen years starts — writing before designing.',
+          desc: 'Where the tenure count starts — writing before designing.',
           highlights: [],
         },
       ] as readonly ExperienceItem[],
@@ -321,7 +321,7 @@ export const translations = {
         'Design systems',
         'Information architecture',
         'Cross-functional collaboration',
-        'Engineering handoff',
+        'Engineering collaboration',
         'Accessibility (WCAG 2.2 AA)',
       ],
     },

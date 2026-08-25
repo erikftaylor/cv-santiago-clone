@@ -181,7 +181,7 @@ const FOOTER_I18N = {
   },
   en: {
     role: site.tagline,
-    bio: 'Erik Taylor is a Denver-based senior product designer with 15+ years across IBM, Transamerica, and Tovuti LMS. He works upstream — research, information architecture, and design systems.',
+    bio: 'Erik Taylor is a Denver-based senior product designer with 18+ years across IBM, Transamerica, and Tovuti LMS. He works upstream — research, information architecture, and design systems.',
     copyright: 'All rights reserved.',
   },
 } as const
