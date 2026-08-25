@@ -109,8 +109,8 @@ export const articleRegistry: ArticleConfig[] = [
     slug: 'a-go-no-go-discovery-for-a-500k-arr-approval-workflow',
     title: 'Checkpoints: A Go/No-Go Discovery',
     seo: {
-      title: `Go/No-Go Discovery on a $500K Approval Workflow | ${site.domain}`,
-      description: 'How 60+ support tickets, internal case notes, and team signals became four journey maps and five go/no-go gates for a $500K ARR LMS approval workflow.',
+      title: `Go/No-Go Discovery on a Business-Critical Approval Workflow | ${site.domain}`,
+      description: 'How 60+ support tickets, internal case notes, and team signals became four journey maps and five go/no-go gates for a business-critical LMS approval workflow.',
     },
     sectionLabels: {
       problem: 'The problem',

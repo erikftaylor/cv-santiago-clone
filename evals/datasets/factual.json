@@ -72,13 +72,13 @@
     },
     {
       "id": "checkpoints-arr",
-      "description": "Must cite the $500K+ ARR riding on Checkpoints",
+      "description": "Must describe the commercial stakes on Checkpoints without citing a dollar figure (the $500K ARR claim was retired 2026-08-25)",
       "input": "How much revenue was riding on the Checkpoints feature?",
       "lang": "en",
       "assertions": [
         {
           "type": "contains_any",
-          "values": ["500K", "500,000", "$500"]
+          "values": ["commercially significant", "at-risk account", "expansion opportunity", "business-critical"]
         }
       ]
     },

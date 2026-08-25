@@ -23,20 +23,20 @@ is currently freelance and open to senior product design roles.
 ## Experience
 
 - **Freelance (2026–present), Senior Product Designer.** Product design for teams shipping software — discovery through engineering handoff.
-- **Tovuti LMS (2025–2026), Senior Product Designer.** Designed and shipped JEM, an AI journey-mapping tool that saves teams 10–15 hours per discovery cycle (ten fixes in its first production week). Led go/no-go discovery on Checkpoints, an approval-workflow feature carrying $500K+ ARR — 60+ tickets synthesized into four persona journey maps and five go/no-go gates. Owned the design system: token-first, WCAG AA, specs consumed by 8–12 engineers.
+- **Tovuti LMS (2025–2026), Senior Product Designer.** Designed and shipped JEM, an AI journey-mapping tool that saves teams 10–15 hours per discovery cycle (ten fixes in its first production week). Led go/no-go discovery on Checkpoints, an approval-workflow feature tied to a commercially significant expansion opportunity — 60+ tickets synthesized into four persona journey maps and five go/no-go gates. Owned the design system: token-first, WCAG AA, specs consumed by 8–12 engineers.
 - **Transamerica (2020–2024), UX Designer.** World Financial Group agent portal and design system. New-agent onboarding redesigned with research-backed targets for task completion, engagement, and satisfaction; no post-launch adoption metrics were measured. Global navigation rebuilt around frequency of use rather than the org chart.
 - **IBM (2008–2020), Copywriter → Team Lead → Product Owner / UX Designer.** Owned the Digital Sellers Guidebook: a WordPress-based sales-enablement resource with role-segmented content — product pages, knowledge base, and a searchable video library — informed by stakeholder interviews with sellers and managers.
 
 ## Projects
 
 - **JEM (Journey Experience Mapper)** — AI tool turning raw research sources into editable persona-based journey maps; guided AI scoping chat; Claude-powered. Shipped at Tovuti LMS.
-- **Checkpoints Go/No-Go** — discovery synthesis and risk assessment on a $500K+ ARR approval-workflow feature.
+- **Checkpoints Go/No-Go** — discovery synthesis and risk assessment on a business-critical approval-workflow feature.
 - **This site** — React 19 + Vite portfolio with an agentic-RAG chatbot (text + voice) built on Claude, automated evals in CI, and Langfuse observability.
 
 ## Case Studies
 
 - [JEM / Journey Map Generator](https://etaylor.co/i-vibe-coded-a-journey-map-generator-auto-synthesizing-docs-and-demos-into-actionable-friction-maps): AI journey-mapping tool from concept to production at Tovuti LMS.
-- [Checkpoints Go/No-Go](https://etaylor.co/a-go-no-go-discovery-for-a-500k-arr-approval-workflow): discovery synthesis and a five-gate risk assessment on a $500K+ ARR approval workflow.
+- [Checkpoints Go/No-Go](https://etaylor.co/a-go-no-go-discovery-for-a-500k-arr-approval-workflow): discovery synthesis and a five-gate risk assessment on a business-critical approval workflow.
 - [WFG Agent Portal](https://etaylor.co/empowering-financial-agents-with-a-redesigned-portal-experience): agent portal redesign grounded in research, with role-based personalization and research-backed targets; no post-launch metrics claimed.
 - [Advisor Navigation](https://etaylor.co/boosting-advisor-efficiency-with-a-renovated-navigation-experience): frequency-of-use navigation overhaul; no post-launch metrics claimed.
 - [IBM Digital Sellers Guidebook](https://etaylor.co/driving-adoption-and-engagement-with-ibms-digital-sellers-guidebook): WordPress-based sales-enablement resource with role-segmented content, built from stakeholder research.

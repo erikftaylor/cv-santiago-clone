@@ -8,7 +8,7 @@ export type CheckpointsLang = 'en'
 export const checkpointsContent = {
   en: {
     kicker: 'Case Study — Product Discovery at Tovuti LMS',
-    h1: 'Five Gates Before GA: Discovery on a $500K ARR Approval Workflow',
+    h1: 'Five Gates Before GA: Discovery on a Business-Critical Approval Workflow',
     subtitle:
       'An approval-workflow feature was "broken again" in support channels, and nobody could say precisely how. I synthesized 60+ tickets, case notes, and team signals into four journey maps and five go/no-go gates — before more code shipped.',
     date: 'August 2026',
@@ -18,7 +18,7 @@ export const checkpointsContent = {
     problem: {
       heading: 'The problem',
       body: [
-        'Checkpoints lets course creators embed human approval gates inside courses: learners submit work, approvers review it against rubrics, submissions route through org roles, rejections trigger resubmission cycles, and approvals mint certificates. For compliance-heavy customers — pharma, financial services, franchises — it is the difference between an LMS and a system of record. It was also carrying real weight: a $500K+ ARR expansion wedge, with several at-risk accounts depending on it.',
+        'Checkpoints lets course creators embed human approval gates inside courses: learners submit work, approvers review it against rubrics, submissions route through org roles, rejections trigger resubmission cycles, and approvals mint certificates. For compliance-heavy customers — pharma, financial services, franchises — it is the difference between an LMS and a system of record. It was also carrying real weight: a commercially significant expansion opportunity, with several at-risk accounts depending on it.',
         'The failure mode was epistemic, not just technical. Individual tickets each looked like a one-off — a submission that vanished, an approval that could not be undone. Support channels said "broken again," which is the sound of a systemic problem nobody has mapped. Worse, the quietest signal was the most expensive one: customers deprioritizing their Checkpoints rollouts without filing tickets at all. The team did not need more opinions about what to build. It needed a defensible read of what was actually broken, for whom, and what had to be true before the feature could responsibly reach GA.',
       ],
     },
