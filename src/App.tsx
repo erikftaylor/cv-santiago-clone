@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useMemo, useReducer, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'motion/react'
-import { Mail, ExternalLink, Briefcase, GraduationCap, Award, Code, Users, Globe, Bot, BadgeCheck, FolderGit2, Sparkles, Github, FileText, Calendar, SkipForward, ChevronRight, List } from 'lucide-react'
+import { Mail, ExternalLink, Briefcase, GraduationCap, Award, Code, Globe, Bot, BadgeCheck, FolderGit2, Sparkles, Github, FileText, SkipForward, ChevronRight, List } from 'lucide-react'
 import { translations, seo, type Lang } from './i18n'
 import { site } from './site.config'
 import { useHomeSeo } from './articles/use-article-seo'
@@ -276,7 +276,6 @@ function useTypewriterRotation(roles: readonly string[], { typeSpeed = 80, delet
 const HOME_TOC_SECTIONS = [
   { id: 'experience', es: 'Experiencia', en: 'Experience' },
   { id: 'projects', es: 'Proyectos', en: 'Projects' },
-  { id: 'speaking', es: 'Compartiendo', en: 'Sharing' },
   { id: 'education', es: 'Formación', en: 'Education' },
   { id: 'tech', es: 'Skills & Stack', en: 'Skills & Stack' },
   { id: 'contact', es: 'Contacto', en: 'Contact' },
@@ -1697,45 +1696,6 @@ function App() {
         </div>
       </section>
 
-      {/* ── Speaking & writing · hidden entirely when empty ──────────────── */}
-      {t.speaking.items.length > 0 && (
-        <section id="speaking" className="py-16 md:py-24 bg-muted/30" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 800px' }}>
-          <div className="max-w-5xl mx-auto px-6">
-            <AnimatedSection>
-              <h2 className="font-display text-2xl font-semibold mb-8 flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                  <Users className="w-5 h-5 text-primary" />
-                </div>
-                {t.speaking.title}
-              </h2>
-            </AnimatedSection>
-
-            <div className="grid md:grid-cols-2 gap-6">
-              {t.speaking.items.map((talk) => (
-                <AnimatedSection key={talk.title}>
-                  <article className="h-full p-6 rounded-2xl border border-border bg-background/60 backdrop-blur-sm">
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
-                      <Calendar className="w-4 h-4" />
-                      <span>{talk.year}</span>
-                      <span>·</span>
-                      <span>{talk.org}</span>
-                    </div>
-                    <h3 className="font-display text-lg font-bold mb-2">{talk.title}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed mb-4">{talk.desc}</p>
-                    {talk.url && (
-                      <a href={talk.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors">
-                        <ExternalLink className="w-4 h-4" />
-                        {t.speaking.slides}
-                      </a>
-                    )}
-                  </article>
-                </AnimatedSection>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
 
       {/* Education & Certifications — hidden while both lists are empty */}
       {(t.education.items.length > 0 || t.certifications.items.length > 0) && (
@@ -1760,11 +1720,13 @@ function App() {
                     <div className="p-5 rounded-2xl bg-card border border-border hover:border-primary/30 transition-colors duration-200 group">
                       <div className="flex items-start justify-between">
                         <div>
-                          <span className="text-xs text-primary font-medium">{item.year} · {item.org}</span>
+                          <span className="text-xs text-primary font-medium">{item.year ? `${item.year} · ` : ''}{item.org}</span>
                           <h3 className="font-display font-semibold mt-1 group-hover:text-primary transition-colors">{item.title}</h3>
-                          <p className="text-sm text-muted-foreground mt-1">
-                            {item.desc}
-                          </p>
+                          {item.desc && (
+                            <p className="text-sm text-muted-foreground mt-1">
+                              {item.desc}
+                            </p>
+                          )}
                         </div>
                       </div>
                     </div>

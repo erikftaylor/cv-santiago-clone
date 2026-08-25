@@ -285,18 +285,22 @@ export const translations = {
       ] as readonly ProjectItem[],
     },
 
-    speaking: {
-      title: 'Speaking & writing',
-      comingSoon: 'More coming soon',
-      slides: 'Slides',
-      items: [] as readonly { title: string; org: string; year: string; desc: string; url?: string }[],
-    },
-
     education: {
       title: 'Education',
-      // No degree / institution / year on record for this material —
-      // intentionally left empty rather than assumed.
-      items: [] as readonly { year: string; org: string; title: string; desc: string }[],
+      items: [
+        {
+          year: '2020',
+          org: 'University of Denver',
+          title: 'UX Design Bootcamp Certificate',
+          desc: 'Human-centered design methodology, qualitative research methods, journey mapping, usability testing.',
+        },
+        {
+          year: '',
+          org: 'University of Massachusetts Amherst',
+          title: 'B.A., English Language & Literature',
+          desc: '',
+        },
+      ] as readonly { year: string; org: string; title: string; desc: string }[],
     },
 
     certifications: {
