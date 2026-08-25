@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, useCallback, useMemo, Fragment, type ReactNode } from 'react'
+import { createContext, useContext, useState, useEffect, useCallback, useMemo, useRef, Fragment, type ReactNode } from 'react'
 import { motion } from 'motion/react'
 import { ChevronRight, List, Copy, Check, ZoomIn, X, Rocket } from 'lucide-react'
 
@@ -486,34 +486,70 @@ interface DiagramZoomProps {
 export function DiagramZoom({ src, hdSrc, alt, caption, loading = 'lazy', width, height, hdWidth, hdHeight, className, editorId }: DiagramZoomProps) {
   const [lightbox, setLightbox] = useState(false)
   const aspectRatio = width && height ? `${width} / ${height}` : undefined
+  const triggerRef = useRef<HTMLButtonElement>(null)
+  const closeButtonRef = useRef<HTMLButtonElement>(null)
+
+  useEffect(() => {
+    if (lightbox) {
+      closeButtonRef.current?.focus()
+    } else {
+      triggerRef.current?.focus()
+    }
+  }, [lightbox])
+
+  useEffect(() => {
+    if (!lightbox) return
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setLightbox(false)
+    }
+    window.addEventListener('keydown', handleEscape)
+    return () => window.removeEventListener('keydown', handleEscape)
+  }, [lightbox])
 
   return (
     <EditorLabel name="DiagramZoom" id={editorId}>
-      <figure
-        className={`relative rounded-lg overflow-hidden border border-border shadow-lg mb-6 group cursor-zoom-in ${className ?? ''}`}
-        onClick={() => setLightbox(true)}
-      >
-        <img
-          src={src}
-          alt={alt}
-          width={width}
-          height={height}
-          style={aspectRatio ? { aspectRatio } : undefined}
-          className="w-full h-auto object-contain bg-card"
-          loading={loading}
-          decoding="async"
-        />
-        <span className="absolute top-3 right-3 p-1.5 rounded-md bg-black/40 text-white/50 group-hover:text-white/90 transition-colors">
-          <ZoomIn className="w-4 h-4" aria-hidden="true" />
-        </span>
+      <figure className={`rounded-lg overflow-hidden border border-border shadow-lg mb-6 ${className ?? ''}`}>
+        <button
+          ref={triggerRef}
+          type="button"
+          onClick={() => setLightbox(true)}
+          aria-label={`Zoom in on ${alt}`}
+          className="relative block w-full group cursor-zoom-in"
+        >
+          <img
+            src={src}
+            alt={alt}
+            width={width}
+            height={height}
+            style={aspectRatio ? { aspectRatio } : undefined}
+            className="w-full h-auto object-contain bg-card"
+            loading={loading}
+            decoding="async"
+          />
+          <span className="absolute top-3 right-3 p-1.5 rounded-md bg-black/40 text-white/50 group-hover:text-white/90 transition-colors">
+            <ZoomIn className="w-4 h-4" aria-hidden="true" />
+          </span>
+        </button>
         {caption && <figcaption className="px-4 py-2 text-sm text-muted-foreground text-center bg-card">{caption}</figcaption>}
       </figure>
       {lightbox && (
         <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={`Zoomed view of ${alt}`}
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 cursor-zoom-out p-4"
           onClick={() => setLightbox(false)}
         >
-          <img src={hdSrc} alt={alt} width={hdWidth} height={hdHeight} className="max-w-full max-h-full rounded-lg shadow-2xl" />
+          <button
+            ref={closeButtonRef}
+            type="button"
+            onClick={(e) => { e.stopPropagation(); setLightbox(false) }}
+            aria-label="Close zoomed view"
+            className="absolute top-4 right-4 p-2 rounded-full bg-black/40 text-white/70 hover:text-white hover:bg-black/60 transition-colors"
+          >
+            <X className="w-5 h-5" aria-hidden="true" />
+          </button>
+          <img src={hdSrc} alt={alt} width={hdWidth} height={hdHeight} className="max-w-full max-h-full rounded-lg shadow-2xl" onClick={(e) => e.stopPropagation()} />
         </div>
       )}
     </EditorLabel>
