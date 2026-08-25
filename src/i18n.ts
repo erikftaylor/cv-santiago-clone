@@ -36,7 +36,7 @@ export const seo = {
   en: {
     title: `${site.brand} | ${site.tagline}`,
     description:
-      'Denver-based senior product designer, 18+ years across global enterprise, financial services, and learning platforms. Research through product decisions, systems, and implementation.',
+      'Denver-based senior product designer, in design since 2016 and in tech since 2008, across global enterprise, financial services, and learning platforms. Research through product decisions, systems, and implementation.',
   },
 }
 
@@ -98,10 +98,10 @@ export const translations = {
 
     // ── Intro animation ──────────────────────────────────────────────────
     story: {
-      // "+18 …+" is the parser's digit convention: renders as "18+" with the
-      // whole line in ONE highlight span. A bare "18+" would split the line's
-      // typography (plain "18", highlighted remainder, "+" swallowed).
-      context: '+18 years of it, starting as an IBM copywriter in 2008.+',
+      // Wrapped in +…+ so the whole line is ONE highlight span (a bare "+"
+      // mid-line would split the typography). Tenure is split deliberately:
+      // "18+ years" read as 18 years of design; design started ~2016.
+      context: '+In the field since 2008 — an IBM copywriter first, a designer since 2016.+',
       reflections: ['The decision is the story.', '…not the process diagram.'],
       hookParagraphs: [
         ['I work *upstream.*'],

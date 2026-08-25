@@ -22,7 +22,7 @@ export const aboutContent = {
     seo: {
       title: `${site.fullName} | ${site.tagline}`,
       description:
-        'Erik Taylor is a Denver-based senior product designer with 18+ years across IBM, Transamerica, and Tovuti LMS — upstream, where AI meets UX. Now freelance.',
+        'Erik Taylor is a Denver-based senior product designer, in design since 2016 and in tech since 2008, across IBM, Transamerica, and Tovuti LMS — upstream, where AI meets UX. Now freelance.',
     },
     heading: site.fullName,
     manifesto: 'The decisions that matter get made upstream of the build — before anything gets generated.',
