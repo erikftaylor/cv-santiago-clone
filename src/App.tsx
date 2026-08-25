@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useMemo, useReducer, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'motion/react'
-import { Mail, ExternalLink, Briefcase, GraduationCap, Award, Code, Bot, FolderGit2, Sparkles, Github, FileText, SkipForward, ChevronRight, List } from 'lucide-react'
+import { Mail, ExternalLink, Briefcase, GraduationCap, Award, Code, Bot, FolderGit2, Sparkles, FileText, SkipForward, ChevronRight, List } from 'lucide-react'
 import { translations, seo, type Lang } from './i18n'
 import { site } from './site.config'
 import { useHomeSeo } from './articles/use-article-seo'
@@ -1524,12 +1524,6 @@ function App() {
                 </div>
                 {t.projects.featuredTitle}
               </h2>
-              {site.social.github && (
-                <a href={site.social.github} target="_blank" rel="me noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
-                  <Github className="w-4 h-4" aria-hidden="true" />
-                  {t.projects.githubLink}
-                </a>
-              )}
             </div>
           </AnimatedSection>
 

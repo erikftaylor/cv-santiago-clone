@@ -226,7 +226,6 @@ export const translations = {
       title: 'Case studies',
       featuredTitle: 'Featured Work',
       moreTitle: 'More Work',
-      githubLink: site.social.github.replace('https://', ''),
       viewCode: 'Read the case study',
       viewPrototype: 'View prototype',
       items: [
