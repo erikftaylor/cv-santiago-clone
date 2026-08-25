@@ -1,7 +1,7 @@
 # ADR-001: Tech Stack Selection
 
 **Date:** 2025-01-15
-**Status:** Accepted
+**Status:** Superseded by [ADR-002](./002-cloudflare-workers-architecture.md) (frontend-stack rationale still stands)
 **Decision makers:** Erik Taylor
 
 ## Context
