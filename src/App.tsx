@@ -296,10 +296,12 @@ function HomeToc({ lang }: { lang: Lang }) {
   const [activeId, setActiveId] = useState('')
   const [tocOpen, setTocOpen] = useState(false)
 
-  // Show when #experience top reaches viewport, hide when user scrolls above it
+  // Show when the first tracked section's top reaches viewport, hide when
+  // user scrolls above it. Reads HOME_TOC_SECTIONS[0] rather than a hardcoded
+  // id so this stays correct if the section order changes again.
   useEffect(() => {
     const check = () => {
-      const trigger = document.getElementById('experience')
+      const trigger = document.getElementById(HOME_TOC_SECTIONS[0].id)
       if (!trigger) return
       const show = trigger.getBoundingClientRect().top <= 100
       setVisible(show)
