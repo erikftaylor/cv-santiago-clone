@@ -51,11 +51,15 @@ function StaggerIn({ delay = 0, x = 0, y = 8, className, children }: {
       // phase 0 must apply NO styles: framer bakes `animate` values into the
       // SSR markup, and hidden poses in prerendered HTML mean invisible
       // content for crawlers and anyone whose hydration is slow or broken.
+      // phase 2 uses from-keyframes so the entrance plays even when detection
+      // and in-view arrive together (content-visibility does exactly that).
       animate={phase === 0
         ? false
-        : phase === 2
-          ? (reduced ? { opacity: 1 } : { opacity: 1, x: 0, y: 0 })
-          : (reduced ? { opacity: 0 } : { opacity: 0, x, y })}
+        : phase === 3
+          ? { opacity: 1, x: 0, y: 0 }
+          : phase === 2
+            ? (reduced ? { opacity: [0, 1] } : { opacity: [0, 1], x: [x, 0], y: [y, 0] })
+            : (reduced ? { opacity: 0 } : { opacity: 0, x, y })}
       transition={{ duration: reduced ? 0.2 : 0.45, delay: reduced ? Math.min(delay, 0.15) : delay, ease: [0.22, 1, 0.36, 1] }}
       className={className}
     >
@@ -77,12 +81,15 @@ function CascadeChip({ brand, delay, className, style, children }: {
   return (
     <motion.span
       initial={false}
-      // See StaggerIn: phase 0 keeps the SSR markup style-free and visible.
+      // See StaggerIn: phase 0 keeps the SSR markup style-free and visible,
+      // and phase 2 plays the entrance from explicit keyframes.
       animate={phase === 0
         ? false
-        : phase === 2
-          ? (reduced ? { opacity: 1 } : { opacity: 1, y: 0, boxShadow: NO_RING })
-          : (reduced ? { opacity: 0 } : { opacity: 0, y: 6, boxShadow: ring })}
+        : phase === 3
+          ? { opacity: 1, y: 0, boxShadow: NO_RING }
+          : phase === 2
+            ? (reduced ? { opacity: [0, 1] } : { opacity: [0, 1], y: [6, 0], boxShadow: [ring, NO_RING] })
+            : (reduced ? { opacity: 0 } : { opacity: 0, y: 6, boxShadow: ring })}
       transition={reduced
         ? { duration: 0.2, delay: Math.min(delay, 0.2) }
         : {
@@ -496,7 +503,8 @@ function HomeToc({ lang }: { lang: Lang }) {
  *  0 = SSR / pre-detection: children must render WITHOUT motion styles so the
  *      prerendered HTML stays fully visible for crawlers and pre-hydration.
  *  1 = detected but offscreen: children may hold their hidden pose.
- *  2 = in view: children animate in. */
+ *  2 = in view: children play their entrance from explicit keyframes.
+ *  3 = in view but above the fold on load: show instantly, no entrance. */
 const SectionInView = createContext(0)
 
 function AnimatedSection({ children, className = '', delay = 0 }: { children: React.ReactNode, className?: string, delay?: number }) {
@@ -538,13 +546,16 @@ function AnimatedSection({ children, className = '', delay = 0 }: { children: Re
         !hydrated || !detected
           ? false  // Pre-hydration / pre-detection: preserve SSR DOM state
           : isInView
-            ? { opacity: 1, y: 0 }
+            // Explicit from-keyframes: content-visibility can deliver detection
+            // and in-view in the same observer callback, and animating from the
+            // element's natural (visible) state would make the entrance a no-op.
+            ? (wasAboveFold.current ? { opacity: 1, y: 0 } : { opacity: [0, 1], y: [40, 0] })
             : { opacity: 0, y: 40 }
       }
       transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
       className={className}
     >
-      <SectionInView.Provider value={!hydrated || !detected ? 0 : isInView ? 2 : 1}>
+      <SectionInView.Provider value={!hydrated || !detected ? 0 : isInView ? (wasAboveFold.current ? 3 : 2) : 1}>
         {children}
       </SectionInView.Provider>
     </motion.div>
