@@ -102,7 +102,7 @@ export const translations = {
     story: {
       // Wrapped in +…+ so the whole line is ONE highlight span (a bare "+"
       // mid-line would split the typography). Design tenure counts from 2016.
-      context: '+I\'ve been designing solutions to complex problems since 2016.+',
+      context: '+I\'ve been designing data-backed solutions to complex problems since 2016.+',
       // Intentionally empty — the "decision is the story" beat was cut
       // (2026-08-25); the typewriter goes from the tenure line to the hook.
       reflections: [],
