@@ -843,6 +843,15 @@ function typewriterReducer(state: TypewriterState, action: TypewriterAction): Ty
 
 const STORY_SEEN_KEY = 'story-animation-seen-v1'
 
+/** Storage access throws in some privacy modes; a denied read must degrade
+ *  to "not seen", never break the story section. */
+function safeSessionGet(key: string): string | null {
+  try { return sessionStorage.getItem(key) } catch { return null }
+}
+function safeSessionSet(key: string, value: string) {
+  try { sessionStorage.setItem(key, value) } catch { /* storage denied — animation replays next visit */ }
+}
+
 function ReflectiveTypewriter({
   context,
   reflections,
@@ -900,7 +909,7 @@ function ReflectiveTypewriter({
   const skipToComplete = useCallback(() => {
     abortRef.current?.abort()
     dispatch({ type: 'SKIP_TO_COMPLETE', allHookLines: allHookLinesComplete })
-    sessionStorage.setItem(STORY_SEEN_KEY, 'true')
+    safeSessionSet(STORY_SEEN_KEY, 'true')
     onComplete?.()
   }, [allHookLinesComplete, onComplete])
 
@@ -911,7 +920,7 @@ function ReflectiveTypewriter({
 
   // Check sessionStorage on mount - skip if already seen
   useEffect(() => {
-    const seen = sessionStorage.getItem(STORY_SEEN_KEY)
+    const seen = safeSessionGet(STORY_SEEN_KEY)
     if (seen && phase === 'idle') {
       skipToComplete()
     }
@@ -924,7 +933,7 @@ function ReflectiveTypewriter({
     dispatch({ type: 'RESET' })
 
     // Check if already seen after reset
-    const seen = sessionStorage.getItem(STORY_SEEN_KEY)
+    const seen = safeSessionGet(STORY_SEEN_KEY)
     if (seen) {
       dispatch({ type: 'SKIP_TO_COMPLETE', allHookLines: allHookLinesComplete })
     }
@@ -1003,7 +1012,7 @@ function ReflectiveTypewriter({
           dispatch({ type: 'PHASE_CHANGE', phase: 'hook' })
         } else {
           dispatch({ type: 'PHASE_CHANGE', phase: 'complete' })
-          sessionStorage.setItem(STORY_SEEN_KEY, 'true')
+          safeSessionSet(STORY_SEEN_KEY, 'true')
           onComplete?.()
         }
       }, 800)
@@ -1077,7 +1086,7 @@ function ReflectiveTypewriter({
           const timer = setTimeout(() => {
             if (signal?.aborted) return
             dispatch({ type: 'PHASE_CHANGE', phase: 'complete' })
-            sessionStorage.setItem(STORY_SEEN_KEY, 'true')
+            safeSessionSet(STORY_SEEN_KEY, 'true')
             onComplete?.()
           }, 600)
           return () => clearTimeout(timer)
@@ -1254,7 +1263,7 @@ function StorySection({ t }: { t: (typeof translations)[Lang] }) {
   // Reset states when language changes
   useEffect(() => {
     // Check if animation was already seen (skip case)
-    const seen = sessionStorage.getItem(STORY_SEEN_KEY)
+    const seen = safeSessionGet(STORY_SEEN_KEY)
     if (seen) {
       setTypewriterComplete(true)
       setTextDimmed(true)

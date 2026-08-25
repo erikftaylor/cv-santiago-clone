@@ -12,11 +12,15 @@ import App from './App.tsx'
 // index.html and the import dies on "Unexpected token '<'". One forced
 // reload picks up the fresh HTML; the flag prevents a reload loop.
 window.addEventListener('vite:preloadError', (event) => {
-  const KEY = 'chunk-reload-once'
-  if (sessionStorage.getItem(KEY)) return
-  sessionStorage.setItem(KEY, '1')
-  event.preventDefault()
-  window.location.reload()
+  try {
+    const KEY = 'chunk-reload-once'
+    if (sessionStorage.getItem(KEY)) return
+    sessionStorage.setItem(KEY, '1')
+    event.preventDefault()
+    window.location.reload()
+  } catch {
+    // Storage denied — reload without loop protection is worse than none.
+  }
 })
 import GlobalNav from './GlobalNav.tsx'
 import { articleRegistry } from './articles/registry'
@@ -36,6 +40,38 @@ class ChatErrorBoundary extends Component<{ children: ReactNode }, { hasError: b
   state = { hasError: false }
   static getDerivedStateFromError() { return { hasError: true } }
   render() { return this.state.hasError ? null : this.props.children }
+}
+
+/** Last line of defense for a failed lazy route or render error — a blank
+ *  white page is never an acceptable failure state. */
+class RouteErrorBoundary extends Component<{ children: ReactNode }, { hasError: boolean }> {
+  state = { hasError: false }
+  static getDerivedStateFromError() { return { hasError: true } }
+  render() {
+    if (!this.state.hasError) return this.props.children
+    return (
+      <div className="min-h-[80vh] flex flex-col items-center justify-center text-center px-6">
+        <h1 className="font-display text-2xl font-semibold mb-2">This page hit an error</h1>
+        <p className="text-muted-foreground mb-8 max-w-md">
+          Reloading usually fixes it — the site may have been updated since this tab loaded.
+        </p>
+        <div className="flex gap-4">
+          <button
+            onClick={() => window.location.reload()}
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors"
+          >
+            Reload page
+          </button>
+          <a
+            href="/"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border font-medium hover:bg-primary/5 transition-colors"
+          >
+            Back to home
+          </a>
+        </div>
+      </div>
+    )
+  }
 }
 
 /** Reset scroll + fade-in on route change (no animation on initial load to match prerender) */
@@ -165,6 +201,7 @@ const app = (
     <BrowserRouter>
       <ConditionalNav />
       <PageTransition>
+        <RouteErrorBoundary>
         <Suspense fallback={null}>
           <Routes>
             <Route path="/" element={<App />} />
@@ -180,6 +217,7 @@ const app = (
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
+        </RouteErrorBoundary>
       </PageTransition>
       <GlobalChat />
       <Analytics />
