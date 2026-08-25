@@ -25,6 +25,9 @@ dist-ssr
 .vercel
 .env
 .env.local
+.dev.vars
+.dev.vars.*
+.wrangler
 # Claude Code (memory, settings, plans, skills — all private)
 CLAUDE.md
 **/CLAUDE.md
