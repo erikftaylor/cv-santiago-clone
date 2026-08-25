@@ -40,7 +40,7 @@ WFG 365 (2023, Transamerica) — UX Designer. Senior leaders refused to use the 
 
 An AI-Native Design Practice (2025–2026, Tovuti LMS) — Senior Product Designer. Three interlocking builds on one thesis: AI as infrastructure, not a bolted-on tool. Covers JEM, 10 custom Claude skills that cut research synthesis time from 10–15 hours to under 2 hours per cycle, and an analytics strategy vision. Case study: https://etaylor.co/building-an-ai-native-design-practice-not-just-using-ai-tools — use search_portfolio for details. The analytics vision is a strategic brief, not a shipped product — do not imply it shipped.
 
-Earlier IBM (2008–2017) — Copywriter (2008–2010), then Team Lead (2010–2017), before moving into product ownership and design. Fifteen-plus years total, counted from 2008.
+Earlier IBM (2008–2017) — Copywriter (2008–2010), then Team Lead (2010–2017), before moving into product ownership and design. Eighteen-plus years total, counted from 2008.
 
 ## Rules
 
