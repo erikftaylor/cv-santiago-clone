@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useMemo, useReducer, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'motion/react'
-import { Mail, ExternalLink, Briefcase, GraduationCap, Award, Code, Globe, Bot, BadgeCheck, FolderGit2, Sparkles, Github, FileText, SkipForward, ChevronRight, List } from 'lucide-react'
+import { Mail, ExternalLink, Briefcase, GraduationCap, Award, Code, Bot, BadgeCheck, FolderGit2, Sparkles, Github, FileText, SkipForward, ChevronRight, List } from 'lucide-react'
 import { translations, seo, type Lang } from './i18n'
 import { site } from './site.config'
 import { useHomeSeo } from './articles/use-article-seo'
@@ -1612,7 +1612,7 @@ function App() {
                   {proj.link && (
                     <a href={`https://${proj.link}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors group/link">
                       <ExternalLink className="w-4 h-4" />
-                      <span>{proj.link}</span>
+                      <span>{proj.linkLabel ?? proj.link} →</span>
                     </a>
                   )}
                 </article>
@@ -1775,7 +1775,7 @@ function App() {
                   {proj.link && (
                     <a href={`https://${proj.link}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors group/link">
                       <ExternalLink className="w-4 h-4" />
-                      <span>{proj.link}</span>
+                      <span>{proj.linkLabel ?? proj.link} →</span>
                     </a>
                   )}
                 </article>
@@ -1885,22 +1885,7 @@ function App() {
 
           <div className="grid md:grid-cols-4 gap-8">
             <AnimatedSection delay={0.1}>
-              <h3 className="font-display font-semibold mb-4 flex items-center gap-2">
-                <Globe className="w-4 h-4 text-primary" />
-                {t.skills.languages}
-              </h3>
-              <div className="space-y-3">
-                {t.skills.languageList.map((l, i) => (
-                  <div key={l.name} className="flex justify-between items-center">
-                    <span>{l.name}</span>
-                    <span className={i === 0 ? 'text-sm text-primary font-medium' : 'text-sm text-muted-foreground'}>
-                      {l.level}
-                    </span>
-                  </div>
-                ))}
-              </div>
-
-              <h3 className="font-display font-semibold mb-4 mt-8">{t.skills.soft}</h3>
+              <h3 className="font-display font-semibold mb-4">{t.skills.soft}</h3>
               <div className="flex flex-wrap gap-2">
                 {t.skills.softSkills.map((skill) => (
                   <span key={skill} className="px-3 py-1 rounded-full text-sm bg-accent/10 text-accent border border-accent/20 hover:bg-accent/20 transition-colors cursor-default">
