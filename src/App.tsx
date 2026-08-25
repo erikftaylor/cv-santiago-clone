@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useMemo, useReducer, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'motion/react'
-import { Mail, ExternalLink, Briefcase, GraduationCap, Award, Code, Bot, BadgeCheck, FolderGit2, Sparkles, Github, FileText, SkipForward, ChevronRight, List } from 'lucide-react'
+import { Mail, ExternalLink, Briefcase, GraduationCap, Award, Code, Bot, FolderGit2, Sparkles, Github, FileText, SkipForward, ChevronRight, List } from 'lucide-react'
 import { translations, seo, type Lang } from './i18n'
 import { site } from './site.config'
 import { useHomeSeo } from './articles/use-article-seo'
@@ -1496,14 +1496,6 @@ function App() {
                   </div>
                 </div>
               </div>
-              <motion.div
-                initial={hydrated ? { scale: 0 } : false}
-                animate={{ scale: 1 }}
-                transition={{ delay: 0.4, type: "spring", stiffness: 200 }}
-                className="absolute -bottom-1 -right-1 w-10 h-10 rounded-full bg-gradient-theme flex items-center justify-center shadow-lg border-2 border-background"
-              >
-                <BadgeCheck className="w-6 h-6 text-white" aria-hidden="true" />
-              </motion.div>
             </motion.div>
 
             <motion.div
