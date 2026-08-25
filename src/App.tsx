@@ -1916,18 +1916,18 @@ function App() {
           </AnimatedSection>
 
           <div className="grid md:grid-cols-4 gap-8">
-            <AnimatedSection delay={0.1}>
+            <AnimatedSection delay={0.1} className="md:col-span-4">
               <h3 className="font-display font-semibold mb-4">{t.skills.soft}</h3>
               <div className="flex flex-wrap gap-2">
                 {t.skills.softSkills.map((skill) => (
-                  <span key={skill} className="px-3 py-1 rounded-full text-sm bg-accent/10 text-accent border border-accent/20 hover:bg-accent/20 transition-colors cursor-default">
+                  <span key={skill} className="inline-flex items-center px-3 py-1.5 rounded-full text-sm leading-none whitespace-nowrap bg-accent/10 text-accent border border-accent/20 hover:bg-accent/20 transition-colors cursor-default">
                     {skill}
                   </span>
                 ))}
               </div>
             </AnimatedSection>
 
-            <AnimatedSection delay={0.2} className="md:col-span-3">
+            <AnimatedSection delay={0.2} className="md:col-span-4">
               <h3 className="font-display font-semibold mb-4">{t.techStack.title}</h3>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {t.techStack.categories.map((cat) => (

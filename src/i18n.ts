@@ -329,7 +329,7 @@ export const translations = {
       softSkills: [
         'User interviews',
         'Stakeholder interviews',
-        'Moderated & unmoderated usability testing',
+        'Usability testing',
         'Card sorting',
         'A/B testing',
         'Journey mapping',
