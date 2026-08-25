@@ -1,9 +1,6 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
-  // Temp name for building/testing. Renamed to "portfolio-site" (with the
-  // git connection repointed to this repo) only at the final cutover —
-  // see .impeccable notes / ask before doing that step.
-  "name": "portfolio-site-preview",
+  "name": "portfolio-site",
   "compatibility_date": "2026-08-24",
   "compatibility_flags": ["nodejs_compat"],
   "main": "./worker/index.js",

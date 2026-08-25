@@ -68,12 +68,16 @@ function PageTransition({ children }: { children: ReactNode }) {
   )
 }
 
+// Temporarily off while the chat backend's secrets aren't configured on the
+// live Worker yet. Flip back to true once ANTHROPIC_API_KEY etc. are set.
+const CHAT_ENABLED = false
+
 function GlobalChat() {
   const { pathname } = useLocation()
   const [hydrated, setHydrated] = useState(false)
   useEffect(() => setHydrated(true), [])
 
-  if (!hydrated || pathname.startsWith('/ops')) return null
+  if (!CHAT_ENABLED || !hydrated || pathname.startsWith('/ops')) return null
 
   return (
     <ChatErrorBoundary>

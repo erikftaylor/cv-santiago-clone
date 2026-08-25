@@ -1374,7 +1374,7 @@ function StorySection({ t }: { t: (typeof translations)[Lang] }) {
             }
             const isHighlight = 'highlight' in item && item.highlight
             const handleClick = (e: React.MouseEvent) => {
-              if (item.href === '#chat') {
+              if ((item.href as string) === '#chat') {
                 e.preventDefault()
                 window.dispatchEvent(new Event('openChat'))
               }
