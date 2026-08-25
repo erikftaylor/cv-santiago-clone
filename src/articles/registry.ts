@@ -326,9 +326,9 @@ export const articleRegistry: ArticleConfig[] = [
     },
     sectionLabels: {
       problem: 'The problem',
-      architecture: 'The action',
+      architecture: 'The operating model',
       results: 'Results',
-      lessons: 'Lessons',
+      'human-judgment': 'Where judgment stayed human',
     },
     type: 'case-study',
     ogImage: `${site.origin}/og-image.webp`,
