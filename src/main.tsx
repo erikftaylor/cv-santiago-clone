@@ -6,6 +6,18 @@ import { Analytics } from '@vercel/analytics/react'
 import { MotionConfig } from 'motion/react'
 import './index.css'
 import App from './App.tsx'
+
+// Each deploy replaces the hashed bundles, so a visitor holding pre-deploy
+// HTML requests chunks that no longer exist — the SPA fallback answers with
+// index.html and the import dies on "Unexpected token '<'". One forced
+// reload picks up the fresh HTML; the flag prevents a reload loop.
+window.addEventListener('vite:preloadError', (event) => {
+  const KEY = 'chunk-reload-once'
+  if (sessionStorage.getItem(KEY)) return
+  sessionStorage.setItem(KEY, '1')
+  event.preventDefault()
+  window.location.reload()
+})
 import GlobalNav from './GlobalNav.tsx'
 import { articleRegistry } from './articles/registry'
 

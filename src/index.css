@@ -330,6 +330,12 @@ button, a, [role="button"], summary { cursor: pointer; }
     outline-offset: 2px;
   }
 
+  /* Text selection carries the palette instead of the browser default */
+  ::selection {
+    background-color: hsl(var(--primary) / 0.25);
+    color: hsl(var(--foreground));
+  }
+
   html {
     scroll-behavior: smooth;
     font-size: 16px; /* Base accesible WCAG */
