@@ -1485,7 +1485,7 @@ function App() {
                 <span className="text-gradient-theme">{t.greetingRoles[0]}</span>
               </h1>
 
-              <p className="text-lg md:text-xl text-muted-foreground leading-normal mb-4 max-w-2xl">
+              <p className="text-lg md:text-xl text-muted-foreground leading-snug mb-4 max-w-2xl">
                 {t.heroSupport}
               </p>
 
