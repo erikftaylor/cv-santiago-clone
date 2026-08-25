@@ -27,7 +27,7 @@ export const wfg365Content = {
     architecture: {
       heading: 'The action',
       body: [
-        'I led field research at a Denver meeting in June 2023 with three of WFG\'s top-producing leaders. The session surfaced what the product team hadn\'t heard clearly enough — that the adoption failure wasn\'t resistance to change, it was a feature gap that made WFG 365 functionally useless for the leaders who were supposed to champion it.',
+        'I led field research at a Denver meeting in June 2023 with three of WFG\'s top-producing leaders. The session surfaced what the product team hadn\'t heard clearly enough — that the adoption failure wasn\'t resistance to change, it was a feature gap that made WFG 365 functionally useless for the leaders who were supposed to champion it. This was directional field research with three leaders, not a population-wide measurement; its value was identifying the missing workflows that the original launch research had not represented.',
       ],
       steps: [
         {
@@ -36,7 +36,7 @@ export const wfg365Content = {
         },
         {
           title: 'Prioritized feature brief',
-          detail: 'Translated the session into a prioritized brief: specific requests incorporated into the redesign (paycheck tabs at the bottom navigation, team points and recruits tabs, compact reports formatted for screenshot and forward), plus additional items logged into the backlog with rationale.',
+          detail: 'Translated the session into a prioritized brief: specific requests incorporated into the redesign (paycheck tabs at the bottom navigation, team points and recruits tabs, compact reports formatted for screenshot and forward), plus additional items logged into the backlog with rationale. This separated immediate launch-critical gaps from follow-up opportunities.',
         },
         {
           title: 'Wireframe review with agents',
