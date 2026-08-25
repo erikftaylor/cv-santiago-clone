@@ -111,7 +111,7 @@ export const translations = {
       ],
       nav: [
         { icon: 'briefcase', label: 'Experience', href: '#experience' },
-        { icon: 'folder', label: 'Work', href: '#projects' },
+        { icon: 'folder', label: 'Work', href: '#work' },
         { icon: 'mail', label: "Let's talk", href: '#contact' },
         { icon: 'bot', label: 'Ask about my work', href: '#chat', highlight: true },
       ],
@@ -127,7 +127,7 @@ export const translations = {
 
     // ── What I deliver ───────────────────────────────────────────────────
     coreCompetencies: {
-      title: 'What I deliver',
+      title: 'How I Work',
       items: [
         {
           title: 'Cross-Functional Collaboration',
@@ -227,8 +227,12 @@ export const translations = {
 
     // ── Case studies ─────────────────────────────────────────────────────
     // Each leads with the decision and its open status, per PRODUCT.md rule 1.
+    // `items` is the single source; App.tsx splits it into Featured Work
+    // (by title, see FEATURED_PROJECT_TITLES) and More Work at render time.
     projects: {
       title: 'Case studies',
+      featuredTitle: 'Featured Work',
+      moreTitle: 'More Work',
       githubLink: site.social.github.replace('https://', ''),
       viewCode: 'Read the case study',
       viewPrototype: 'View prototype',

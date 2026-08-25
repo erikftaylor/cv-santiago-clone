@@ -273,9 +273,18 @@ function useTypewriterRotation(roles: readonly string[], { typeSpeed = 80, delet
   return { displayText, roleIndex, isDeleting }
 }
 
+/** Which case studies lead the page. Order here is the display order. */
+const FEATURED_PROJECT_TITLES = [
+  'JEM (Journey Experience Mapper)',
+  'Checkpoints Go/No-Go',
+  'WFG Agent Portal',
+] as const
+
 const HOME_TOC_SECTIONS = [
+  { id: 'work', es: 'Trabajo', en: 'Featured Work' },
+  { id: 'how-i-work', es: 'Cómo trabajo', en: 'How I Work' },
   { id: 'experience', es: 'Experiencia', en: 'Experience' },
-  { id: 'projects', es: 'Proyectos', en: 'Projects' },
+  { id: 'more-work', es: 'Más trabajo', en: 'More Work' },
   { id: 'education', es: 'Formación', en: 'Education' },
   { id: 'tech', es: 'Skills & Stack', en: 'Skills & Stack' },
   { id: 'contact', es: 'Contacto', en: 'Contact' },
@@ -1436,7 +1445,8 @@ function App() {
   const hydrated = useHydrated()
   useHeroStyles()
   const { displayText: roleText, roleIndex } = useTypewriterRotation(t.greetingRoles)
-
+  const featuredProjects = t.projects.items.filter((p) => (FEATURED_PROJECT_TITLES as readonly string[]).includes(p.title))
+  const moreProjects = t.projects.items.filter((p) => !(FEATURED_PROJECT_TITLES as readonly string[]).includes(p.title))
 
   // SEO: Dynamic meta tags based on language
   const seoData = seo[lang]
@@ -1543,6 +1553,107 @@ function App() {
       {/* Summary - Con storytelling integrado */}
       <StorySection t={t} />
 
+      {/* ── Featured Work ────────────────────────────────────────────────────
+          The three strongest case studies, given more visual weight than
+          the rest — see FEATURED_PROJECT_TITLES above. */}
+      {featuredProjects.length > 0 && (
+      <section id="work" className="py-16 md:py-24" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 2200px' }}>
+        <div className="max-w-5xl mx-auto px-6">
+          <AnimatedSection>
+            <div className="flex items-center justify-between gap-4 flex-wrap mb-10">
+              <h2 className="font-display text-2xl font-semibold flex items-center gap-3">
+                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                  <FolderGit2 className="w-5 h-5 text-primary" />
+                </div>
+                {t.projects.featuredTitle}
+              </h2>
+              {site.social.github && (
+                <a href={site.social.github} target="_blank" rel="me noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
+                  <Github className="w-4 h-4" />
+                  {t.projects.githubLink}
+                </a>
+              )}
+            </div>
+          </AnimatedSection>
+
+          <div className="space-y-6">
+            {featuredProjects.map((proj, i) => (
+              <AnimatedSection key={proj.title}>
+                <article className="p-8 md:p-10 rounded-3xl border border-primary/20 bg-background/60 backdrop-blur-sm hover:border-primary/50 transition-colors duration-300">
+                  <div className="flex items-start justify-between gap-4 flex-wrap mb-3">
+                    <span className="font-display text-sm font-semibold text-primary/60 tabular-nums">{String(i + 1).padStart(2, '0')}</span>
+                    {proj.badge && (
+                      <span className="shrink-0 px-3 py-1 rounded-full text-xs font-medium border border-primary/30 bg-primary/10 text-primary">
+                        {proj.badge}
+                      </span>
+                    )}
+                  </div>
+
+                  <h3 className="font-display text-2xl md:text-3xl font-bold mb-3">{proj.title}</h3>
+
+                  <p className="text-base text-muted-foreground leading-relaxed mb-6 max-w-3xl">{proj.desc}</p>
+
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {proj.tech.map((tech) => {
+                      const icon = getTechIcon(tech)
+                      return (
+                        <span key={tech} className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium bg-muted text-muted-foreground">
+                          {icon && (
+                            <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 shrink-0" fill={icon.color} aria-hidden="true">
+                              <path d={icon.path} />
+                            </svg>
+                          )}
+                          {tech}
+                        </span>
+                      )
+                    })}
+                  </div>
+
+                  {proj.link && (
+                    <a href={`https://${proj.link}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors group/link">
+                      <ExternalLink className="w-4 h-4" />
+                      <span>{proj.link}</span>
+                    </a>
+                  )}
+                </article>
+              </AnimatedSection>
+            ))}
+          </div>
+        </div>
+      </section>
+      )}
+
+      {/* ── How I Work ──────────────────────────────────────────────────────
+          Data-driven: renders whatever is in `t.coreCompetencies.items`. */}
+      {t.coreCompetencies.items.length > 0 && (
+      <section id="how-i-work" className="py-16 md:py-24" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 800px' }}>
+        <div className="max-w-5xl mx-auto px-6">
+          <AnimatedSection>
+            <h2 className="font-display text-2xl font-semibold mb-8 flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                <Sparkles className="w-5 h-5 text-primary" />
+              </div>
+              {t.coreCompetencies.title}
+            </h2>
+          </AnimatedSection>
+
+          <AnimatedSection>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {t.coreCompetencies.items.map((c) => (
+                <div key={c.title} className="p-5 rounded-xl border border-border bg-background/60 backdrop-blur-sm">
+                  <h3 className="font-display font-semibold mb-1.5 flex items-center gap-2">
+                    <Sparkles className="w-4 h-4 text-primary shrink-0" />
+                    {c.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{c.desc}</p>
+                </div>
+              ))}
+            </div>
+          </AnimatedSection>
+        </div>
+      </section>
+      )}
+
       {/* ── Experience ──────────────────────────────────────────────────────
           Data-driven: renders whatever is in `t.experience.items`.
           Add a job in i18n.ts; no changes needed here. */}
@@ -1556,23 +1667,6 @@ function App() {
               {t.experience.title}
             </h2>
           </AnimatedSection>
-
-          {/* Core competencies preamble */}
-          {t.coreCompetencies.items.length > 0 && (
-            <AnimatedSection>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
-                {t.coreCompetencies.items.map((c) => (
-                  <div key={c.title} className="p-5 rounded-xl border border-border bg-background/60 backdrop-blur-sm">
-                    <h3 className="font-display font-semibold mb-1.5 flex items-center gap-2">
-                      <Sparkles className="w-4 h-4 text-primary shrink-0" />
-                      {c.title}
-                    </h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{c.desc}</p>
-                  </div>
-                ))}
-              </div>
-            </AnimatedSection>
-          )}
 
           <div className="space-y-8">
             {t.experience.items.map((job) => (
@@ -1632,8 +1726,9 @@ function App() {
         </div>
       </section>
 
-      {/* ── Projects ────────────────────────────────────────────────────── */}
-      <section id="projects" className="py-16 md:py-24" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 1500px' }}>
+      {/* ── More Work ────────────────────────────────────────────────────── */}
+      {moreProjects.length > 0 && (
+      <section id="more-work" className="py-16 md:py-24" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 1500px' }}>
         <div className="max-w-5xl mx-auto px-6">
           <AnimatedSection>
             <div className="flex items-center justify-between gap-4 flex-wrap mb-8">
@@ -1641,19 +1736,13 @@ function App() {
                 <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                   <FolderGit2 className="w-5 h-5 text-primary" />
                 </div>
-                {t.projects.title}
+                {t.projects.moreTitle}
               </h2>
-              {site.social.github && (
-                <a href={site.social.github} target="_blank" rel="me noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
-                  <Github className="w-4 h-4" />
-                  {t.projects.githubLink}
-                </a>
-              )}
             </div>
           </AnimatedSection>
 
           <div className="grid md:grid-cols-2 gap-6">
-            {t.projects.items.map((proj) => (
+            {moreProjects.map((proj) => (
               <AnimatedSection key={proj.title}>
                 <article className="h-full p-6 rounded-2xl border border-border bg-background/60 backdrop-blur-sm hover:border-primary/40 transition-colors duration-300 flex flex-col">
                   <div className="flex items-start justify-between gap-3 mb-2">
@@ -1695,7 +1784,7 @@ function App() {
           </div>
         </div>
       </section>
-
+      )}
 
       {/* Education & Certifications — hidden while both lists are empty */}
       {(t.education.items.length > 0 || t.certifications.items.length > 0) && (
