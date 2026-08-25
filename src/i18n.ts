@@ -111,15 +111,11 @@ export const translations = {
       // gets built", and "I design the decisions" are retired — clear and
       // natural over conceptual. The hero tagline carries "I help teams make
       // better product decisions before the build starts."; don't repeat it here.
-      // One sentence = ONE paragraph: lines inside a paragraph stack tight
-      // (md:-mt-1); a second paragraph would open a mt-4 gap mid-sentence.
-      hookParagraphs: [
-        [
-          'I help teams turn ambiguous research and product problems',
-          'into clear decisions, usable systems —',
-          '+and experiences they can ship+.',
-        ],
-      ],
+      // Intentionally empty (2026-08-25): the "I help teams turn ambiguous…"
+      // hook duplicated the hero support line and was cut. The typewriter
+      // finishes after the tenure line. (One sentence = ONE paragraph if a
+      // hook returns — a second paragraph opens a mt-4 gap mid-sentence.)
+      hookParagraphs: [],
       why: 'That work spans global enterprise at IBM, financial services at Transamerica, and learning platforms at Tovuti LMS — from the early product thinking through the systems, interfaces, and implementation that follow.',
       seeking: [
         'Freelance right now, and open to the right full-time seat.',
