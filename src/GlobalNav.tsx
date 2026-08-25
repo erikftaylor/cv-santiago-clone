@@ -135,9 +135,9 @@ function NavControls({ isDark, toggleTheme }: { isDark: boolean; toggleTheme: ()
       <button
         onClick={toggleTheme}
         className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center shadow-lg hover:border-primary/50 hover:shadow-primary/20 hover:shadow-xl transition-colors"
-        aria-label="Toggle theme"
+        aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
       >
-        {isDark ? <Sun className="w-5 h-5 text-primary" /> : <Moon className="w-5 h-5 text-primary" />}
+        {isDark ? <Sun className="w-5 h-5 text-primary" aria-hidden="true" /> : <Moon className="w-5 h-5 text-primary" aria-hidden="true" />}
       </button>
     </div>
   )
@@ -175,7 +175,7 @@ export default function GlobalNav() {
   // Bar visible: controls (+ optional banner) inside it
   if (hasBar) {
     return (
-      <nav className="sticky top-0 z-50 relative">
+      <div className="sticky top-0 z-50 relative">
         <div
           className="absolute inset-0 bg-background/80 backdrop-blur-md border-b border-border"
           style={animateBar ? fade('0.35s') : undefined}
@@ -193,12 +193,12 @@ export default function GlobalNav() {
                   to="/"
                   className="inline-flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors shrink-0"
                 >
-                  <House className="w-4 h-4" />
+                  <House className="w-4 h-4" aria-hidden="true" />
                   <span className="hidden sm:inline">{site.domain}</span>
                 </Link>
                 {pageTitle && (
                   <>
-                    <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/50 shrink-0" />
+                    <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/50 shrink-0" aria-hidden="true" />
                     <button
                       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                       className={`hover:text-foreground transition-colors cursor-pointer truncate ${activeSectionLabel ? 'text-muted-foreground' : 'text-foreground font-medium'}`}
@@ -209,7 +209,7 @@ export default function GlobalNav() {
                 )}
                 {activeSectionLabel && (
                   <>
-                    <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/50 shrink-0 hidden sm:block" />
+                    <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/50 shrink-0 hidden sm:block" aria-hidden="true" />
                     <span className="text-foreground font-medium truncate max-w-[140px] sm:max-w-none hidden sm:inline">
                       {activeSectionLabel}
                     </span>
@@ -223,7 +223,7 @@ export default function GlobalNav() {
             {controls}
           </div>
         </div>
-      </nav>
+      </div>
     )
   }
 

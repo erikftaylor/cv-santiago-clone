@@ -4,13 +4,13 @@
   "tests": [
     {
       "id": "exp-years",
-      "description": "Must state 15+ years or the 2008 start",
+      "description": "Must state 18+ years or the 2008 start",
       "input": "How many years of experience do you have?",
       "lang": "en",
       "assertions": [
         {
           "type": "contains_any",
-          "values": ["15", "fifteen", "2008"]
+          "values": ["18", "eighteen", "2008"]
         },
         {
           "type": "not_contains",

@@ -103,11 +103,11 @@ export default function AboutPage({ lang = 'en' }: { lang?: AboutLang }) {
             <p className="text-sm text-primary font-medium mb-2">{t.subtitle}</p>
             <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 text-sm text-muted-foreground">
               <span className="flex items-center gap-1.5">
-                <MapPin className="w-3.5 h-3.5" />
+                <MapPin className="w-3.5 h-3.5" aria-hidden="true" />
                 {t.location}
               </span>
               <span className="flex items-center gap-1.5">
-                <Clock className="w-3.5 h-3.5" />
+                <Clock className="w-3.5 h-3.5" aria-hidden="true" />
                 {t.lastUpdated}
               </span>
             </div>
@@ -129,7 +129,7 @@ export default function AboutPage({ lang = 'en' }: { lang?: AboutLang }) {
             <p className="font-medium text-primary text-sm group-hover:text-primary transition-colors">{t.storyCta.label}</p>
             <p className="text-xs text-muted-foreground">{t.storyCta.desc}</p>
           </div>
-          <ChevronRight className="w-4 h-4 text-primary group-hover:translate-x-0.5 transition-transform shrink-0" />
+          <ChevronRight className="w-4 h-4 text-primary group-hover:translate-x-0.5 transition-transform shrink-0" aria-hidden="true" />
         </Link>
         )}
 
@@ -159,7 +159,7 @@ export default function AboutPage({ lang = 'en' }: { lang?: AboutLang }) {
         {/* Timeline */}
         <section className="mb-10">
           <h2 className="font-display text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
-            <Clock className="w-4 h-4 text-primary" />
+            <Clock className="w-4 h-4 text-primary" aria-hidden="true" />
             {t.timelineHeading}
           </h2>
           <div className="space-y-3">
@@ -179,7 +179,7 @@ export default function AboutPage({ lang = 'en' }: { lang?: AboutLang }) {
         {t.projects.length > 0 && (
         <section className="mb-10">
           <h2 className="font-display text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
-            <Briefcase className="w-4 h-4 text-primary" />
+            <Briefcase className="w-4 h-4 text-primary" aria-hidden="true" />
             {t.projectsHeading}
           </h2>
           <div className="space-y-2">
@@ -195,7 +195,7 @@ export default function AboutPage({ lang = 'en' }: { lang?: AboutLang }) {
                   <p className="font-medium text-foreground text-sm group-hover:text-primary transition-colors">{project.name}</p>
                   <p className="text-xs text-muted-foreground">{project.desc}</p>
                 </div>
-                <ExternalLink className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary transition-colors shrink-0" />
+                <ExternalLink className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary transition-colors shrink-0" aria-hidden="true" />
               </a>
             ))}
           </div>
@@ -206,7 +206,7 @@ export default function AboutPage({ lang = 'en' }: { lang?: AboutLang }) {
         {t.certifications.length > 0 && (
         <section className="mb-10">
           <h2 className="font-display text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
-            <Award className="w-4 h-4 text-primary" />
+            <Award className="w-4 h-4 text-primary" aria-hidden="true" />
             {t.certificationsHeading}
           </h2>
           <div className="space-y-3">
@@ -228,7 +228,7 @@ export default function AboutPage({ lang = 'en' }: { lang?: AboutLang }) {
         {t.education.length > 0 && (
         <section className="mb-10">
           <h2 className="font-display text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
-            <GraduationCap className="w-4 h-4 text-primary" />
+            <GraduationCap className="w-4 h-4 text-primary" aria-hidden="true" />
             {t.educationHeading}
           </h2>
           <ul className="space-y-1.5">
@@ -243,7 +243,7 @@ export default function AboutPage({ lang = 'en' }: { lang?: AboutLang }) {
         {t.press.length > 0 && (
         <section className="mb-10">
           <h2 className="font-display text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
-            <Newspaper className="w-4 h-4 text-primary" />
+            <Newspaper className="w-4 h-4 text-primary" aria-hidden="true" />
             {t.pressHeading}
           </h2>
           {t.press.map((item) => (
@@ -258,7 +258,7 @@ export default function AboutPage({ lang = 'en' }: { lang?: AboutLang }) {
                 <p className="font-medium text-foreground text-sm group-hover:text-primary transition-colors">{item.title}</p>
                 <p className="text-xs text-muted-foreground">{item.publisher} · {item.date}</p>
               </div>
-              <ExternalLink className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
+              <ExternalLink className="w-3.5 h-3.5 text-muted-foreground shrink-0" aria-hidden="true" />
             </a>
           ))}
         </section>
@@ -268,7 +268,7 @@ export default function AboutPage({ lang = 'en' }: { lang?: AboutLang }) {
         {t.community.length > 0 && (
         <section className="mb-10">
           <h2 className="font-display text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
-            <Users className="w-4 h-4 text-primary" />
+            <Users className="w-4 h-4 text-primary" aria-hidden="true" />
             {t.communityHeading}
           </h2>
           <div className="space-y-2">
@@ -284,7 +284,7 @@ export default function AboutPage({ lang = 'en' }: { lang?: AboutLang }) {
                   <p className="font-medium text-foreground text-sm group-hover:text-primary transition-colors">{item.title}</p>
                   <p className="text-xs text-muted-foreground">{item.platform}</p>
                 </div>
-                <ExternalLink className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
+                <ExternalLink className="w-3.5 h-3.5 text-muted-foreground shrink-0" aria-hidden="true" />
               </a>
             ))}
           </div>
@@ -294,7 +294,7 @@ export default function AboutPage({ lang = 'en' }: { lang?: AboutLang }) {
         {/* FAQ */}
         <section className="mb-10">
           <h2 className="font-display text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
-            <HelpCircle className="w-4 h-4 text-primary" />
+            <HelpCircle className="w-4 h-4 text-primary" aria-hidden="true" />
             {t.faqHeading}
           </h2>
           <div className="space-y-4">
@@ -310,7 +310,7 @@ export default function AboutPage({ lang = 'en' }: { lang?: AboutLang }) {
         {/* Connect */}
         <section className="mb-10">
           <h2 className="font-display text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
-            <ExternalLink className="w-4 h-4 text-primary" />
+            <ExternalLink className="w-4 h-4 text-primary" aria-hidden="true" />
             {t.connectHeading}
           </h2>
 
@@ -318,7 +318,7 @@ export default function AboutPage({ lang = 'en' }: { lang?: AboutLang }) {
             href={`mailto:${t.email}`}
             className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors mb-4"
           >
-            <Mail className="w-4 h-4" />
+            <Mail className="w-4 h-4" aria-hidden="true" />
             {t.email}
           </a>
 
@@ -331,7 +331,7 @@ export default function AboutPage({ lang = 'en' }: { lang?: AboutLang }) {
                 rel={link.rel ?? 'noopener noreferrer'}
                 className="flex items-center gap-2 px-3 py-2 rounded-lg bg-card border border-border text-sm text-muted-foreground hover:text-foreground hover:border-primary/30 transition-all"
               >
-                <ExternalLink className="w-3 h-3 text-primary shrink-0" />
+                <ExternalLink className="w-3 h-3 text-primary shrink-0" aria-hidden="true" />
                 {link.name}
               </a>
             ))}

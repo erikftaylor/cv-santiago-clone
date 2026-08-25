@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, useCallback, useMemo, Fragment, type ReactNode } from 'react'
+import { createContext, useContext, useState, useEffect, useCallback, useMemo, useRef, Fragment, type ReactNode } from 'react'
 import { motion } from 'motion/react'
 import { ChevronRight, List, Copy, Check, ZoomIn, X, Rocket } from 'lucide-react'
 
@@ -205,7 +205,7 @@ interface CalloutProps {
 export function Callout({ children, className, editorId }: CalloutProps) {
   return (
     <EditorLabel name="Callout" id={editorId}>
-      <div className={`bg-primary/5 border border-primary/15 rounded-lg px-5 py-4 mb-6 ${className ?? ''}`}>
+      <div className={`bg-primary/5 border border-primary/20 rounded-2xl px-5 py-4 mb-6 ${className ?? ''}`}>
         <p className="text-base text-foreground font-medium leading-relaxed">{children}</p>
       </div>
     </EditorLabel>
@@ -313,11 +313,14 @@ interface BulletListProps {
 
 export function BulletList({ items, marker = 'bullet', variant = 'standalone', className, editorId }: BulletListProps) {
   const outer = variant === 'standalone' ? 'space-y-3 mb-4' : 'space-y-3'
+  const itemClass = variant === 'standalone'
+    ? 'flex gap-3 p-4 rounded-2xl border border-border bg-card/60 hover:border-primary/30 transition-colors duration-300'
+    : 'flex gap-3'
   return (
     <EditorLabel name="BulletList" id={editorId}>
       <div className={`${outer} ${className ?? ''}`}>
         {items.map((item, i) => (
-          <div key={i} className="flex gap-3">
+          <div key={i} className={itemClass}>
             <span className={`text-primary font-bold shrink-0 w-6 text-center mt-0.5 ${marker === 'number' ? 'text-lg' : 'text-xs'}`}>
               {marker === 'number' ? i + 1 : '●'}
             </span>
@@ -346,9 +349,9 @@ export function StepList({ items, className, editorId }: Omit<BulletListProps, '
     <EditorLabel name="StepList" id={editorId}>
       <div className={outer}>
         {items.map((item, i) => (
-          <div key={i} className="flex gap-3">
-            <span className="text-primary font-bold shrink-0 w-6 text-center text-lg leading-snug">
-              {i + 1}
+          <div key={i} className="flex gap-4 p-4 rounded-2xl border border-border bg-card/60 hover:border-primary/30 transition-colors duration-300">
+            <span className="font-display text-sm font-semibold text-primary/60 tabular-nums shrink-0 pt-0.5">
+              {String(i + 1).padStart(2, '0')}
             </span>
             {isStructured(item) ? (
               <div>
@@ -483,34 +486,70 @@ interface DiagramZoomProps {
 export function DiagramZoom({ src, hdSrc, alt, caption, loading = 'lazy', width, height, hdWidth, hdHeight, className, editorId }: DiagramZoomProps) {
   const [lightbox, setLightbox] = useState(false)
   const aspectRatio = width && height ? `${width} / ${height}` : undefined
+  const triggerRef = useRef<HTMLButtonElement>(null)
+  const closeButtonRef = useRef<HTMLButtonElement>(null)
+
+  useEffect(() => {
+    if (lightbox) {
+      closeButtonRef.current?.focus()
+    } else {
+      triggerRef.current?.focus()
+    }
+  }, [lightbox])
+
+  useEffect(() => {
+    if (!lightbox) return
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setLightbox(false)
+    }
+    window.addEventListener('keydown', handleEscape)
+    return () => window.removeEventListener('keydown', handleEscape)
+  }, [lightbox])
 
   return (
     <EditorLabel name="DiagramZoom" id={editorId}>
-      <figure
-        className={`relative rounded-lg overflow-hidden border border-border shadow-lg mb-6 group cursor-zoom-in ${className ?? ''}`}
-        onClick={() => setLightbox(true)}
-      >
-        <img
-          src={src}
-          alt={alt}
-          width={width}
-          height={height}
-          style={aspectRatio ? { aspectRatio } : undefined}
-          className="w-full h-auto object-contain bg-card"
-          loading={loading}
-          decoding="async"
-        />
-        <span className="absolute top-3 right-3 p-1.5 rounded-md bg-black/40 text-white/50 group-hover:text-white/90 transition-colors">
-          <ZoomIn className="w-4 h-4" />
-        </span>
+      <figure className={`rounded-lg overflow-hidden border border-border shadow-lg mb-6 ${className ?? ''}`}>
+        <button
+          ref={triggerRef}
+          type="button"
+          onClick={() => setLightbox(true)}
+          aria-label={`Zoom in on ${alt}`}
+          className="relative block w-full group cursor-zoom-in"
+        >
+          <img
+            src={src}
+            alt={alt}
+            width={width}
+            height={height}
+            style={aspectRatio ? { aspectRatio } : undefined}
+            className="w-full h-auto object-contain bg-card"
+            loading={loading}
+            decoding="async"
+          />
+          <span className="absolute top-3 right-3 p-1.5 rounded-md bg-black/40 text-white/50 group-hover:text-white/90 transition-colors">
+            <ZoomIn className="w-4 h-4" aria-hidden="true" />
+          </span>
+        </button>
         {caption && <figcaption className="px-4 py-2 text-sm text-muted-foreground text-center bg-card">{caption}</figcaption>}
       </figure>
       {lightbox && (
         <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={`Zoomed view of ${alt}`}
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 cursor-zoom-out p-4"
           onClick={() => setLightbox(false)}
         >
-          <img src={hdSrc} alt={alt} width={hdWidth} height={hdHeight} className="max-w-full max-h-full rounded-lg shadow-2xl" />
+          <button
+            ref={closeButtonRef}
+            type="button"
+            onClick={(e) => { e.stopPropagation(); setLightbox(false) }}
+            aria-label="Close zoomed view"
+            className="absolute top-4 right-4 p-2 rounded-full bg-black/40 text-white/70 hover:text-white hover:bg-black/60 transition-colors"
+          >
+            <X className="w-5 h-5" aria-hidden="true" />
+          </button>
+          <img src={hdSrc} alt={alt} width={hdWidth} height={hdHeight} className="max-w-full max-h-full rounded-lg shadow-2xl" onClick={(e) => e.stopPropagation()} />
         </div>
       )}
     </EditorLabel>
@@ -732,7 +771,7 @@ function CodeCopyButton({ text }: { text: string }) {
       className="absolute top-3 right-3 p-1.5 rounded-md bg-[hsl(var(--codeblock-text)/0.1)] hover:bg-[hsl(var(--codeblock-text)/0.2)] text-[hsl(var(--codeblock-text)/0.5)] hover:text-[hsl(var(--codeblock-text)/0.8)] transition-colors"
       title="Copy code"
     >
-      {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+      {copied ? <Check className="w-4 h-4" aria-hidden="true" /> : <Copy className="w-4 h-4" aria-hidden="true" />}
     </button>
   )
 }
@@ -809,10 +848,10 @@ export function Accordion({ items, variant = 'simple', className, editorId }: Ac
       <div className={`space-y-3 mb-8 ${className ?? ''}`}>
         {variant === 'simple'
           ? (items as readonly AccordionSimpleItem[]).map((item, i) => (
-              <details key={i} className="group bg-card border border-border rounded-lg">
+              <details key={i} className="group bg-card border border-border rounded-2xl hover:border-primary/30 transition-colors">
                 <summary className="px-5 py-4 cursor-pointer font-medium text-foreground text-sm flex items-center justify-between">
                   {item.title}
-                  <ChevronRight className="w-4 h-4 text-muted-foreground group-open:rotate-90 transition-transform shrink-0" />
+                  <ChevronRight className="w-4 h-4 text-muted-foreground group-open:rotate-90 transition-transform shrink-0" aria-hidden="true" />
                 </summary>
                 <div className="px-5 pb-4 border-t border-border pt-3">
                   <p className="text-sm text-muted-foreground">{item.detail}</p>
@@ -820,7 +859,7 @@ export function Accordion({ items, variant = 'simple', className, editorId }: Ac
               </details>
             ))
           : (items as readonly AccordionRichItem[]).filter(isRichItem).map((flow, i) => (
-              <details key={i} className="group bg-card border border-border rounded-lg">
+              <details key={i} className="group bg-card border border-border rounded-2xl hover:border-primary/30 transition-colors">
                 <summary className="px-5 py-4 cursor-pointer flex items-start gap-3">
                   {flow.icon && <span className="text-lg">{flow.icon}</span>}
                   <div className="flex-1 min-w-0">
@@ -1244,7 +1283,7 @@ export function FloatingToc({ ctas }: { ctas?: TocCta[] } = {}) {
               onClick={() => scrollTo(targetId)}
               className="flex items-center gap-2 w-full px-3 py-2 rounded-lg bg-primary/10 border border-primary/20 text-primary text-sm font-medium hover:bg-primary/15 transition-colors"
             >
-              <Rocket className="w-3.5 h-3.5 flex-shrink-0" />
+              <Rocket className="w-3.5 h-3.5 flex-shrink-0" aria-hidden="true" />
               <span className="truncate">{cta.label}</span>
             </button>
           )
@@ -1336,7 +1375,7 @@ export function FloatingToc({ ctas }: { ctas?: TocCta[] } = {}) {
         className="xl:hidden fixed top-[1.05rem] left-4 z-[60] w-9 h-9 rounded-lg bg-card border border-border flex items-center justify-center hover:border-primary/50 transition-colors"
         aria-label="Toggle table of contents"
       >
-        {tocOpen ? <X className="w-4 h-4 text-primary" /> : <List className="w-4 h-4 text-muted-foreground" />}
+        {tocOpen ? <X className="w-4 h-4 text-primary" aria-hidden="true" /> : <List className="w-4 h-4 text-muted-foreground" aria-hidden="true" />}
       </button>
       {tocOpen && (
         <>
@@ -1499,7 +1538,7 @@ export function ArchitectureDiagram({ src, thumbnail, alt, label, subtitle, edit
               {subtitle && <p className="text-sm text-muted-foreground mt-0.5">{subtitle}</p>}
             </div>
             <span className="px-4 py-2 rounded-lg bg-primary/10 border border-primary/30 text-sm font-medium text-primary group-hover:bg-primary/20 group-hover:border-primary/50 transition-all">
-              <ZoomIn className="w-4 h-4 inline mr-1.5 -mt-0.5" />
+              <ZoomIn className="w-4 h-4 inline mr-1.5 -mt-0.5" aria-hidden="true" />
               Explorar
             </span>
           </div>
@@ -1514,7 +1553,7 @@ export function ArchitectureDiagram({ src, thumbnail, alt, label, subtitle, edit
             className="absolute top-3 right-4 z-10 w-9 h-9 rounded-lg bg-card border border-border flex items-center justify-center hover:border-primary/50 transition-colors"
             aria-label="Close diagram"
           >
-            <X className="w-4 h-4 text-muted-foreground" />
+            <X className="w-4 h-4 text-muted-foreground" aria-hidden="true" />
           </button>
           <iframe
             ref={iframeRef}

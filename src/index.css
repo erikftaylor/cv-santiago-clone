@@ -108,8 +108,8 @@ button, a, [role="button"], summary { cursor: pointer; }
     --card: 0 0% 100%;
     --card-foreground: 240 10% 4%;
     /* Gradient colors for chat/buttons */
-    --gradient-from: 187 86% 53%; /* cyan-400 */
-    --gradient-to: 270 91% 65%;   /* purple-500 */
+    --gradient-from: 187 86% 29%; /* cyan-700 — darkened from cyan-400 for AA text contrast on light bg */
+    --gradient-to: 270 91% 59%;   /* purple-500, darkened slightly for AA text contrast on light bg */
     /* Semantic accent colors */
     --gold: 43 76% 38%;
     --success: 142 72% 29%;
@@ -208,8 +208,8 @@ button, a, [role="button"], summary { cursor: pointer; }
     --border: 240 6% 85%;
     --card: 0 0% 100%;
     --card-foreground: 240 10% 4%;
-    --gradient-from: 187 86% 53%;
-    --gradient-to: 270 91% 65%;
+    --gradient-from: 187 86% 29%; /* darkened from cyan-400 for AA text contrast on light bg */
+    --gradient-to: 270 91% 59%;   /* darkened slightly for AA text contrast on light bg */
     --gold: 43 76% 38%;
     --success: 142 72% 29%;
     --tool: 187 72% 30%;

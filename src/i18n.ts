@@ -16,9 +16,10 @@
  *   2. UNPROVEN STAYS UNPROVEN. The case studies state plainly that their
  *      metrics are not yet realized. Do not convert research-backed *goals*
  *      into achieved outcomes, and do not attach numbers to any of them.
- *   3. ONE HONEST CLAIM BEATS TWO IMPRESSIVE ONES. Tenure is **15+ years**,
- *      counted from IBM in 2008. The old "8+ years" line is retired; the two
- *      must never appear together.
+ *   3. ONE HONEST CLAIM BEATS TWO IMPRESSIVE ONES. Tenure is counted from IBM
+ *      in 2008 — update the "X+ years" figure as the years turn rather than
+ *      letting it go stale. The old "8+ years" line is retired; conflicting
+ *      figures must never appear together.
  *   4. Erik is **freelance** — no longer at Tovuti LMS. All Tovuti copy is
  *      past tense.
  *   5. Ridgeframe Strategies and his co-founder are deliberately OFF this
@@ -35,7 +36,7 @@ export const seo = {
   en: {
     title: `${site.brand} | ${site.tagline}`,
     description:
-      'Denver-based senior product designer, 15+ years across global enterprise, financial services, and learning platforms. Research through engineering handoff.',
+      'Denver-based senior product designer, 18+ years across global enterprise, financial services, and learning platforms. Research through product decisions, systems, and implementation.',
   },
 }
 
@@ -65,11 +66,16 @@ export interface ProjectItem {
   tech: readonly string[]
   /** Bare host + path, no protocol — the UI adds it. */
   link?: string
-}
-
-export interface LanguageSkill {
-  name: string
-  level: string
+  /** Descriptive link text shown instead of the raw URL, e.g. "View JEM case study". */
+  linkLabel?: string
+  /**
+   * Featured-card structure: same facts as `desc`, split into three scannable
+   * beats. Optional — only the Featured Work items set these; everything
+   * else falls back to rendering `desc` as a paragraph.
+   */
+  problem?: string
+  approach?: string
+  result?: string
 }
 
 export const translations = {
@@ -85,7 +91,7 @@ export const translations = {
       'AI × UX Practitioner',
     ],
     /** The three words in the hero's beam pill. */
-    heroPill: ['Research', 'Systems', 'Handoff'],
+    heroPill: ['Research', 'Decisions', 'Systems', 'Implementation'],
     pillLabels: ['Senior Product Designer', 'AI × UX'],
     email: site.email,
     role: '',
@@ -94,7 +100,7 @@ export const translations = {
 
     // ── Intro animation ──────────────────────────────────────────────────
     story: {
-      context: '15+ years of it, starting as an IBM copywriter in 2008.',
+      context: '18+ years of it, starting as an IBM copywriter in 2008.',
       reflections: ['The decision is the story.', '…not the process diagram.'],
       hookParagraphs: [
         ['I work *upstream.*'],
@@ -103,31 +109,30 @@ export const translations = {
           '+before anything gets generated+.',
         ],
       ],
-      why: 'Enterprise at IBM, financial services at Transamerica, learning platforms at Tovuti LMS. Research through engineering handoff, and the tradeoffs named out loud.',
+      why: 'Enterprise at IBM, financial services at Transamerica, learning platforms at Tovuti LMS. Research through product decisions, systems, and implementation, with tradeoffs named out loud.',
       seeking: [
-        'Now freelance.',
+        'Freelance right now, and open to the right full-time seat.',
         'Working where AI is changing what design owns.',
-        'Open to the right full-time role.',
       ],
       nav: [
-        { icon: 'briefcase', label: 'My path', href: '#experience' },
-        { icon: 'folder', label: 'What I build', href: '#projects' },
+        { icon: 'briefcase', label: 'Experience', href: '#experience' },
+        { icon: 'folder', label: 'Work', href: '#work' },
         { icon: 'mail', label: "Let's talk", href: '#contact' },
-        { icon: 'bot', label: 'Ask me', href: '#chat', highlight: true },
+        { icon: 'bot', label: 'Ask about my work', href: '#chat', highlight: true },
       ],
       skills: ['Product Design', 'UX Research', 'Design Systems', 'AI-Integrated Workflows'],
       skipButton: 'Skip intro',
     },
 
     summary: {
-      p2: 'Fifteen-plus years across ',
+      p2: 'Eighteen-plus years across ',
       p2Highlight: 'global enterprise, financial services, and learning platforms',
       p2End: ' — now freelance, working where AI is changing what design is responsible for.',
     },
 
     // ── What I deliver ───────────────────────────────────────────────────
     coreCompetencies: {
-      title: 'What I deliver',
+      title: 'How I Work',
       items: [
         {
           title: 'Cross-Functional Collaboration',
@@ -135,7 +140,7 @@ export const translations = {
         },
         {
           title: 'Design Systems in Figma',
-          desc: 'From early wireframes to production-ready systems. I work in Figma the way engineers work in code: structure, consistency, and handoffs that do not require a meeting to decode.',
+          desc: 'From early wireframes to production-ready systems. I work in Figma the way engineers work in code: structure, consistency, and specs that do not require a meeting to decode.',
         },
         {
           title: 'Designing for AI-Generated Experiences',
@@ -165,7 +170,7 @@ export const translations = {
           location: 'Denver, CO · Remote',
           role: 'Senior Product Designer',
           period: '2026 – Present',
-          desc: 'Product design for teams shipping software — discovery through engineering handoff.',
+          desc: 'Product design for teams shipping software — discovery through implementation.',
           highlights: [],
         },
         {
@@ -175,7 +180,7 @@ export const translations = {
           period: '2025 – 2026',
           desc: 'Led design across admin and learner surfaces, and owned the design system.',
           highlights: [
-            'Designed and shipped JEM, an AI journey-mapping tool. Teams were losing 10–15 hours per discovery cycle hand-synthesizing help docs, transcripts, and support tickets, so I designed the product — source ingestion, a guided AI scoping chat, an editable persona-by-stage canvas — defined its data model, and shipped it with the platform\'s lead engineer. Ten fixes landed in the first week of production.',
+            'Designed and shipped JEM, an AI journey-mapping tool, after teams lost 10–15 hours per discovery cycle hand-synthesizing help docs, transcripts, and support tickets. Built source ingestion, a guided AI scoping chat, and an editable persona-by-stage canvas, defined the data model, and shipped it with the platform\'s lead engineer — ten fixes landed in week one.',
             'Led discovery on Checkpoints, an approval-workflow feature carrying $500K+ ARR and a set of at-risk accounts: synthesized 60+ support tickets, Slack signals, and internal case notes into four persona journey maps and five go/no-go gates before GA — including silent auto-approvals, a compliance risk no ticket had named.',
             'Owned the design system: token layer defined first, with a governance rule that every custom component traces back to a real primitive — so 8–12 engineers build from one shared taxonomy instead of drifting into one-offs. Specs held to WCAG AA.',
           ],
@@ -187,11 +192,10 @@ export const translations = {
           period: '2020 – 2024',
           desc: 'Designed the World Financial Group (WFG) agent portal — the tools licensed agents work in daily.',
           highlights: [
-            'Redesigned new-agent onboarding — a card-based homepage over a blank dashboard, entitlements shaping what recruits versus licensed agents see. Task-completion, engagement, and satisfaction targets were set from research and usability testing; no post-launch adoption numbers were measured, so none are claimed here.',
-            'Joined a redesign whose direction was already set and pushed to add user interviews and usability testing, so the work was grounded in actual agent pain points rather than assumptions carried over from the prior portal. It cost time the team had not budgeted; skipping it risked solving the wrong friction.',
-            'Built a custom design system for WFG rather than reusing an off-the-shelf component set, because WFG branding and functional requirements did not map cleanly onto existing patterns.',
-            'Rebuilt global navigation around frequency of use rather than the org chart — agents were not asking for fewer features, they were asking for fewer steps to the ones they used constantly, like Commissions and Client Management.',
-            'Accepted the tradeoff that frequency-based ordering deprioritizes rarely-used tools entirely. That is a bet on those agents being rare enough to accept the extra click, and it will not be provable until full rollout data comes in.',
+            'Redesigned new-agent onboarding — a card-based homepage over a blank dashboard, with entitlements shaping what recruits versus licensed agents see. Targets were set from research and usability testing; no post-launch numbers were measured.',
+            'Joined a redesign whose direction was already set and pushed to add user interviews and usability testing anyway, grounding the work in real agent pain points instead of assumptions carried over from the prior portal — at a time cost the team had not budgeted.',
+            'Built a custom design system for WFG instead of an off-the-shelf component set — branding and functional requirements did not map cleanly onto existing patterns.',
+            'Rebuilt global navigation around frequency of use rather than the org chart — agents wanted fewer steps to the tools they used constantly, like Commissions and Client Management, accepting that rarely-used tools become harder to reach.',
           ],
         },
         {
@@ -202,24 +206,16 @@ export const translations = {
           desc: 'Owned the Digital Sellers Guidebook — an adoption problem wearing a platform problem as a disguise.',
           highlights: [
             'Sellers treated the existing platform as overhead rather than help. Stakeholder interviews with sellers and managers surfaced the real constraint: high cognitive load and no time for training. Any fix that asked sellers to learn something new, somewhere new, would have failed the same way.',
-            'Built the guidebook on WordPress for easy integration with existing IBM tools, structured around three pillars — product pages, a role-segmented knowledge base, and a searchable video library — informed by stakeholder interviews with sellers and managers.',
+            'Built the guidebook on WordPress for easy integration with existing IBM tools, structured around three pillars: product pages, a role-segmented knowledge base, and a searchable video library.',
             'Restructured that knowledge base around seller journeys — Clients, Contacts, Communications, Opportunity — with manager and seller paths separated, instead of mirroring how the content team was organized.',
           ],
         },
         {
           company: 'IBM',
           location: 'Remote',
-          role: 'Team Lead',
-          period: '2010 – 2017',
-          desc: 'Team lead prior to moving into product ownership and design.',
-          highlights: [],
-        },
-        {
-          company: 'IBM',
-          location: 'Remote',
-          role: 'Copywriter',
-          period: '2008 – 2010',
-          desc: 'Where the fifteen years starts — writing before designing.',
+          role: 'Earlier IBM Experience',
+          period: '2008 – 2017',
+          desc: 'Copywriter to team lead — writing and cross-functional leadership before moving into product ownership and design.',
           highlights: [],
         },
       ] as readonly ExperienceItem[],
@@ -227,8 +223,12 @@ export const translations = {
 
     // ── Case studies ─────────────────────────────────────────────────────
     // Each leads with the decision and its open status, per PRODUCT.md rule 1.
+    // `items` is the single source; App.tsx splits it into Featured Work
+    // (by title, see FEATURED_PROJECT_TITLES) and More Work at render time.
     projects: {
       title: 'Case studies',
+      featuredTitle: 'Featured Work',
+      moreTitle: 'More Work',
       githubLink: site.social.github.replace('https://', ''),
       viewCode: 'Read the case study',
       viewPrototype: 'View prototype',
@@ -237,22 +237,34 @@ export const translations = {
           title: 'JEM (Journey Experience Mapper)',
           badge: 'Tovuti LMS · 8 weeks',
           desc: 'Product teams were losing 10–15 hours per discovery cycle hand-synthesizing help docs, transcripts, and support tickets into journey maps. I designed JEM — source ingestion, a guided AI scoping chat, an editable persona-by-stage canvas — defined its data model, and shipped it with Tovuti\'s lead engineer inside the eight-week window. The bet: a week lost if it was wrong, those hours back every cycle if it worked. Ten fixes shipped in the first week of production.',
+          problem: 'Teams were losing 10–15 hours per discovery cycle hand-synthesizing help docs, transcripts, and support tickets into journey maps.',
+          approach: 'Designed JEM — source ingestion, a guided AI scoping chat, an editable persona-by-stage canvas — defined its data model, and shipped it with Tovuti\'s lead engineer in an eight-week window.',
+          result: 'Ten fixes shipped in the first week of production; those 10–15 hours come back every discovery cycle.',
           tech: ['Journey Mapping', 'Zendesk', 'Slack', 'Research Synthesis', 'AI-Assisted Build'],
           link: 'etaylor.co/i-vibe-coded-a-journey-map-generator-auto-synthesizing-docs-and-demos-into-actionable-friction-maps',
+          linkLabel: 'View JEM case study',
         },
         {
           title: 'Checkpoints Go/No-Go',
           badge: 'Tovuti LMS',
           desc: 'An approval-workflow feature carrying $500K+ ARR was "broken again" in support channels, and nobody could say precisely how. I synthesized 60+ Zendesk tickets, Slack signals, and internal case notes into four persona journey maps and a five-gate go/no-go assessment — surfacing silent auto-approvals, a compliance risk no ticket had named. The gates went to leadership before GA; the fixes are theirs to sequence.',
+          problem: 'An approval-workflow feature carrying $500K+ ARR was "broken again" in support channels, and nobody could say precisely how.',
+          approach: 'Synthesized 60+ Zendesk tickets, Slack signals, and internal case notes into four persona journey maps and a five-gate go/no-go assessment.',
+          result: 'Surfaced silent auto-approvals — a compliance risk no ticket had named — and delivered the gates to leadership before GA.',
           tech: ['Discovery', 'Journey Mapping', 'Zendesk', 'Risk Assessment'],
           link: 'etaylor.co/a-go-no-go-discovery-for-a-500k-arr-approval-workflow',
+          linkLabel: 'Read the Checkpoints case study',
         },
         {
           title: 'WFG Agent Portal',
           badge: 'Transamerica',
           desc: 'The agent portal was unintuitive and impersonal — essential tools were hard to find and nothing adapted to the agent using it. I joined after direction was set and argued for user interviews and usability testing anyway, then built a design system tailored to WFG rather than bending the experience into an off-the-shelf component set. Task-completion, engagement, and satisfaction targets were set from that research; no post-launch metrics were measured, so none are claimed here.',
+          problem: 'The agent portal was unintuitive and impersonal — essential tools were hard to find and nothing adapted to the agent using it.',
+          approach: 'Argued for user interviews and usability testing after direction was already set, then built a custom design system for WFG instead of bending into an off-the-shelf component set.',
+          result: 'Task-completion, engagement, and satisfaction targets were set from that research; no post-launch metrics were measured, so none are claimed here.',
           tech: ['Design Systems', 'Figma', 'Usability Testing', 'Stakeholder Interviews'],
           link: 'etaylor.co/empowering-financial-agents-with-a-redesigned-portal-experience',
+          linkLabel: 'View the WFG Agent Portal case study',
         },
         {
           title: 'Advisor Navigation',
@@ -260,6 +272,7 @@ export const translations = {
           desc: 'Licensed agents could not get to the tools they used constantly: the global nav was cluttered with links and subcategories, and mobile was worse. I cut links and reordered what remained by frequency of use rather than by org chart. The tradeoff — burying rarely-used tools — is a bet that will not be provable until full rollout data comes in.',
           tech: ['Information Architecture', 'Mobile', 'Usability Testing', 'Figma'],
           link: 'etaylor.co/boosting-advisor-efficiency-with-a-renovated-navigation-experience',
+          linkLabel: 'Read the Advisor Navigation case study',
         },
         {
           title: 'IBM Digital Sellers Guidebook',
@@ -267,6 +280,7 @@ export const translations = {
           desc: 'Sellers saw the platform as overhead, not help — the real constraint was cognitive load, not awareness. Built on WordPress for easy integration with existing IBM tools, the guidebook organized product pages, a role-segmented knowledge base, and a searchable video library around what sellers and managers actually needed.',
           tech: ['WordPress', 'Stakeholder Interviews', 'Content Design', 'Adoption'],
           link: 'etaylor.co/driving-adoption-and-engagement-with-ibms-digital-sellers-guidebook',
+          linkLabel: 'View the IBM Digital Sellers Guidebook case study',
         },
         {
           title: 'WFG 365',
@@ -274,6 +288,7 @@ export const translations = {
           desc: 'Senior leaders refused to use the mobile app that replaced Pulse — the paycheck tabs and team metrics they ran their business on daily were gone. I led field research with top producers, turning "this doesn\'t work" into a prioritized fix list before the next release. Adoption was never formally tracked, so no lift is claimed.',
           tech: ['Field Research', 'Mobile UX', 'Change Management', 'Stakeholder Interviews'],
           link: 'etaylor.co/recovering-a-mobile-app-launch-agents-refused-to-use',
+          linkLabel: 'Read the WFG 365 case study',
         },
         {
           title: 'An AI-Native Design Practice',
@@ -281,6 +296,7 @@ export const translations = {
           desc: 'Three interlocking builds on one thesis: AI as infrastructure, not a bolted-on tool. JEM turns research into journey maps; 10 custom Claude skills cut synthesis time from 10–15 hours to under 2; an analytics vision reframes reporting as decisions, not dashboards.',
           tech: ['Claude', 'AI Workflow Design', 'Product Strategy', 'Research Synthesis'],
           link: 'etaylor.co/building-an-ai-native-design-practice-not-just-using-ai-tools',
+          linkLabel: 'View the AI-Native Design Practice case study',
         },
       ] as readonly ProjectItem[],
     },
@@ -311,18 +327,14 @@ export const translations = {
 
     skills: {
       title: 'Skills',
-      languages: 'Languages',
-      languageList: [{ name: 'English', level: 'Native' }] as readonly LanguageSkill[],
       soft: 'Practice',
+      // Concrete methods and tools only — the behavioral/approach side of this
+      // lives in coreCompetencies ("How I Work") to avoid saying it twice.
       softSkills: [
         'Stakeholder interviews',
         'Usability testing',
         'Research synthesis',
-        'Design systems',
         'Information architecture',
-        'Cross-functional collaboration',
-        'Engineering handoff',
-        'Accessibility (WCAG 2.2 AA)',
       ],
     },
 

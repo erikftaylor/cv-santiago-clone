@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useMemo, useReducer, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'motion/react'
-import { Mail, ExternalLink, Briefcase, GraduationCap, Award, Code, Globe, Bot, BadgeCheck, FolderGit2, Sparkles, Github, FileText, SkipForward, ChevronRight, List } from 'lucide-react'
+import { Mail, ExternalLink, Briefcase, GraduationCap, Award, Code, Bot, BadgeCheck, FolderGit2, Sparkles, Github, FileText, SkipForward, ChevronRight, List } from 'lucide-react'
 import { translations, seo, type Lang } from './i18n'
 import { site } from './site.config'
 import { useHomeSeo } from './articles/use-article-seo'
@@ -231,7 +231,7 @@ function GridSnakes() {
     }
   }, [])
 
-  return <canvas ref={canvasRef} className="absolute inset-0 pointer-events-none z-[1]" />
+  return <canvas ref={canvasRef} aria-hidden="true" className="absolute inset-0 pointer-events-none z-[1]" />
 }
 
 
@@ -273,9 +273,18 @@ function useTypewriterRotation(roles: readonly string[], { typeSpeed = 80, delet
   return { displayText, roleIndex, isDeleting }
 }
 
+/** Which case studies lead the page. Order here is the display order. */
+const FEATURED_PROJECT_TITLES = [
+  'JEM (Journey Experience Mapper)',
+  'Checkpoints Go/No-Go',
+  'WFG Agent Portal',
+] as const
+
 const HOME_TOC_SECTIONS = [
+  { id: 'work', es: 'Trabajo', en: 'Featured Work' },
+  { id: 'how-i-work', es: 'Cómo trabajo', en: 'How I Work' },
   { id: 'experience', es: 'Experiencia', en: 'Experience' },
-  { id: 'projects', es: 'Proyectos', en: 'Projects' },
+  { id: 'more-work', es: 'Más trabajo', en: 'More Work' },
   { id: 'education', es: 'Formación', en: 'Education' },
   { id: 'tech', es: 'Skills & Stack', en: 'Skills & Stack' },
   { id: 'contact', es: 'Contacto', en: 'Contact' },
@@ -410,7 +419,7 @@ function HomeToc({ lang }: { lang: Lang }) {
             className="2xl:hidden fixed bottom-6 right-6 z-40 w-11 h-11 rounded-full bg-primary text-primary-foreground shadow-lg flex items-center justify-center"
             aria-label="Toggle table of contents"
           >
-            <List className="w-5 h-5" />
+            <List className="w-5 h-5" aria-hidden="true" />
           </motion.button>
           {tocOpen && (
             <>
@@ -1288,7 +1297,7 @@ function StorySection({ t }: { t: (typeof translations)[Lang] }) {
                 onClick={() => skipRef.current?.()}
                 className="absolute bottom-0 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 px-4 py-1.5 rounded-full text-sm text-muted-foreground border border-border/50 bg-card backdrop-blur-sm cursor-pointer hover:bg-primary/10 hover:border-primary/30 hover:text-foreground transition-colors duration-200"
               >
-                <SkipForward className="w-3.5 h-3.5" />
+                <SkipForward className="w-3.5 h-3.5" aria-hidden="true" />
                 {t.story.skipButton}
               </motion.button>
             )}
@@ -1358,10 +1367,10 @@ function StorySection({ t }: { t: (typeof translations)[Lang] }) {
           >
           {t.story.nav.map((item) => {
             const icons: Record<string, React.ReactNode> = {
-              briefcase: <Briefcase className="w-4 h-4" />,
-              folder: <FolderGit2 className="w-4 h-4" />,
-              mail: <Mail className="w-4 h-4" />,
-              bot: <Bot className="w-4 h-4" />
+              briefcase: <Briefcase className="w-4 h-4" aria-hidden="true" />,
+              folder: <FolderGit2 className="w-4 h-4" aria-hidden="true" />,
+              mail: <Mail className="w-4 h-4" aria-hidden="true" />,
+              bot: <Bot className="w-4 h-4" aria-hidden="true" />
             }
             const isHighlight = 'highlight' in item && item.highlight
             const handleClick = (e: React.MouseEvent) => {
@@ -1436,7 +1445,8 @@ function App() {
   const hydrated = useHydrated()
   useHeroStyles()
   const { displayText: roleText, roleIndex } = useTypewriterRotation(t.greetingRoles)
-
+  const featuredProjects = t.projects.items.filter((p) => (FEATURED_PROJECT_TITLES as readonly string[]).includes(p.title))
+  const moreProjects = t.projects.items.filter((p) => !(FEATURED_PROJECT_TITLES as readonly string[]).includes(p.title))
 
   // SEO: Dynamic meta tags based on language
   const seoData = seo[lang]
@@ -1458,8 +1468,8 @@ function App() {
       <header id="main-content" className="relative overflow-hidden">
         <GridSnakes />
         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-accent/5 to-transparent" />
-        <div className="absolute top-0 right-[max(0px,calc(50%-40rem))] w-[600px] h-[600px] rounded-full blur-3xl -translate-y-1/3 translate-x-1/3 hidden sm:block animate-[hero-glow_8s_ease-in-out_infinite]" style={{ backgroundColor: 'hsl(var(--hero-orb-primary))' }} />
-        <div className="absolute bottom-0 left-[max(0px,calc(50%-40rem))] w-[550px] h-[550px] rounded-full blur-3xl translate-y-1/3 -translate-x-1/3 hidden sm:block animate-[hero-glow_11s_ease-in-out_infinite_reverse]" style={{ backgroundColor: 'hsl(var(--hero-orb-accent))' }} />
+        <div aria-hidden="true" className="absolute top-0 right-[max(0px,calc(50%-40rem))] w-[600px] h-[600px] rounded-full blur-3xl -translate-y-1/3 translate-x-1/3 hidden sm:block animate-[hero-glow_8s_ease-in-out_infinite]" style={{ backgroundColor: 'hsl(var(--hero-orb-primary))' }} />
+        <div aria-hidden="true" className="absolute bottom-0 left-[max(0px,calc(50%-40rem))] w-[550px] h-[550px] rounded-full blur-3xl translate-y-1/3 -translate-x-1/3 hidden sm:block animate-[hero-glow_11s_ease-in-out_infinite_reverse]" style={{ backgroundColor: 'hsl(var(--hero-orb-accent))' }} />
 
         <div className="relative max-w-5xl mx-auto px-6 pt-20 pb-12 md:pt-32 md:pb-16">
           <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
@@ -1490,7 +1500,7 @@ function App() {
                 transition={{ delay: 0.4, type: "spring", stiffness: 200 }}
                 className="absolute -bottom-1 -right-1 w-10 h-10 rounded-full bg-gradient-theme flex items-center justify-center shadow-lg border-2 border-background"
               >
-                <BadgeCheck className="w-6 h-6 text-white" />
+                <BadgeCheck className="w-6 h-6 text-white" aria-hidden="true" />
               </motion.div>
             </motion.div>
 
@@ -1543,6 +1553,188 @@ function App() {
       {/* Summary - Con storytelling integrado */}
       <StorySection t={t} />
 
+      {/* ── Featured Work ────────────────────────────────────────────────────
+          The three strongest case studies, given more visual weight than
+          the rest — see FEATURED_PROJECT_TITLES above. */}
+      {featuredProjects.length > 0 && (
+      <section id="work" className="py-16 md:py-24" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 2200px' }}>
+        <div className="max-w-5xl mx-auto px-6">
+          <AnimatedSection>
+            <div className="flex items-center justify-between gap-4 flex-wrap mb-10">
+              <h2 className="font-display text-2xl font-semibold flex items-center gap-3">
+                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                  <FolderGit2 className="w-5 h-5 text-primary" aria-hidden="true" />
+                </div>
+                {t.projects.featuredTitle}
+              </h2>
+              {site.social.github && (
+                <a href={site.social.github} target="_blank" rel="me noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
+                  <Github className="w-4 h-4" aria-hidden="true" />
+                  {t.projects.githubLink}
+                </a>
+              )}
+            </div>
+          </AnimatedSection>
+
+          <div className="space-y-6">
+            {featuredProjects.map((proj, i) => (
+              <AnimatedSection key={proj.title}>
+                <article className="p-8 md:p-10 rounded-3xl border border-primary/20 bg-background/60 backdrop-blur-sm hover:border-primary/50 transition-colors duration-300">
+                  <div className="flex items-start justify-between gap-4 flex-wrap mb-3">
+                    <span className="font-display text-sm font-semibold text-primary/60 tabular-nums">{String(i + 1).padStart(2, '0')}</span>
+                    {proj.badge && (
+                      <span className="shrink-0 px-3 py-1 rounded-full text-xs font-medium border border-primary/30 bg-primary/10 text-primary">
+                        {proj.badge}
+                      </span>
+                    )}
+                  </div>
+
+                  <h3 className="font-display text-2xl md:text-3xl font-bold mb-6">{proj.title}</h3>
+
+                  {proj.problem && proj.approach && proj.result ? (
+                    <div className="grid sm:grid-cols-3 gap-5 mb-6">
+                      <div>
+                        <span className="text-xs font-semibold uppercase tracking-wide text-primary">Problem</span>
+                        <p className="text-sm text-muted-foreground leading-relaxed mt-1.5">{proj.problem}</p>
+                      </div>
+                      <div>
+                        <span className="text-xs font-semibold uppercase tracking-wide text-primary">What I did</span>
+                        <p className="text-sm text-muted-foreground leading-relaxed mt-1.5">{proj.approach}</p>
+                      </div>
+                      <div>
+                        <span className="text-xs font-semibold uppercase tracking-wide text-primary">Result</span>
+                        <p className="text-sm text-muted-foreground leading-relaxed mt-1.5">{proj.result}</p>
+                      </div>
+                    </div>
+                  ) : (
+                    <p className="text-base text-muted-foreground leading-relaxed mb-6 max-w-3xl">{proj.desc}</p>
+                  )}
+
+                  {/* Structure diagram — schematic, grounded in the copy above, not a screenshot */}
+                  {proj.title === 'JEM (Journey Experience Mapper)' && (
+                    <div className="mb-6">
+                      <span className="text-xs font-semibold uppercase tracking-wide text-primary">Product structure</span>
+                      <div className="flex items-center gap-2 flex-wrap mt-2">
+                        <div className="flex-1 min-w-[140px] p-3 rounded-lg border border-border bg-muted/40 text-center">
+                          <p className="text-sm font-medium">Sources</p>
+                          <p className="text-xs text-muted-foreground mt-0.5">Docs, transcripts, tickets</p>
+                        </div>
+                        <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0" aria-hidden="true" />
+                        <div className="flex-1 min-w-[140px] p-3 rounded-lg border border-border bg-muted/40 text-center">
+                          <p className="text-sm font-medium">AI scoping chat</p>
+                          <p className="text-xs text-muted-foreground mt-0.5">Guided intake</p>
+                        </div>
+                        <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0" aria-hidden="true" />
+                        <div className="flex-1 min-w-[140px] p-3 rounded-lg border border-border bg-muted/40 text-center">
+                          <p className="text-sm font-medium">Persona canvas</p>
+                          <p className="text-xs text-muted-foreground mt-0.5">Editable, by stage</p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {proj.title === 'Checkpoints Go/No-Go' && (
+                    <div className="mb-6">
+                      <span className="text-xs font-semibold uppercase tracking-wide text-primary">Discovery funnel</span>
+                      <div className="flex items-center gap-2 flex-wrap mt-2">
+                        <div className="flex-1 min-w-[120px] p-3 rounded-lg border border-border bg-muted/40 text-center">
+                          <p className="text-sm font-medium">60+ signals</p>
+                          <p className="text-xs text-muted-foreground mt-0.5">Tickets, Slack, case notes</p>
+                        </div>
+                        <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0" aria-hidden="true" />
+                        <div className="flex-1 min-w-[120px] p-3 rounded-lg border border-border bg-muted/40 text-center">
+                          <p className="text-sm font-medium">4 persona maps</p>
+                        </div>
+                        <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0" aria-hidden="true" />
+                        <div className="flex-1 min-w-[120px] p-3 rounded-lg border border-border bg-muted/40 text-center">
+                          <p className="text-sm font-medium">5-gate go/no-go</p>
+                        </div>
+                        <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0" aria-hidden="true" />
+                        <div className="flex-1 min-w-[120px] p-3 rounded-lg border border-primary/40 bg-primary/5 text-center">
+                          <p className="text-sm font-medium text-primary">To leadership</p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {proj.title === 'WFG Agent Portal' && (
+                    <div className="mb-6">
+                      <span className="text-xs font-semibold uppercase tracking-wide text-primary">Design system decision</span>
+                      <div className="flex items-center gap-3 flex-wrap mt-2">
+                        <div className="flex-1 min-w-[160px] p-3 rounded-lg border border-border bg-muted/40 text-center opacity-70">
+                          <p className="text-sm font-medium line-through decoration-muted-foreground/50">Off-the-shelf components</p>
+                          <p className="text-xs text-muted-foreground mt-0.5">Rejected — didn't fit</p>
+                        </div>
+                        <span className="text-muted-foreground text-sm shrink-0">vs.</span>
+                        <div className="flex-1 min-w-[160px] p-3 rounded-lg border border-primary/40 bg-primary/5 text-center">
+                          <p className="text-sm font-medium text-primary">Custom WFG design system</p>
+                          <p className="text-xs text-muted-foreground mt-0.5">Built to fit branding + function</p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {proj.tech.map((tech) => {
+                      const icon = getTechIcon(tech)
+                      return (
+                        <span key={tech} className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium bg-muted text-muted-foreground">
+                          {icon && (
+                            <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 shrink-0" fill={icon.color} aria-hidden="true">
+                              <path d={icon.path} />
+                            </svg>
+                          )}
+                          {tech}
+                        </span>
+                      )
+                    })}
+                  </div>
+
+                  {proj.link && (
+                    <a href={`https://${proj.link}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors group/link">
+                      <ExternalLink className="w-4 h-4" aria-hidden="true" />
+                      <span>{proj.linkLabel ?? proj.link} →</span>
+                    </a>
+                  )}
+                </article>
+              </AnimatedSection>
+            ))}
+          </div>
+        </div>
+      </section>
+      )}
+
+      {/* ── How I Work ──────────────────────────────────────────────────────
+          Data-driven: renders whatever is in `t.coreCompetencies.items`. */}
+      {t.coreCompetencies.items.length > 0 && (
+      <section id="how-i-work" className="py-16 md:py-24" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 800px' }}>
+        <div className="max-w-5xl mx-auto px-6">
+          <AnimatedSection>
+            <h2 className="font-display text-2xl font-semibold mb-8 flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                <Sparkles className="w-5 h-5 text-primary" aria-hidden="true" />
+              </div>
+              {t.coreCompetencies.title}
+            </h2>
+          </AnimatedSection>
+
+          <AnimatedSection>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {t.coreCompetencies.items.map((c) => (
+                <div key={c.title} className="p-5 rounded-xl border border-border bg-background/60 backdrop-blur-sm">
+                  <h3 className="font-display font-semibold mb-1.5 flex items-center gap-2">
+                    <Sparkles className="w-4 h-4 text-primary shrink-0" aria-hidden="true" />
+                    {c.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{c.desc}</p>
+                </div>
+              ))}
+            </div>
+          </AnimatedSection>
+        </div>
+      </section>
+      )}
+
       {/* ── Experience ──────────────────────────────────────────────────────
           Data-driven: renders whatever is in `t.experience.items`.
           Add a job in i18n.ts; no changes needed here. */}
@@ -1551,28 +1743,11 @@ function App() {
           <AnimatedSection>
             <h2 className="font-display text-2xl font-semibold mb-8 flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                <Briefcase className="w-5 h-5 text-primary" />
+                <Briefcase className="w-5 h-5 text-primary" aria-hidden="true" />
               </div>
               {t.experience.title}
             </h2>
           </AnimatedSection>
-
-          {/* Core competencies preamble */}
-          {t.coreCompetencies.items.length > 0 && (
-            <AnimatedSection>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
-                {t.coreCompetencies.items.map((c) => (
-                  <div key={c.title} className="p-5 rounded-xl border border-border bg-background/60 backdrop-blur-sm">
-                    <h3 className="font-display font-semibold mb-1.5 flex items-center gap-2">
-                      <Sparkles className="w-4 h-4 text-primary shrink-0" />
-                      {c.title}
-                    </h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{c.desc}</p>
-                  </div>
-                ))}
-              </div>
-            </AnimatedSection>
-          )}
 
           <div className="space-y-8">
             {t.experience.items.map((job) => (
@@ -1586,7 +1761,7 @@ function App() {
                       <div>
                         <h3 className="font-display text-2xl font-bold leading-tight">
                           {job.url ? (
-                            <a href={job.url} target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
+                            <a href={job.url} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-primary transition-colors">
                               {job.company}
                             </a>
                           ) : job.company}
@@ -1611,7 +1786,7 @@ function App() {
                     <ul className="space-y-2.5">
                       {job.highlights.map((h, hi) => (
                         <li key={hi} className="flex gap-3 text-sm text-muted-foreground leading-relaxed">
-                          <ChevronRight className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                          <ChevronRight className="w-4 h-4 text-primary shrink-0 mt-0.5" aria-hidden="true" />
                           <span>{h}</span>
                         </li>
                       ))}
@@ -1620,9 +1795,9 @@ function App() {
 
                   {job.caseStudyUrl && job.caseStudyLabel && (
                     <Link to={job.caseStudyUrl} className="inline-flex items-center gap-2 mt-6 text-sm font-medium text-primary hover:text-primary/80 transition-colors duration-200 group/cta">
-                      <FileText className="w-4 h-4" />
+                      <FileText className="w-4 h-4" aria-hidden="true" />
                       <span>{job.caseStudyLabel}</span>
-                      <ChevronRight className="w-4 h-4 group-hover/cta:translate-x-0.5 transition-transform" />
+                      <ChevronRight className="w-4 h-4 group-hover/cta:translate-x-0.5 transition-transform" aria-hidden="true" />
                     </Link>
                   )}
                 </article>
@@ -1632,28 +1807,23 @@ function App() {
         </div>
       </section>
 
-      {/* ── Projects ────────────────────────────────────────────────────── */}
-      <section id="projects" className="py-16 md:py-24" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 1500px' }}>
+      {/* ── More Work ────────────────────────────────────────────────────── */}
+      {moreProjects.length > 0 && (
+      <section id="more-work" className="py-16 md:py-24" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 1500px' }}>
         <div className="max-w-5xl mx-auto px-6">
           <AnimatedSection>
             <div className="flex items-center justify-between gap-4 flex-wrap mb-8">
               <h2 className="font-display text-2xl font-semibold flex items-center gap-3">
                 <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                  <FolderGit2 className="w-5 h-5 text-primary" />
+                  <FolderGit2 className="w-5 h-5 text-primary" aria-hidden="true" />
                 </div>
-                {t.projects.title}
+                {t.projects.moreTitle}
               </h2>
-              {site.social.github && (
-                <a href={site.social.github} target="_blank" rel="me noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
-                  <Github className="w-4 h-4" />
-                  {t.projects.githubLink}
-                </a>
-              )}
             </div>
           </AnimatedSection>
 
           <div className="grid md:grid-cols-2 gap-6">
-            {t.projects.items.map((proj) => (
+            {moreProjects.map((proj) => (
               <AnimatedSection key={proj.title}>
                 <article className="h-full p-6 rounded-2xl border border-border bg-background/60 backdrop-blur-sm hover:border-primary/40 transition-colors duration-300 flex flex-col">
                   <div className="flex items-start justify-between gap-3 mb-2">
@@ -1685,8 +1855,8 @@ function App() {
 
                   {proj.link && (
                     <a href={`https://${proj.link}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors group/link">
-                      <ExternalLink className="w-4 h-4" />
-                      <span>{proj.link}</span>
+                      <ExternalLink className="w-4 h-4" aria-hidden="true" />
+                      <span>{proj.linkLabel ?? proj.link} →</span>
                     </a>
                   )}
                 </article>
@@ -1695,7 +1865,7 @@ function App() {
           </div>
         </div>
       </section>
-
+      )}
 
       {/* Education & Certifications — hidden while both lists are empty */}
       {(t.education.items.length > 0 || t.certifications.items.length > 0) && (
@@ -1708,7 +1878,7 @@ function App() {
               <AnimatedSection>
                 <h2 className="font-display text-2xl font-semibold mb-8 flex items-center gap-3">
                   <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                    <GraduationCap className="w-5 h-5 text-primary" />
+                    <GraduationCap className="w-5 h-5 text-primary" aria-hidden="true" />
                   </div>
                   {t.education.title}
                 </h2>
@@ -1743,7 +1913,7 @@ function App() {
               <AnimatedSection>
                 <h2 className="font-display text-2xl font-semibold mb-8 flex items-center gap-3">
                   <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center">
-                    <Award className="w-5 h-5 text-accent" />
+                    <Award className="w-5 h-5 text-accent" aria-hidden="true" />
                   </div>
                   {t.certifications.title}
                 </h2>
@@ -1788,7 +1958,7 @@ function App() {
           <AnimatedSection>
             <h2 className="font-display text-2xl font-semibold mb-12 flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                <Code className="w-5 h-5 text-primary" />
+                <Code className="w-5 h-5 text-primary" aria-hidden="true" />
               </div>
               {t.skills.title}
             </h2>
@@ -1796,22 +1966,7 @@ function App() {
 
           <div className="grid md:grid-cols-4 gap-8">
             <AnimatedSection delay={0.1}>
-              <h3 className="font-display font-semibold mb-4 flex items-center gap-2">
-                <Globe className="w-4 h-4 text-primary" />
-                {t.skills.languages}
-              </h3>
-              <div className="space-y-3">
-                {t.skills.languageList.map((l, i) => (
-                  <div key={l.name} className="flex justify-between items-center">
-                    <span>{l.name}</span>
-                    <span className={i === 0 ? 'text-sm text-primary font-medium' : 'text-sm text-muted-foreground'}>
-                      {l.level}
-                    </span>
-                  </div>
-                ))}
-              </div>
-
-              <h3 className="font-display font-semibold mb-4 mt-8">{t.skills.soft}</h3>
+              <h3 className="font-display font-semibold mb-4">{t.skills.soft}</h3>
               <div className="flex flex-wrap gap-2">
                 {t.skills.softSkills.map((skill) => (
                   <span key={skill} className="px-3 py-1 rounded-full text-sm bg-accent/10 text-accent border border-accent/20 hover:bg-accent/20 transition-colors cursor-default">
@@ -1871,7 +2026,7 @@ function App() {
                 href={`mailto:${t.email}`}
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-primary-foreground font-medium hover:brightness-110 hover:shadow-lg hover:shadow-primary/25 active:brightness-95 transition-all duration-200"
               >
-                <Mail className="w-4 h-4" />
+                <Mail className="w-4 h-4" aria-hidden="true" />
                 {t.cta.contact}
               </a>
               {site.social.linkedin && (
@@ -1891,7 +2046,7 @@ function App() {
           <p className="mt-12 text-xs text-muted-foreground">
             &copy; {new Date().getFullYear()} {site.fullName}
             <span className="mx-2 text-border">|</span>
-            <Link to="/privacy" className="hover:text-primary transition-colors">
+            <Link to="/privacy" className="underline underline-offset-2 hover:text-primary transition-colors">
               {'Privacy'}
             </Link>
           </p>

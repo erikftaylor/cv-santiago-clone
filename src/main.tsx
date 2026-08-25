@@ -3,6 +3,7 @@ import { StrictMode, lazy, Suspense, useState, useEffect, useRef, Component, typ
 import { hydrateRoot, createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route, useLocation, Link } from 'react-router-dom'
 import { Analytics } from '@vercel/analytics/react'
+import { MotionConfig } from 'motion/react'
 import './index.css'
 import App from './App.tsx'
 import GlobalNav from './GlobalNav.tsx'
@@ -144,6 +145,7 @@ function NotFound() {
 const root = document.getElementById('root')!
 const app = (
   <StrictMode>
+    <MotionConfig reducedMotion="user">
     <BrowserRouter>
       <ConditionalNav />
       <PageTransition>
@@ -166,6 +168,7 @@ const app = (
       <GlobalChat />
       <Analytics />
     </BrowserRouter>
+    </MotionConfig>
   </StrictMode>
 )
 
