@@ -83,16 +83,14 @@ export const translations = {
   // ENGLISH
   // ═══════════════════════════════════════════════════════════════════════════
   en: {
-    greeting: 'who designs the decisions before the build starts',
-    greetingRoles: [
-      'Senior Product Designer',
-      'UX Designer',
-      'Design Systems Builder',
-      'AI × UX Practitioner',
-    ],
+    greeting: 'I design the decisions before the build starts.',
+    /** Single static headline — the rotating-roles typewriter is retired. */
+    greetingRoles: ['Senior Product Designer for complex, AI-enabled products'],
+    /** One-sentence support line under the hero headline. */
+    heroSupport:
+      'I turn ambiguous research and product problems into clear decisions, usable systems, and experiences teams can ship.',
     /** The three words in the hero's beam pill. */
     heroPill: ['Research', 'Decisions', 'Systems', 'Implementation'],
-    pillLabels: ['Senior Product Designer', 'AI × UX'],
     email: site.email,
     role: '',
     location: site.location,
@@ -106,10 +104,10 @@ export const translations = {
         ['I work *upstream.*'],
         [
           'Where design decisions get made —',
-          '+before anything gets generated+.',
+          '+before anything gets built+.',
         ],
       ],
-      why: 'Enterprise at IBM, financial services at Transamerica, learning platforms at Tovuti LMS. Research through product decisions, systems, and implementation, with tradeoffs named out loud.',
+      why: 'Global enterprise at IBM, financial services at Transamerica, learning platforms at Tovuti LMS — connecting research to product decisions, decisions to systems, and systems to implementation, with tradeoffs named out loud. I help teams make better product decisions before they commit to the wrong build — then carry those decisions into systems, interfaces, and implementation.',
       seeking: [
         'Freelance right now, and open to the right full-time seat.',
         'Working where AI is changing what design owns.',
@@ -126,38 +124,28 @@ export const translations = {
     },
 
     summary: {
-      p2: 'Eighteen-plus years across ',
-      p2Highlight: 'global enterprise, financial services, and learning platforms',
-      p2End: ' — now freelance, working where AI is changing what design is responsible for.',
+      p2: 'I help teams ',
+      p2Highlight: 'make better product decisions before they commit to the wrong build',
+      p2End: ' — then carry those decisions into systems, interfaces, and implementation.',
     },
 
     // ── What I deliver ───────────────────────────────────────────────────
     coreCompetencies: {
       title: 'How I Work',
+      // Three pillars (confirmed 2026-08-25). WCAG 2.2 AA is a supporting
+      // practice inside the systems pillar, not a pillar of its own.
       items: [
         {
-          title: 'Cross-Functional Collaboration',
-          desc: 'I translate between design, product, and engineering — and increasingly between human intent and AI output. Decisions move faster when everyone is working from the same picture.',
+          title: 'Research into decisions',
+          desc: 'Qualitative and quantitative insight shapes the major calls: stakeholder interviews, usability testing, and synthesis of support tickets, transcripts, and field signals into decisions a team can act on — including feedback loops for AI-generated interfaces, where variance is higher and edge cases are less predictable.',
         },
         {
-          title: 'Design Systems in Figma',
-          desc: 'From early wireframes to production-ready systems. I work in Figma the way engineers work in code: structure, consistency, and specs that do not require a meeting to decode.',
+          title: 'Systems into shipped experiences',
+          desc: 'Design systems in Figma, from early wireframes to production-ready components: structure, consistency, and specs that do not require a meeting to decode. I translate between design, product, and engineering so decisions survive the handoff. Accessibility to WCAG 2.2 AA is a standing practice — I audit against it and hold my own work to the same bar.',
         },
         {
-          title: 'Designing for AI-Generated Experiences',
-          desc: 'AI products introduce a new class of UX problems — non-deterministic outputs, confidence variance, trust signals, and failure states that do not behave like traditional errors.',
-        },
-        {
-          title: 'Research-Driven Decisions',
-          desc: 'Qualitative and quantitative insight shapes the major calls, including feedback loops for AI-generated interfaces where variance is higher and edge cases are less predictable.',
-        },
-        {
-          title: 'AI-Integrated Design Workflows',
-          desc: 'Research synthesis, design-system documentation, prompt-to-prototype. Built as working practice rather than commentary.',
-        },
-        {
-          title: 'Accessibility to WCAG 2.2 AA',
-          desc: 'I audit organizations against it and hold my own work to the same bar.',
+          title: 'Human judgment in AI-enabled products',
+          desc: 'AI products introduce a new class of UX problems — non-deterministic outputs, confidence variance, trust signals, and failure states that do not behave like traditional errors. I design for them directly, and I use AI in my own workflow — research synthesis, design-system documentation, prompt-to-prototype — as working practice rather than commentary.',
         },
       ],
     },
@@ -181,8 +169,8 @@ export const translations = {
           period: '2025 – 2026',
           desc: 'Led design across admin and learner surfaces, and owned the design system.',
           highlights: [
-            'Designed and shipped JEM, an AI journey-mapping tool, after teams lost 10–15 hours per discovery cycle hand-synthesizing help docs, transcripts, and support tickets. Built source ingestion, a guided AI scoping chat, and an editable persona-by-stage canvas, defined the data model, and shipped it with the platform\'s lead engineer — ten fixes landed in week one.',
-            'Led discovery on Checkpoints, an approval-workflow feature carrying $500K+ ARR and a set of at-risk accounts: synthesized 60+ support tickets, Slack signals, and internal case notes into four persona journey maps and five go/no-go gates before GA — including silent auto-approvals, a compliance risk no ticket had named.',
+            'Designed and shipped JEM, an AI journey-mapping tool, after teams were spending an estimated 10–15 hours per discovery cycle hand-synthesizing help docs, transcripts, and support tickets. Built source ingestion, a guided AI scoping chat, and an editable persona-by-stage canvas, defined the data model, and shipped it with the platform\'s lead engineer — ten fixes shipped during the first week of internal use.',
+            'Led discovery on Checkpoints, an approval-workflow feature tied to a commercially significant expansion opportunity, with several at-risk accounts depending on it: synthesized 60+ support tickets, Slack signals, and internal case notes into four persona journey maps and five go/no-go gates before GA — including silent auto-approvals, a compliance risk no ticket had named.',
             'Owned the design system: token layer defined first, with a governance rule that every custom component traces back to a real primitive — so 8–12 engineers build from one shared taxonomy instead of drifting into one-offs. Specs held to WCAG AA.',
           ],
         },
@@ -194,9 +182,8 @@ export const translations = {
           desc: 'Designed the World Financial Group (WFG) agent portal — the tools licensed agents work in daily.',
           highlights: [
             'Redesigned new-agent onboarding — a card-based homepage over a blank dashboard, with entitlements shaping what recruits versus licensed agents see. Targets were set from research and usability testing; no post-launch numbers were measured.',
-            'Joined a redesign whose direction was already set and pushed to add user interviews and usability testing anyway, grounding the work in real agent pain points instead of assumptions carried over from the prior portal — at a time cost the team had not budgeted.',
-            'Built a custom design system for WFG instead of an off-the-shelf component set — branding and functional requirements did not map cleanly onto existing patterns.',
-            'Rebuilt global navigation around frequency of use rather than the org chart — agents wanted fewer steps to the tools they used constantly, like Commissions and Client Management, accepting that rarely-used tools become harder to reach.',
+            'Joined a redesign whose direction was already set and pushed to add user interviews and usability testing anyway, then built a custom design system for WFG — branding and functional requirements did not map cleanly onto off-the-shelf patterns.',
+            'Rebuilt global navigation around frequency of use rather than the org chart — agents wanted fewer steps to the tools they used constantly, accepting that rarely-used tools become harder to reach.',
           ],
         },
         {
@@ -237,10 +224,10 @@ export const translations = {
         {
           title: 'JEM (Journey Experience Mapper)',
           badge: 'Tovuti LMS · 8 weeks',
-          desc: 'Product teams were losing 10–15 hours per discovery cycle hand-synthesizing help docs, transcripts, and support tickets into journey maps. I designed JEM — source ingestion, a guided AI scoping chat, an editable persona-by-stage canvas — defined its data model, and shipped it with Tovuti\'s lead engineer inside the eight-week window. The bet: a week lost if it was wrong, those hours back every cycle if it worked. Ten fixes shipped in the first week of production.',
-          problem: 'Teams were losing 10–15 hours per discovery cycle hand-synthesizing help docs, transcripts, and support tickets into journey maps.',
+          desc: 'Product teams were hand-synthesizing help docs, transcripts, and support tickets into journey maps — an estimated 10–15 hours per discovery cycle. I designed JEM — source ingestion, a guided AI scoping chat, an editable persona-by-stage canvas — defined its data model, and shipped it with Tovuti\'s lead engineer inside the eight-week window. Ten fixes shipped during the first week of internal use.',
+          problem: 'Teams were hand-synthesizing help docs, transcripts, and support tickets into journey maps — an estimated 10–15 hours per discovery cycle.',
           approach: 'Designed JEM — source ingestion, a guided AI scoping chat, an editable persona-by-stage canvas — defined its data model, and shipped it with Tovuti\'s lead engineer in an eight-week window.',
-          result: 'Ten fixes shipped in the first week of production; those 10–15 hours come back every discovery cycle.',
+          result: 'Ten fixes shipped during the first week of internal use. The 10–15 hours is an estimate of time avoided per discovery cycle, not a controlled measurement.',
           tech: ['Journey Mapping', 'Zendesk', 'Slack', 'Research Synthesis', 'AI-Assisted Build'],
           link: 'etaylor.co/i-vibe-coded-a-journey-map-generator-auto-synthesizing-docs-and-demos-into-actionable-friction-maps',
           linkLabel: 'View JEM case study',
@@ -248,8 +235,8 @@ export const translations = {
         {
           title: 'Checkpoints Go/No-Go',
           badge: 'Tovuti LMS',
-          desc: 'An approval-workflow feature carrying $500K+ ARR was "broken again" in support channels, and nobody could say precisely how. I synthesized 60+ Zendesk tickets, Slack signals, and internal case notes into four persona journey maps and a five-gate go/no-go assessment — surfacing silent auto-approvals, a compliance risk no ticket had named. The gates went to leadership before GA; the fixes are theirs to sequence.',
-          problem: 'An approval-workflow feature carrying $500K+ ARR was "broken again" in support channels, and nobody could say precisely how.',
+          desc: 'An approval-workflow feature tied to a commercially significant expansion opportunity, with several at-risk accounts depending on it, was "broken again" in support channels — and nobody could say precisely how. I synthesized 60+ Zendesk tickets, Slack signals, and internal case notes into four persona journey maps and a five-gate go/no-go assessment — surfacing silent auto-approvals, a compliance risk no ticket had named. The gates went to leadership before GA; the fixes are theirs to sequence.',
+          problem: 'An approval-workflow feature tied to a commercially significant expansion opportunity, with several at-risk accounts depending on it, was "broken again" in support channels — and nobody could say precisely how.',
           approach: 'Synthesized 60+ Zendesk tickets, Slack signals, and internal case notes into four persona journey maps and a five-gate go/no-go assessment.',
           result: 'Surfaced silent auto-approvals — a compliance risk no ticket had named — and delivered the gates to leadership before GA.',
           tech: ['Discovery', 'Journey Mapping', 'Zendesk', 'Risk Assessment'],
@@ -262,7 +249,7 @@ export const translations = {
           desc: 'The agent portal was unintuitive and impersonal — essential tools were hard to find and nothing adapted to the agent using it. I joined after direction was set and argued for user interviews and usability testing anyway, then built a design system tailored to WFG rather than bending the experience into an off-the-shelf component set. Task-completion, engagement, and satisfaction targets were set from that research; no post-launch metrics were measured, so none are claimed here.',
           problem: 'The agent portal was unintuitive and impersonal — essential tools were hard to find and nothing adapted to the agent using it.',
           approach: 'Argued for user interviews and usability testing after direction was already set, then built a custom design system for WFG instead of bending into an off-the-shelf component set.',
-          result: 'Task-completion, engagement, and satisfaction targets were set from that research; no post-launch metrics were measured, so none are claimed here.',
+          result: 'Task-completion, engagement, and satisfaction targets were set from that research; the targets were aspirational, and no post-launch metrics were measured, so none are claimed here.',
           tech: ['Design Systems', 'Figma', 'Usability Testing', 'Stakeholder Interviews'],
           link: 'etaylor.co/empowering-financial-agents-with-a-redesigned-portal-experience',
           linkLabel: 'View the WFG Agent Portal case study',
@@ -278,7 +265,7 @@ export const translations = {
         {
           title: 'IBM Digital Sellers Guidebook',
           badge: 'IBM',
-          desc: 'Sellers saw the platform as overhead, not help — the real constraint was cognitive load, not awareness. Built on WordPress for easy integration with existing IBM tools, the guidebook organized product pages, a role-segmented knowledge base, and a searchable video library around what sellers and managers actually needed.',
+          desc: 'Sellers saw the platform as overhead, not help — the real constraint was cognitive load, not awareness. Built on WordPress for easy integration with existing IBM tools, the guidebook organized product pages, a role-segmented knowledge base, and a searchable video library around what sellers and managers actually needed. Adoption evidence was directional, not a verified percentage.',
           tech: ['WordPress', 'Stakeholder Interviews', 'Content Design', 'Adoption'],
           link: 'etaylor.co/driving-adoption-and-engagement-with-ibms-digital-sellers-guidebook',
           linkLabel: 'View the IBM Digital Sellers Guidebook case study',
@@ -286,7 +273,7 @@ export const translations = {
         {
           title: 'WFG 365',
           badge: 'Transamerica',
-          desc: 'Senior leaders refused to use the mobile app that replaced Pulse — the paycheck tabs and team metrics they ran their business on daily were gone. I led field research with top producers, turning "this doesn\'t work" into a prioritized fix list before the next release. Adoption was never formally tracked, so no lift is claimed.',
+          desc: 'Senior leaders refused to use the mobile app that replaced Pulse — the paycheck tabs and team metrics they ran their business on daily were gone. I led field research with three top-producing leaders, turning "this doesn\'t work" into a prioritized fix list, and those feature requests shipped in the next release. Adoption lift was never formally tracked, so no lift is claimed.',
           tech: ['Field Research', 'Mobile UX', 'Change Management', 'Stakeholder Interviews'],
           link: 'etaylor.co/recovering-a-mobile-app-launch-agents-refused-to-use',
           linkLabel: 'Read the WFG 365 case study',
@@ -294,7 +281,7 @@ export const translations = {
         {
           title: 'An AI-Native Design Practice',
           badge: 'Tovuti LMS',
-          desc: 'Three interlocking builds on one thesis: AI as infrastructure, not a bolted-on tool. JEM turns research into journey maps; 10 custom Claude skills cut synthesis time from 10–15 hours to under 2; an analytics vision reframes reporting as decisions, not dashboards.',
+          desc: 'Three interlocking builds on one thesis: AI as infrastructure, not a bolted-on tool. JEM turns research into journey maps; 10 custom Claude skills cut an estimated 10–15 hours of synthesis to under 2; an analytics vision reframes reporting as decisions, not dashboards.',
           tech: ['Claude', 'AI Workflow Design', 'Product Strategy', 'Research Synthesis'],
           link: 'etaylor.co/building-an-ai-native-design-practice-not-just-using-ai-tools',
           linkLabel: 'View the AI-Native Design Practice case study',
@@ -309,7 +296,7 @@ export const translations = {
           year: '2020',
           org: 'University of Denver',
           title: 'UX Design Bootcamp Certificate',
-          desc: 'Human-centered design methodology, qualitative research methods, journey mapping, usability testing.',
+          desc: '',
         },
         {
           year: '',
