@@ -201,7 +201,8 @@ export const articleRegistry: ArticleConfig[] = [
     sectionLabels: {
       problem: 'The problem',
       architecture: 'The method',
-      results: 'What it surfaced',
+      'key-decision': 'Key design decision',
+      results: 'What the research surfaced',
       lessons: 'Lessons',
     },
     type: 'case-study',

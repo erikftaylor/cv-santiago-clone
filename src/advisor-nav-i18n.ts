@@ -12,7 +12,7 @@ export const advisorNavContent = {
     kicker: 'Case Study — Product Design at Transamerica (WFG)',
     h1: 'A Research-Driven Navigation Overhaul',
     subtitle:
-      'Licensed WFG agents faced a cluttered global navigation — too many links and subcategories, worse on mobile — that buried the tools they used constantly. I cut links and reordered what remained by frequency of use rather than by org chart.',
+      'Licensed WFG agents faced a cluttered global navigation — too many links and subcategories, especially difficult to use on mobile — that buried the tools they used constantly. I cut links and reordered what remained by frequency of use rather than by org-chart structure.',
     date: 'Transamerica, 2020–2024',
     dateISO: '2024-01-01',
     readingTime: '5 min read',
@@ -20,42 +20,53 @@ export const advisorNavContent = {
     problem: {
       heading: 'The problem',
       body: [
-        'Licensed WFG agents faced difficulty accessing key tools quickly due to a cluttered and inefficient global navigation system, leading to reduced productivity and frustration — particularly on mobile devices, which agents relied on heavily for daily tasks and where the clutter hurt most.',
+        'Agents needed to reach key tools quickly, but the existing global navigation made that difficult. The hierarchy reflected how the organization categorized tools more than how agents worked, and the problem was amplified on mobile, which agents relied on heavily for daily tasks. The result was added searching, frustration, and a risk to productivity.',
       ],
     },
 
     architecture: {
       heading: 'The method',
       body: [
-        'The project began with user research — interviews and surveys with WFG agents to identify pain points and understand how the existing navigation was affecting their workflow. From those insights we set research-backed goals, then moved into design and prototyping, developing several concepts focused on simplifying navigation and improving mobile accessibility.',
+        'The project combined interviews and surveys with WFG agents, concept development, prototyping, and usability testing across desktop and mobile. The work focused on simplifying the navigation, bringing frequently used tools forward, and making the structure easier to use on a small screen.',
       ],
       steps: [
         {
           title: 'Research',
-          detail: 'Interviews and surveys with WFG agents surfaced where the cluttered navigation was costing them time, especially on mobile.',
+          detail: 'Interviews and surveys surfaced where the cluttered navigation was costing agents time, especially on mobile.',
         },
         {
           title: 'Design & prototyping',
-          detail: 'Developed several concepts focused on simplifying navigation and reordering tools by frequency of use rather than org-chart structure.',
+          detail: 'Developed several concepts that simplified the navigation and reordered tools by frequency of use rather than org-chart structure.',
         },
         {
           title: 'Usability testing',
-          detail: 'Tested prototypes with agents; the iterative process refined both desktop and mobile usability based on real-world feedback.',
+          detail: 'Tested prototypes with agents and iterated on the desktop and mobile experience based on real-world feedback.',
         },
         {
           title: 'Implementation',
-          detail: 'Rolled out the finalized design while closely monitoring user feedback to refine the system further.',
+          detail: 'Rolled out the finalized design and monitored user feedback for further refinement.',
         },
       ],
       tradeoffs:
-        'Reordering by frequency of use meant deprioritizing rarely-used tools entirely — a bet that those tools are used rarely enough that the extra click is an acceptable cost. Change management was a real factor: some agents had an initial negative reaction to the new layout before adapting to it.',
+        'Reordering by frequency of use meant deprioritizing rarely used tools — a deliberate tradeoff that made those destinations require an extra click. It also changed a familiar mental model, so a navigation that tested better still required a deliberate rollout and room for users to adapt. The finalized design was implemented while user feedback continued to inform refinement.',
+    },
+
+    // Renders between the method tradeoffs and the results section.
+    keyDecision: {
+      heading: 'Key design decision',
+      body: [
+        'Research revealed: agents did not primarily describe the navigation in organizational terms. Their feedback pointed toward the work they were trying to do and the tools they used most often; mobile made the cost of a cluttered hierarchy more visible.',
+        'Design hypothesis: a simpler hierarchy organized around frequency of use and user mental models would make common destinations easier to find, while keeping less-used tools available deeper in the structure.',
+        'What changed: I cut links and moved frequently used tools forward instead of preserving the existing org-chart ordering. The same principle shaped the mobile experience, where reducing clutter and unnecessary scanning mattered most. Exact before-and-after menu labels are not included here, but the structural shift was from organizational categories toward agents\' actual work patterns.',
+        'Why this direction: in testing, the direction that felt more aligned to how agents saw their business was preferred over a competing concept. That alignment mattered more than simply making the menu look cleaner.',
+      ],
     },
 
     results: {
-      heading: 'What it surfaced',
+      heading: 'What the research surfaced',
       body: [
-        'This case study reports ahead of full rollout data. The goals set from the outset — a notable increase in task completion, higher agent engagement, improved satisfaction, and optimized mobile usage — were research-backed targets, not measured outcomes, and this case study does not claim otherwise.',
-        'What usability testing did surface was directional and qualitative: agents found the simplified layout easier to navigate and teach to new recruits, mobile optimization was consistently called out as valuable, and change management mattered — some agents had an initial negative reaction to the new layout before adapting to it.',
+        'This case study reports ahead of full-rollout data. The goals set from the outset — a notable increase in task completion, higher agent engagement, improved satisfaction, and optimized mobile usage — were research-backed targets, not measured outcomes, and this case study does not claim otherwise.',
+        'Usability testing produced directional, qualitative evidence: agents described the simplified layout as easier to navigate and easier to teach to new recruits; mobile optimization was consistently called out as valuable, reinforcing that mobile needed to be treated as a primary use case rather than a compressed desktop experience; the preferred direction was seen as more aligned with how agents understood their business and the work they were trying to do; and change management mattered — some agents initially preferred the familiar layout and anticipated a negative reaction to change before adapting to the new one.',
       ],
       quotes: [
         '"I feel this is friendlier. This one would be easier to teach my recruits."',
@@ -68,16 +79,16 @@ export const advisorNavContent = {
       heading: 'Lessons',
       items: [
         {
-          title: 'Frequency-of-use beats org-chart structure',
-          detail: 'Reordering navigation around how often agents actually used a tool, rather than how the organization categorized it, was the change users responded to.',
+          title: 'Frequency of use beats org-chart structure',
+          detail: 'Reordering navigation around how often agents used a tool, rather than how the organization categorized it, better matched the way agents described their work.',
         },
         {
-          title: 'Mobile optimization was not a secondary concern',
-          detail: 'Agents who relied on mobile devices reported the clearest improvements — treating mobile as a first-class surface rather than a scaled-down desktop view mattered.',
+          title: 'Mobile is a primary use case',
+          detail: 'Agents relied heavily on mobile, and the clearest value of simplification appeared where the clutter hurt most. Mobile should be designed as a first-class surface, not treated only as a scaled-down desktop view.',
         },
         {
-          title: 'Change management is part of the design, not an afterthought',
-          detail: 'Some agents reacted negatively to the new layout before adapting to it. A redesign that improves the metrics can still need a deliberate rollout to get there.',
+          title: 'Change management is part of the design',
+          detail: 'Even a redesign that tests better can require a deliberate rollout before users embrace a changed navigation pattern.',
         },
       ],
     },
@@ -87,7 +98,7 @@ export const advisorNavContent = {
       items: [
         {
           q: 'Did the redesign improve task completion and engagement?',
-          a: 'Full rollout metrics were not measured, so this case study does not claim a verified result. What did come out of usability testing was qualitative: agents described the simplified layout as easier to use and teach, and mobile optimization was consistently flagged as valuable — but the completion-rate and engagement targets were goals, not reported outcomes.',
+          a: 'Full-rollout metrics were not measured, so this case study does not claim a verified result. Usability testing produced qualitative evidence: agents described the simplified layout as easier to use and teach, and mobile optimization was consistently flagged as valuable. The completion-rate and engagement figures were goals, not reported outcomes.',
         },
         {
           q: 'How is this different from the WFG Agent Portal case study?',
@@ -98,7 +109,7 @@ export const advisorNavContent = {
 
     cta: {
       heading: 'Want the details?',
-      body: 'Happy to walk through the research process, the frequency-of-use reordering, or how the mobile-first navigation held up in testing.',
+      body: 'Happy to walk through the research process, the frequency-of-use reordering, or how the mobile-optimized navigation held up in testing.',
       ctaLabel: 'Get in touch',
       ctaHref: '/#contact',
     },

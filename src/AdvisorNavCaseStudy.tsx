@@ -68,6 +68,11 @@ export default function AdvisorNavCaseStudy({ lang }: { lang: Lang }) {
       <StepList items={t.architecture.steps.map((s) => ({ label: s.title, detail: s.detail }))} />
       <Callout>{t.architecture.tradeoffs}</Callout>
 
+      <H2 id="key-decision">{t.keyDecision.heading}</H2>
+      {t.keyDecision.body.map((p, i) => (
+        <Prose key={i}>{p}</Prose>
+      ))}
+
       <H2 id="results">{t.results.heading}</H2>
       {t.results.body.map((p, i) => (
         <Prose key={i}>{p}</Prose>
