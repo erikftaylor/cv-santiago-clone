@@ -94,7 +94,6 @@ export const translations = {
     // decisions-before-the-build positioning compressed into word order.
     heroPill: ['Research', 'Decide', 'Design', 'Ship'],
     email: site.email,
-    role: '',
     location: site.location,
     roles: site.roles,
 
@@ -129,12 +128,6 @@ export const translations = {
       ],
       skills: ['Product Design', 'UX Research', 'Design Systems', 'AI-Integrated Workflows'],
       skipButton: 'Skip intro',
-    },
-
-    summary: {
-      p2: 'I help teams ',
-      p2Highlight: 'make better product decisions before they commit to the wrong build',
-      p2End: ' — then carry those decisions into systems, interfaces, and implementation.',
     },
 
     // ── What I deliver ───────────────────────────────────────────────────
