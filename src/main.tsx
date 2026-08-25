@@ -9,7 +9,6 @@ import GlobalNav from './GlobalNav.tsx'
 import { articleRegistry } from './articles/registry'
 
 const FloatingChat = lazy(() => import('./FloatingChat'))
-const MusicToggle = lazy(() => import('./MusicToggle'))
 const OpsDashboard = lazy(() => import('./ops/OpsDashboard'))
 const PrivacyPolicy = lazy(() => import('./PrivacyPolicy'))
 const AboutPage = lazy(() => import('./AboutPage'))
@@ -81,18 +80,6 @@ function GlobalChat() {
         <FloatingChat lang="en" />
       </Suspense>
     </ChatErrorBoundary>
-  )
-}
-
-function GlobalMusic() {
-  const { pathname } = useLocation()
-  const [hydrated, setHydrated] = useState(false)
-  useEffect(() => setHydrated(true), [])
-  if (!hydrated || pathname.startsWith('/ops')) return null
-  return (
-    <Suspense fallback={null}>
-      <MusicToggle />
-    </Suspense>
   )
 }
 
@@ -177,7 +164,6 @@ const app = (
         </Suspense>
       </PageTransition>
       <GlobalChat />
-      <GlobalMusic />
       <Analytics />
     </BrowserRouter>
   </StrictMode>
