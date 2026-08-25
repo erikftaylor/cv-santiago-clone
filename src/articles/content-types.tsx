@@ -205,7 +205,7 @@ interface CalloutProps {
 export function Callout({ children, className, editorId }: CalloutProps) {
   return (
     <EditorLabel name="Callout" id={editorId}>
-      <div className={`bg-primary/5 border border-primary/15 rounded-lg px-5 py-4 mb-6 ${className ?? ''}`}>
+      <div className={`bg-primary/5 border border-primary/20 rounded-2xl px-5 py-4 mb-6 ${className ?? ''}`}>
         <p className="text-base text-foreground font-medium leading-relaxed">{children}</p>
       </div>
     </EditorLabel>
@@ -313,11 +313,14 @@ interface BulletListProps {
 
 export function BulletList({ items, marker = 'bullet', variant = 'standalone', className, editorId }: BulletListProps) {
   const outer = variant === 'standalone' ? 'space-y-3 mb-4' : 'space-y-3'
+  const itemClass = variant === 'standalone'
+    ? 'flex gap-3 p-4 rounded-2xl border border-border bg-card/60 hover:border-primary/30 transition-colors duration-300'
+    : 'flex gap-3'
   return (
     <EditorLabel name="BulletList" id={editorId}>
       <div className={`${outer} ${className ?? ''}`}>
         {items.map((item, i) => (
-          <div key={i} className="flex gap-3">
+          <div key={i} className={itemClass}>
             <span className={`text-primary font-bold shrink-0 w-6 text-center mt-0.5 ${marker === 'number' ? 'text-lg' : 'text-xs'}`}>
               {marker === 'number' ? i + 1 : '●'}
             </span>
@@ -346,9 +349,9 @@ export function StepList({ items, className, editorId }: Omit<BulletListProps, '
     <EditorLabel name="StepList" id={editorId}>
       <div className={outer}>
         {items.map((item, i) => (
-          <div key={i} className="flex gap-3">
-            <span className="text-primary font-bold shrink-0 w-6 text-center text-lg leading-snug">
-              {i + 1}
+          <div key={i} className="flex gap-4 p-4 rounded-2xl border border-border bg-card/60 hover:border-primary/30 transition-colors duration-300">
+            <span className="font-display text-sm font-semibold text-primary/60 tabular-nums shrink-0 pt-0.5">
+              {String(i + 1).padStart(2, '0')}
             </span>
             {isStructured(item) ? (
               <div>
@@ -809,7 +812,7 @@ export function Accordion({ items, variant = 'simple', className, editorId }: Ac
       <div className={`space-y-3 mb-8 ${className ?? ''}`}>
         {variant === 'simple'
           ? (items as readonly AccordionSimpleItem[]).map((item, i) => (
-              <details key={i} className="group bg-card border border-border rounded-lg">
+              <details key={i} className="group bg-card border border-border rounded-2xl hover:border-primary/30 transition-colors">
                 <summary className="px-5 py-4 cursor-pointer font-medium text-foreground text-sm flex items-center justify-between">
                   {item.title}
                   <ChevronRight className="w-4 h-4 text-muted-foreground group-open:rotate-90 transition-transform shrink-0" />
@@ -820,7 +823,7 @@ export function Accordion({ items, variant = 'simple', className, editorId }: Ac
               </details>
             ))
           : (items as readonly AccordionRichItem[]).filter(isRichItem).map((flow, i) => (
-              <details key={i} className="group bg-card border border-border rounded-lg">
+              <details key={i} className="group bg-card border border-border rounded-2xl hover:border-primary/30 transition-colors">
                 <summary className="px-5 py-4 cursor-pointer flex items-start gap-3">
                   {flow.icon && <span className="text-lg">{flow.icon}</span>}
                   <div className="flex-1 min-w-0">

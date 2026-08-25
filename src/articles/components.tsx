@@ -112,7 +112,7 @@ export function ArticleHeader({
   const resolvedAuthorUrl = authorUrl ?? (lang === 'es' ? '/sobre-mi' : '/about')
   return (
     <header className="mb-10">
-      <p className="text-primary font-medium text-sm mb-3 tracking-wide uppercase">
+      <p className="inline-block px-3 py-1 mb-4 rounded-full text-xs font-medium tracking-wide uppercase border border-primary/30 bg-primary/10 text-primary">
         {kickerLink ? (
           kicker.split(/<a>|<\/a>/).map((part, i) =>
             i === 1 ? (
@@ -325,7 +325,7 @@ export function MetricsGrid({ items, columns = 3, compact, editorId }: { items: 
     <EditorLabel name="MetricsGrid" id={editorId}>
       <div className={`grid ${metricsColsMap[columns]} gap-4 mb-8`}>
         {items.map((item) => (
-          <div key={item.label} className={`bg-card border border-border rounded-lg ${compact ? 'p-2.5 sm:p-3' : 'p-5'} text-center`}>
+          <div key={item.label} className={`bg-card border border-border rounded-2xl hover:border-primary/30 transition-colors duration-300 ${compact ? 'p-2.5 sm:p-3' : 'p-5'} text-center`}>
             <p className={`${compact ? 'text-lg sm:text-xl' : 'text-3xl'} font-bold text-primary mb-1`}>{item.value}</p>
             <p className={`font-medium text-foreground ${compact ? 'text-xs' : 'text-sm'}`}>{item.label}</p>
             {item.detail && <p className="text-xs text-muted-foreground mt-1">{item.detail}</p>}
