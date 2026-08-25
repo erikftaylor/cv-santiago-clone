@@ -1589,9 +1589,90 @@ function App() {
                     )}
                   </div>
 
-                  <h3 className="font-display text-2xl md:text-3xl font-bold mb-3">{proj.title}</h3>
+                  <h3 className="font-display text-2xl md:text-3xl font-bold mb-6">{proj.title}</h3>
 
-                  <p className="text-base text-muted-foreground leading-relaxed mb-6 max-w-3xl">{proj.desc}</p>
+                  {proj.problem && proj.approach && proj.result ? (
+                    <div className="grid sm:grid-cols-3 gap-5 mb-6">
+                      <div>
+                        <span className="text-xs font-semibold uppercase tracking-wide text-primary">Problem</span>
+                        <p className="text-sm text-muted-foreground leading-relaxed mt-1.5">{proj.problem}</p>
+                      </div>
+                      <div>
+                        <span className="text-xs font-semibold uppercase tracking-wide text-primary">What I did</span>
+                        <p className="text-sm text-muted-foreground leading-relaxed mt-1.5">{proj.approach}</p>
+                      </div>
+                      <div>
+                        <span className="text-xs font-semibold uppercase tracking-wide text-primary">Result</span>
+                        <p className="text-sm text-muted-foreground leading-relaxed mt-1.5">{proj.result}</p>
+                      </div>
+                    </div>
+                  ) : (
+                    <p className="text-base text-muted-foreground leading-relaxed mb-6 max-w-3xl">{proj.desc}</p>
+                  )}
+
+                  {/* Structure diagram — schematic, grounded in the copy above, not a screenshot */}
+                  {proj.title === 'JEM (Journey Experience Mapper)' && (
+                    <div className="mb-6">
+                      <span className="text-xs font-semibold uppercase tracking-wide text-primary">Product structure</span>
+                      <div className="flex items-center gap-2 flex-wrap mt-2">
+                        <div className="flex-1 min-w-[140px] p-3 rounded-lg border border-border bg-muted/40 text-center">
+                          <p className="text-sm font-medium">Sources</p>
+                          <p className="text-xs text-muted-foreground mt-0.5">Docs, transcripts, tickets</p>
+                        </div>
+                        <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0" />
+                        <div className="flex-1 min-w-[140px] p-3 rounded-lg border border-border bg-muted/40 text-center">
+                          <p className="text-sm font-medium">AI scoping chat</p>
+                          <p className="text-xs text-muted-foreground mt-0.5">Guided intake</p>
+                        </div>
+                        <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0" />
+                        <div className="flex-1 min-w-[140px] p-3 rounded-lg border border-border bg-muted/40 text-center">
+                          <p className="text-sm font-medium">Persona canvas</p>
+                          <p className="text-xs text-muted-foreground mt-0.5">Editable, by stage</p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {proj.title === 'Checkpoints Go/No-Go' && (
+                    <div className="mb-6">
+                      <span className="text-xs font-semibold uppercase tracking-wide text-primary">Discovery funnel</span>
+                      <div className="flex items-center gap-2 flex-wrap mt-2">
+                        <div className="flex-1 min-w-[120px] p-3 rounded-lg border border-border bg-muted/40 text-center">
+                          <p className="text-sm font-medium">60+ signals</p>
+                          <p className="text-xs text-muted-foreground mt-0.5">Tickets, Slack, case notes</p>
+                        </div>
+                        <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0" />
+                        <div className="flex-1 min-w-[120px] p-3 rounded-lg border border-border bg-muted/40 text-center">
+                          <p className="text-sm font-medium">4 persona maps</p>
+                        </div>
+                        <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0" />
+                        <div className="flex-1 min-w-[120px] p-3 rounded-lg border border-border bg-muted/40 text-center">
+                          <p className="text-sm font-medium">5-gate go/no-go</p>
+                        </div>
+                        <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0" />
+                        <div className="flex-1 min-w-[120px] p-3 rounded-lg border border-primary/40 bg-primary/5 text-center">
+                          <p className="text-sm font-medium text-primary">To leadership</p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {proj.title === 'WFG Agent Portal' && (
+                    <div className="mb-6">
+                      <span className="text-xs font-semibold uppercase tracking-wide text-primary">Design system decision</span>
+                      <div className="flex items-center gap-3 flex-wrap mt-2">
+                        <div className="flex-1 min-w-[160px] p-3 rounded-lg border border-border bg-muted/40 text-center opacity-70">
+                          <p className="text-sm font-medium line-through decoration-muted-foreground/50">Off-the-shelf components</p>
+                          <p className="text-xs text-muted-foreground mt-0.5">Rejected — didn't fit</p>
+                        </div>
+                        <span className="text-muted-foreground text-sm shrink-0">vs.</span>
+                        <div className="flex-1 min-w-[160px] p-3 rounded-lg border border-primary/40 bg-primary/5 text-center">
+                          <p className="text-sm font-medium text-primary">Custom WFG design system</p>
+                          <p className="text-xs text-muted-foreground mt-0.5">Built to fit branding + function</p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
 
                   <div className="flex flex-wrap gap-2 mb-6">
                     {proj.tech.map((tech) => {

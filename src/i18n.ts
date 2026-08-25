@@ -68,6 +68,14 @@ export interface ProjectItem {
   link?: string
   /** Descriptive link text shown instead of the raw URL, e.g. "View JEM case study". */
   linkLabel?: string
+  /**
+   * Featured-card structure: same facts as `desc`, split into three scannable
+   * beats. Optional — only the Featured Work items set these; everything
+   * else falls back to rendering `desc` as a paragraph.
+   */
+  problem?: string
+  approach?: string
+  result?: string
 }
 
 export const translations = {
@@ -229,6 +237,9 @@ export const translations = {
           title: 'JEM (Journey Experience Mapper)',
           badge: 'Tovuti LMS · 8 weeks',
           desc: 'Product teams were losing 10–15 hours per discovery cycle hand-synthesizing help docs, transcripts, and support tickets into journey maps. I designed JEM — source ingestion, a guided AI scoping chat, an editable persona-by-stage canvas — defined its data model, and shipped it with Tovuti\'s lead engineer inside the eight-week window. The bet: a week lost if it was wrong, those hours back every cycle if it worked. Ten fixes shipped in the first week of production.',
+          problem: 'Teams were losing 10–15 hours per discovery cycle hand-synthesizing help docs, transcripts, and support tickets into journey maps.',
+          approach: 'Designed JEM — source ingestion, a guided AI scoping chat, an editable persona-by-stage canvas — defined its data model, and shipped it with Tovuti\'s lead engineer in an eight-week window.',
+          result: 'Ten fixes shipped in the first week of production; those 10–15 hours come back every discovery cycle.',
           tech: ['Journey Mapping', 'Zendesk', 'Slack', 'Research Synthesis', 'AI-Assisted Build'],
           link: 'etaylor.co/i-vibe-coded-a-journey-map-generator-auto-synthesizing-docs-and-demos-into-actionable-friction-maps',
           linkLabel: 'View JEM case study',
@@ -237,6 +248,9 @@ export const translations = {
           title: 'Checkpoints Go/No-Go',
           badge: 'Tovuti LMS',
           desc: 'An approval-workflow feature carrying $500K+ ARR was "broken again" in support channels, and nobody could say precisely how. I synthesized 60+ Zendesk tickets, Slack signals, and internal case notes into four persona journey maps and a five-gate go/no-go assessment — surfacing silent auto-approvals, a compliance risk no ticket had named. The gates went to leadership before GA; the fixes are theirs to sequence.',
+          problem: 'An approval-workflow feature carrying $500K+ ARR was "broken again" in support channels, and nobody could say precisely how.',
+          approach: 'Synthesized 60+ Zendesk tickets, Slack signals, and internal case notes into four persona journey maps and a five-gate go/no-go assessment.',
+          result: 'Surfaced silent auto-approvals — a compliance risk no ticket had named — and delivered the gates to leadership before GA.',
           tech: ['Discovery', 'Journey Mapping', 'Zendesk', 'Risk Assessment'],
           link: 'etaylor.co/a-go-no-go-discovery-for-a-500k-arr-approval-workflow',
           linkLabel: 'Read the Checkpoints case study',
@@ -245,6 +259,9 @@ export const translations = {
           title: 'WFG Agent Portal',
           badge: 'Transamerica',
           desc: 'The agent portal was unintuitive and impersonal — essential tools were hard to find and nothing adapted to the agent using it. I joined after direction was set and argued for user interviews and usability testing anyway, then built a design system tailored to WFG rather than bending the experience into an off-the-shelf component set. Task-completion, engagement, and satisfaction targets were set from that research; no post-launch metrics were measured, so none are claimed here.',
+          problem: 'The agent portal was unintuitive and impersonal — essential tools were hard to find and nothing adapted to the agent using it.',
+          approach: 'Argued for user interviews and usability testing after direction was already set, then built a custom design system for WFG instead of bending into an off-the-shelf component set.',
+          result: 'Task-completion, engagement, and satisfaction targets were set from that research; no post-launch metrics were measured, so none are claimed here.',
           tech: ['Design Systems', 'Figma', 'Usability Testing', 'Stakeholder Interviews'],
           link: 'etaylor.co/empowering-financial-agents-with-a-redesigned-portal-experience',
           linkLabel: 'View the WFG Agent Portal case study',
