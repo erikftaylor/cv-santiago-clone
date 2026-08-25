@@ -235,44 +235,6 @@ function GridSnakes() {
 }
 
 
-function useTypewriterRotation(roles: readonly string[], { typeSpeed = 80, deleteSpeed = 60, pauseAfterType = 2000, pauseAfterDelete = 300 } = {}) {
-  const [roleIndex, setRoleIndex] = useState(0)
-  const [displayText, setDisplayText] = useState(roles[0])
-  const [isDeleting, setIsDeleting] = useState(false)
-  const currentRole = roles[roleIndex]
-
-  useEffect(() => {
-    let timeout: ReturnType<typeof setTimeout>
-
-    if (!isDeleting && displayText === currentRole) {
-      // Finished typing — pause then start deleting
-      timeout = setTimeout(() => setIsDeleting(true), pauseAfterType)
-    } else if (isDeleting && displayText === '') {
-      // Finished deleting — move to next role and start typing
-      timeout = setTimeout(() => {
-        setRoleIndex(i => (i + 1) % roles.length)
-        setIsDeleting(false)
-      }, pauseAfterDelete)
-    } else if (isDeleting) {
-      // Deleting word by word (ctrl+backspace style)
-      timeout = setTimeout(() => {
-        const words = displayText.trimEnd().split(' ')
-        words.pop()
-        setDisplayText(words.length > 0 ? words.join(' ') + ' ' : '')
-      }, deleteSpeed)
-    } else {
-      // Typing character by character
-      timeout = setTimeout(() => {
-        setDisplayText(currentRole.slice(0, displayText.length + 1))
-      }, typeSpeed)
-    }
-
-    return () => clearTimeout(timeout)
-  }, [displayText, isDeleting, currentRole, roles, typeSpeed, deleteSpeed, pauseAfterType, pauseAfterDelete])
-
-  return { displayText, roleIndex, isDeleting }
-}
-
 /** Which case studies lead the page. Order here is the display order. */
 const FEATURED_PROJECT_TITLES = [
   'JEM (Journey Experience Mapper)',
@@ -944,7 +906,8 @@ function ReflectiveTypewriter({
       const timer = setTimeout(() => {
         if (signal?.aborted) return
         dispatch({ type: 'CLEAR_TEXT' })
-        dispatch({ type: 'PHASE_CHANGE', phase: 'reflection' })
+        // No reflections configured — go straight to the hook lines.
+        dispatch({ type: 'PHASE_CHANGE', phase: reflections.length > 0 ? 'reflection' : 'hook' })
       }, 800)
       return () => clearTimeout(timer)
     }
@@ -1446,7 +1409,6 @@ function App() {
   const t = translations[lang]
   const hydrated = useHydrated()
   useHeroStyles()
-  const { displayText: roleText, roleIndex } = useTypewriterRotation(t.greetingRoles)
   const featuredProjects = t.projects.items.filter((p) => (FEATURED_PROJECT_TITLES as readonly string[]).includes(p.title))
   const moreProjects = t.projects.items.filter((p) => !(FEATURED_PROJECT_TITLES as readonly string[]).includes(p.title))
 
@@ -1508,11 +1470,16 @@ function App() {
                 {"Hi, I'm"} <Link to="/about" className="text-gradient-theme font-semibold hover:opacity-80 transition-opacity">{site.fullName}</Link>,
               </p>
               <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4 leading-tight">
-                <span className="text-gradient-theme">{hydrated ? roleText : t.greetingRoles[0]}</span>
-                {hydrated && <span className="inline-block w-[3px] h-[0.85em] bg-primary ml-1 rounded-sm translate-y-[2px]" style={{ animation: 'blink 1s step-end infinite' }} />}
-                <br />
+                <span className="text-gradient-theme">{t.greetingRoles[0]}</span>
+              </h1>
+
+              <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-4 max-w-2xl">
+                {t.heroSupport}
+              </p>
+
+              <p className="text-lg md:text-xl leading-relaxed">
                 {t.greeting}
-                {' with '}
+                {' '}
                 <BeamPill>
                   {t.heroPill.map((word, i) => (
                     <span key={word}>
@@ -1521,22 +1488,7 @@ function App() {
                     </span>
                   ))}
                 </BeamPill>
-              </h1>
-
-              <div className="flex flex-wrap justify-center md:justify-start gap-3">
-                {t.pillLabels.map((label, i) => (
-                  <span
-                    key={label}
-                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 backdrop-blur-sm ${
-                      hydrated && i === roleIndex
-                        ? 'border border-[#20d6ee] bg-[#20d6ee]/15 text-foreground scale-105'
-                        : 'border border-[#20d6ee]/30 bg-background/80 text-muted-foreground'
-                    }`}
-                  >
-                    {label}
-                  </span>
-                ))}
-              </div>
+              </p>
 
             </motion.div>
           </div>
@@ -1588,15 +1540,15 @@ function App() {
                   {proj.problem && proj.approach && proj.result ? (
                     <div className="grid sm:grid-cols-3 gap-5 mb-6">
                       <div>
-                        <span className="text-xs font-semibold uppercase tracking-wide text-primary">Problem</span>
+                        <span className="text-xs font-semibold uppercase tracking-wide text-primary">Challenge</span>
                         <p className="text-sm text-muted-foreground leading-relaxed mt-1.5">{proj.problem}</p>
                       </div>
                       <div>
-                        <span className="text-xs font-semibold uppercase tracking-wide text-primary">What I did</span>
+                        <span className="text-xs font-semibold uppercase tracking-wide text-primary">My contribution</span>
                         <p className="text-sm text-muted-foreground leading-relaxed mt-1.5">{proj.approach}</p>
                       </div>
                       <div>
-                        <span className="text-xs font-semibold uppercase tracking-wide text-primary">Result</span>
+                        <span className="text-xs font-semibold uppercase tracking-wide text-primary">Evidence</span>
                         <p className="text-sm text-muted-foreground leading-relaxed mt-1.5">{proj.result}</p>
                       </div>
                     </div>
