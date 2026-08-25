@@ -21,9 +21,9 @@ interface BadgeConfig {
   label: string
 }
 
-// Repos with GitHubRepoBadge in article components
-// TODO: add your own repos to show live star/fork counts on case-study pages.
-// Leave empty to skip — the script no-ops cleanly with an empty list.
+// Repos with GitHubRepoBadge in article components. Add entries to show live
+// star/fork counts on case-study pages. Leave empty to skip — the script
+// no-ops cleanly with an empty list.
 const BADGE_REPOS: BadgeConfig[] = []
 
 // Repos with stars/forks in i18n.ts project cards.
@@ -35,7 +35,8 @@ interface I18nRepo {
   label: string
   extraLinks?: string[]
 }
-// TODO: repos whose stars/forks appear on project cards in i18n.ts.
+// Repos whose stars/forks appear on project cards in i18n.ts. Leave empty to
+// skip — the script no-ops cleanly with an empty list.
 const I18N_REPOS: I18nRepo[] = []
 
 function formatCount(n: number): string {

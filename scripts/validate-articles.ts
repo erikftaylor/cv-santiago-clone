@@ -28,6 +28,11 @@ const FIX_MODE = process.argv.includes('--fix')
 const SOURCE_MAP: Record<string, string> = {
   'jem-case-study': 'src/JemCaseStudy.tsx',
   'checkpoints-case-study': 'src/CheckpointsCaseStudy.tsx',
+  'wfg-portal-case-study': 'src/WfgPortalCaseStudy.tsx',
+  'advisor-nav-case-study': 'src/AdvisorNavCaseStudy.tsx',
+  'ibm-guidebook-case-study': 'src/IbmGuidebookCaseStudy.tsx',
+  'wfg365-case-study': 'src/Wfg365CaseStudy.tsx',
+  'ai-native-design-case-study': 'src/AiNativeDesignCaseStudy.tsx',
 }
 
 /** Map article id → i18n source file (relative to root). Content edits go here. */

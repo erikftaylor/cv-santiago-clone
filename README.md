@@ -111,8 +111,8 @@ at it, then:
 3. Update `CHAT_API_URL` in `.github/workflows/evals.yml` and `adversarial.yml`
 
 **Do not deploy publicly until `npm run identity:check:strict` passes.** Shipping
-`TODO:` text into JSON-LD and `llms.txt` teaches search engines and AI assistants
-the wrong things about you, and that is slow to undo.
+unfilled placeholder text into JSON-LD and `llms.txt` teaches search engines and
+AI assistants the wrong things about you, and that is slow to undo.
 
 ## Tech stack
 

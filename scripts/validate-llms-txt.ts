@@ -34,11 +34,11 @@ const PROOF_POINTS: ProofPoint[] = [
   // public/llms.txt — the file AI search engines read. This exists because
   // llms.txt silently drifts out of sync with the site, and a stale llms.txt
   // means assistants quote outdated facts about you.
-  //
-  // TODO: add one entry per claim that matters. Example:
-  //   { source: 'i18n.ts → experience', terms: ['Company Name', '2024'] },
-  //
-  // An empty list passes trivially — fill it in as you write real content.
+  { source: 'i18n.ts → experience (Tovuti LMS / JEM)', terms: ['Tovuti LMS', 'JEM', '10–15 hours'] },
+  { source: 'i18n.ts → experience (Transamerica / WFG)', terms: ['Transamerica', 'World Financial Group'] },
+  { source: 'i18n.ts → experience (IBM)', terms: ['IBM', 'knowledge base'] },
+  { source: 'jem-i18n.ts (JEM case study)', terms: ['journey-mapping', 'concept to production'] },
+  { source: 'checkpoints-i18n.ts (Checkpoints case study)', terms: ['Checkpoints', '60+', 'go/no-go'] },
 ]
 
 // ---------------------------------------------------------------------------

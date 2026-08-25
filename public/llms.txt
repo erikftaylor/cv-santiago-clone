@@ -24,8 +24,8 @@ is currently freelance and open to senior product design roles.
 
 - **Freelance (2026–present), Senior Product Designer.** Product design for teams shipping software — discovery through engineering handoff.
 - **Tovuti LMS (2025–2026), Senior Product Designer.** Designed and shipped JEM, an AI journey-mapping tool that saves teams 10–15 hours per discovery cycle (ten fixes in its first production week). Led go/no-go discovery on Checkpoints, an approval-workflow feature carrying $500K+ ARR — 60+ tickets synthesized into four persona journey maps and five go/no-go gates. Owned the design system: token-first, WCAG AA, specs consumed by 8–12 engineers.
-- **Transamerica (2020–2024), UX Designer.** World Financial Group agent portal and design system. New-agent onboarding redesigned on a research base of 100+ financial advisors across the US and Canada; onboarding adoption rose 30%. Global navigation rebuilt around frequency of use rather than the org chart.
-- **IBM (2008–2020), Copywriter → Team Lead → Product Owner / UX Designer.** Owned the Digital Sellers Guidebook: five-platform evaluation, migration to w3 Publisher (WordPress retained for the knowledge base only), and a journey-based knowledge-base restructure with separate manager and seller paths.
+- **Transamerica (2020–2024), UX Designer.** World Financial Group agent portal and design system. New-agent onboarding redesigned with research-backed targets for task completion, engagement, and satisfaction; no post-launch adoption metrics were measured. Global navigation rebuilt around frequency of use rather than the org chart.
+- **IBM (2008–2020), Copywriter → Team Lead → Product Owner / UX Designer.** Owned the Digital Sellers Guidebook: a WordPress-based sales-enablement resource with role-segmented content — product pages, knowledge base, and a searchable video library — informed by stakeholder interviews with sellers and managers.
 
 ## Projects
 
@@ -36,9 +36,12 @@ is currently freelance and open to senior product design roles.
 ## Case Studies
 
 - [JEM / Journey Map Generator](https://etaylor.co/i-vibe-coded-a-journey-map-generator-auto-synthesizing-docs-and-demos-into-actionable-friction-maps): AI journey-mapping tool from concept to production at Tovuti LMS.
-- [WFG Agent Portal](https://etaylor.co/empowering-financial-agents-with-a-redesigned-portal-experience): agent portal redesign grounded in research with 100+ financial advisors; onboarding adoption rose 30%.
+- [Checkpoints Go/No-Go](https://etaylor.co/a-go-no-go-discovery-for-a-500k-arr-approval-workflow): discovery synthesis and a five-gate risk assessment on a $500K+ ARR approval workflow.
+- [WFG Agent Portal](https://etaylor.co/empowering-financial-agents-with-a-redesigned-portal-experience): agent portal redesign grounded in research, with role-based personalization and research-backed targets; no post-launch metrics claimed.
 - [Advisor Navigation](https://etaylor.co/boosting-advisor-efficiency-with-a-renovated-navigation-experience): frequency-of-use navigation overhaul; no post-launch metrics claimed.
-- [IBM Digital Sellers Guidebook](https://etaylor.co/driving-adoption-and-engagement-with-ibms-digital-sellers-guidebook): sales-enablement platform migration and journey-based knowledge-base architecture.
+- [IBM Digital Sellers Guidebook](https://etaylor.co/driving-adoption-and-engagement-with-ibms-digital-sellers-guidebook): WordPress-based sales-enablement resource with role-segmented content, built from stakeholder research.
+- [WFG 365](https://etaylor.co/recovering-a-mobile-app-launch-agents-refused-to-use): field research that recovered a mobile app launch senior leaders had refused to use; adoption not formally tracked.
+- [An AI-Native Design Practice](https://etaylor.co/building-an-ai-native-design-practice-not-just-using-ai-tools): JEM, 10 custom Claude skills, and an analytics vision — AI as infrastructure, not a bolted-on tool.
 
 ## Skills
 

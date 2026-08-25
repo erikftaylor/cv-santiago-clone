@@ -226,13 +226,18 @@ export function extractSources(chunks) {
   return sources
 }
 
-// Keywords that signal the response actually references a given article
-// TODO: one entry per case study you publish. Keys must match the `id` in
-// src/articles/registry.ts. Keywords are matched against the model's response to
-// decide which source badges to surface — pick words that only appear when the
-// article is genuinely being referenced.
+// Keywords that signal the response actually references a given article.
+// Keys must match the `id` in src/articles/registry.ts. Keywords are matched
+// against the model's response to decide which source badges to surface —
+// pick words that only appear when the article is genuinely being referenced.
 export const ARTICLE_KEYWORDS = {
-  'example-case-study': ['TODO-keyword'],
+  'jem-case-study': ['jem', 'journey-mapping tool', 'journey map generator'],
+  'checkpoints-case-study': ['checkpoints', 'go/no-go', 'approval workflow'],
+  'wfg-portal-case-study': ['wfg agent portal', 'wfg portal', 'agent portal'],
+  'advisor-nav-case-study': ['global navigation', 'advisor navigation', 'wfg navigation'],
+  'ibm-guidebook-case-study': ['digital sellers guidebook', 'ibm guidebook', 'sellers guidebook'],
+  'wfg365-case-study': ['wfg 365', 'pulse'],
+  'ai-native-design-case-study': ['ai-native design', 'custom claude skills', 'analytics vision'],
 }
 
 /** Filter RAG sources to only articles actually mentioned in the response, max 3 */
@@ -246,10 +251,16 @@ export function filterSourcesByResponse(sources, responseText) {
   }).slice(0, 3)
 }
 
-// Static article routes — used to generate badges from keywords regardless of RAG
-// TODO: keep in sync with the slugs in src/articles/registry.ts.
+// Static article routes — used to generate badges from keywords regardless of RAG.
+// Keep in sync with the slugs in src/articles/registry.ts.
 export const ARTICLE_ROUTES = {
-  'example-case-study': { page_path_en: '/example-case-study' },
+  'jem-case-study': { page_path_en: '/i-vibe-coded-a-journey-map-generator-auto-synthesizing-docs-and-demos-into-actionable-friction-maps' },
+  'checkpoints-case-study': { page_path_en: '/a-go-no-go-discovery-for-a-500k-arr-approval-workflow' },
+  'wfg-portal-case-study': { page_path_en: '/empowering-financial-agents-with-a-redesigned-portal-experience' },
+  'advisor-nav-case-study': { page_path_en: '/boosting-advisor-efficiency-with-a-renovated-navigation-experience' },
+  'ibm-guidebook-case-study': { page_path_en: '/driving-adoption-and-engagement-with-ibms-digital-sellers-guidebook' },
+  'wfg365-case-study': { page_path_en: '/recovering-a-mobile-app-launch-agents-refused-to-use' },
+  'ai-native-design-case-study': { page_path_en: '/building-an-ai-native-design-practice-not-just-using-ai-tools' },
 }
 
 // Home fallback

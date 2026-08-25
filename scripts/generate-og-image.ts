@@ -1,7 +1,7 @@
 /**
  * Generates the home OG image (public/og-image.webp, 1200x630) from scripts/og-template.html,
- * TODO: this previously injected a live GitHub star count. Re-point it at
- * one of your own repos, or delete the fetch and keep the template static.
+ * The template no longer displays a GitHub star count, so `stars` below stays 0 —
+ * wire fetchStars() back up if a live badge is ever added to the card.
  *
  * - Renders the HTML with Playwright (Chromium) → PNG → webp via cwebp. Replicates the hero
  *   design tokens 1:1 (no AI-generated art).
@@ -60,7 +60,7 @@ function readState(): { starsK?: string } {
 async function main() {
   console.log('🖼  Generating OG image...\n')
 
-  const stars = 0 // TODO: await fetchStars('<owner>', '<repo>') for a real badge
+  const stars = 0 // no star badge on the card — see file header
   if (stars == null) {
     console.log('  ⏭ Could not read stars — leaving existing og-image.webp untouched')
     return

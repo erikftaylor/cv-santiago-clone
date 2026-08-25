@@ -24,7 +24,7 @@ const STRICT = process.argv.includes('--strict')
 
 const SKIP_DIRS = new Set([
   'node_modules', '.git', 'dist', '.vercel', 'coverage',
-  '.playwright-mcp', '.seo-audit', '.seo-audit-v2',
+  '.playwright-mcp', '.seo-audit', '.seo-audit-v2', '.impeccable',
 ])
 // package-lock.json is skipped from the LINE scan: it is thousands of lines of
 // registry URLs and integrity hashes, and scanning it drowns the report. Its

@@ -1,9 +1,9 @@
 /* TEAM */
 Builder: Erik Taylor
-Role: TODO: your roles
+Role: Senior Product Designer, AI Product Designer
 Contact: erik@etaylor.co
 Site: https://etaylor.co
-Location: TODO: City, Country
+Location: Denver, CO, USA
 GitHub: https://github.com/erikftaylor
 
 /* THANKS */

@@ -26,6 +26,3 @@ Allow: /
 
 Sitemap: https://etaylor.co/sitemap.xml
 
-# TODO: IndexNow — generate a key, save it as public/<key>.txt, and record the
-# key in site.identity.json under verification.indexnow. Until then, the
-# indexnow-ping build step is a no-op.

@@ -7,8 +7,9 @@
  *
  * This module adds types, derived helpers (`url()`, `sameAs`), and nothing else.
  *
- * ⚠️  Any value still reading `TODO:` is a placeholder. The site builds and runs
- *     with them, but do not deploy publicly until they are real:
+ * ⚠️  Any value still reading as an unfilled scaffold placeholder is not real
+ *     yet. The site builds and runs with them, but do not deploy publicly
+ *     until they are real:
  *         npx tsx scripts/identity-check.ts --strict
  */
 import identity from '../site.identity.json'

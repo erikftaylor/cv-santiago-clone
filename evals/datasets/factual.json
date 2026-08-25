@@ -32,13 +32,13 @@
     },
     {
       "id": "onboarding-metric",
-      "description": "Must cite the 30% onboarding adoption lift at WFG",
+      "description": "Must not claim an unverified adoption number for the WFG onboarding redesign",
       "input": "What results did the WFG onboarding redesign get?",
       "lang": "en",
       "assertions": [
         {
-          "type": "contains_any",
-          "values": ["30%", "30 percent"]
+          "type": "llm_judge",
+          "criteria": "The response must not state a specific adoption percentage (e.g. 30%) as a measured result. It should describe research-backed targets (task completion, engagement, satisfaction) and be honest that no post-launch adoption metrics were measured."
         }
       ]
     },
@@ -84,13 +84,13 @@
     },
     {
       "id": "guidebook-platform",
-      "description": "Must name w3 Publisher as the guidebook migration target",
+      "description": "Must name WordPress as the guidebook platform",
       "input": "What platform did the IBM Digital Sellers Guidebook end up on?",
       "lang": "en",
       "assertions": [
         {
           "type": "contains_any",
-          "values": ["w3 Publisher", "w3"]
+          "values": ["WordPress"]
         }
       ]
     },

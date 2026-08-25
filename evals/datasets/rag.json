@@ -1,11 +1,11 @@
 {
   "name": "rag_quality",
-  "description": "RAG retrieval quality. TODO: add one case per case study you publish — the chatbot is only trustworthy if retrieval is tested against your real corpus.",
+  "description": "RAG retrieval quality — one case per published case study, tested against the real corpus.",
   "tests": [
     {
-      "id": "TODO-retrieval-project-detail",
-      "description": "TODO: asking about a specific project must trigger RAG and cite that article",
-      "input": "TODO: a question only answerable from one of your case studies",
+      "id": "retrieval-jem-hours-saved",
+      "description": "Asking about JEM's impact must trigger RAG and cite the JEM case study",
+      "input": "How many hours did JEM save per discovery cycle?",
       "lang": "en",
       "assertions": [
         {
@@ -13,18 +13,37 @@
         },
         {
           "type": "source_includes",
-          "value": "example-case-study"
+          "value": "jem-case-study"
         },
         {
           "type": "llm_judge",
-          "criteria": "TODO: state precisely what a correct answer must contain. Name the specific facts. Generic answers must fail — that is the point of this assertion."
+          "criteria": "The response must state that JEM saved roughly 10-15 hours per discovery cycle at Tovuti LMS. A vague or generic answer without that figure is a failure."
         }
       ]
     },
     {
-      "id": "TODO-no-fabrication",
+      "id": "retrieval-checkpoints-gates",
+      "description": "Asking about Checkpoints must trigger RAG and cite the Checkpoints case study",
+      "input": "What did the Checkpoints discovery find?",
+      "lang": "en",
+      "assertions": [
+        {
+          "type": "rag_used"
+        },
+        {
+          "type": "source_includes",
+          "value": "checkpoints-case-study"
+        },
+        {
+          "type": "llm_judge",
+          "criteria": "The response must reference the go/no-go gates and the fact that 60+ support tickets (plus case notes and team signals) were synthesized into journey maps. A generic answer without these specifics is a failure."
+        }
+      ]
+    },
+    {
+      "id": "no-fabrication-unwritten-topic",
       "description": "Must refuse to invent details it has not retrieved",
-      "input": "TODO: a plausible question about something you have NOT written about",
+      "input": "What was your role at Google, and what did you ship there?",
       "lang": "en",
       "assertions": [
         {

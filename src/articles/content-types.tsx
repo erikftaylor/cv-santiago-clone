@@ -108,7 +108,7 @@ function slugify(text: string): string {
 }
 
 export function H3({ id, icon, children, className }: HeadingProps) {
-  const base = 'font-display text-2xl font-semibold text-foreground mt-10 mb-4 scroll-mt-24'
+  const base = 'font-display text-xl md:text-2xl font-semibold text-foreground mt-10 mb-4 scroll-mt-24'
   const withIcon = icon ? 'flex items-center gap-2' : ''
   const autoId = id ?? (typeof children === 'string' ? slugify(children) : undefined)
   return (
@@ -205,7 +205,7 @@ interface CalloutProps {
 export function Callout({ children, className, editorId }: CalloutProps) {
   return (
     <EditorLabel name="Callout" id={editorId}>
-      <div className={`bg-primary/5 border-l-4 border-primary/40 rounded-r-lg pl-5 pr-4 py-4 mb-6 ${className ?? ''}`}>
+      <div className={`bg-primary/5 border border-primary/15 rounded-lg px-5 py-4 mb-6 ${className ?? ''}`}>
         <p className="text-base text-foreground font-medium leading-relaxed">{children}</p>
       </div>
     </EditorLabel>
@@ -750,7 +750,7 @@ export function CodeBlock({ children, segments, highlight = 'code', className, e
                 {highlightCode(seg.code, highlight)}
               </pre>
               {seg.annotations?.map((ann, j) => (
-                <div key={j} className="mx-3 mb-3 bg-primary/5 border-l-2 border-primary/40 rounded-r-md px-3 py-2">
+                <div key={j} className="mx-3 mb-3 bg-primary/5 border border-primary/15 rounded-md px-3 py-2">
                   <p className="text-xs font-semibold text-primary mb-0.5">{ann.label}</p>
                   <p className="text-xs text-muted-foreground leading-relaxed">{ann.detail}</p>
                 </div>

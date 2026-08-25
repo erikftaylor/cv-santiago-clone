@@ -165,16 +165,20 @@ const aboutPersonProfile = {
     email: site.email,
     jobTitle: site.roles,
     description: site.description,
-    // TODO: list the topics you genuinely work in. Linking each to a Wikipedia
-    // or official URL helps search engines resolve the entity — but only add
-    // ones that are actually true of you.
     knowsAbout: [
-      { '@type': 'Thing', name: 'TODO: Topic' },
+      { '@type': 'Thing', name: 'Product Design' },
+      { '@type': 'Thing', name: 'UX Research' },
+      { '@type': 'Thing', name: 'Design Systems' },
+      { '@type': 'Thing', name: 'AI Product Design' },
     ],
-    // TODO: add `hasCredential` entries ONLY for certifications you hold, each
-    // with a working verification URL. An unverifiable credential in structured
-    // data is worse than omitting the field.
-    // TODO: add `alumniOf`, `worksFor`, and `subjectOf` (press) when real.
+    // No `hasCredential` entries: no certifications with a working verification
+    // URL exist yet (src/i18n.ts → certifications.items is empty). Add one here
+    // only alongside a real item there — an unverifiable credential in
+    // structured data is worse than omitting the field.
+    // No `alumniOf` (no education on record), `worksFor` (currently freelance,
+    // no single employer), or `subjectOf` (no press coverage on record) —
+    // omitted rather than guessed. Add each only when a real, verifiable fact
+    // exists.
     sameAs: site.sameAs,
     address: {
       '@type': 'PostalAddress',

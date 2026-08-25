@@ -63,7 +63,7 @@ const xml = `<?xml version="1.0" encoding="UTF-8"?>
   <channel>
     <title>${site.domain} — Articles</title>
     <link>${base}</link>
-    <description>TODO: one line describing your writing — by ${site.fullName}.</description>
+    <description>Case studies on AI product design and UX research, by ${site.fullName}.</description>
     <language>en</language>
     <lastBuildDate>${rfc822(lastModified)}</lastBuildDate>
     <atom:link href="${base}/rss.xml" rel="self" type="application/rss+xml"/>

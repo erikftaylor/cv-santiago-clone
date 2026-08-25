@@ -3,9 +3,9 @@
   "description": "Tests that source badges are accurate: correct articles linked, no badges on greetings, correct language paths",
   "tests": [
     {
-      "id": "TODO-badge-en",
-      "description": "TODO: a question about a case study surfaces its source badge",
-      "input": "TODO: question that should retrieve your case study",
+      "id": "badge-en-jem",
+      "description": "A question about JEM surfaces the JEM source badge",
+      "input": "Tell me about the JEM journey-mapping tool.",
       "lang": "en",
       "assertions": [
         {
@@ -13,7 +13,7 @@
         },
         {
           "type": "source_includes",
-          "value": "example-case-study"
+          "value": "jem-case-study"
         }
       ]
     },

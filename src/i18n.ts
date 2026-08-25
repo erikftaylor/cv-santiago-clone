@@ -187,7 +187,7 @@ export const translations = {
           period: '2020 – 2024',
           desc: 'Designed the World Financial Group (WFG) agent portal — the tools licensed agents work in daily.',
           highlights: [
-            'Redesigned new-agent onboarding on a research base of 100+ financial advisors across the US and Canada — a card-based homepage over a blank dashboard, entitlements shaping what recruits versus licensed agents see. Onboarding adoption among new agents rose 30% after launch.',
+            'Redesigned new-agent onboarding — a card-based homepage over a blank dashboard, entitlements shaping what recruits versus licensed agents see. Task-completion, engagement, and satisfaction targets were set from research and usability testing; no post-launch adoption numbers were measured, so none are claimed here.',
             'Joined a redesign whose direction was already set and pushed to add user interviews and usability testing, so the work was grounded in actual agent pain points rather than assumptions carried over from the prior portal. It cost time the team had not budgeted; skipping it risked solving the wrong friction.',
             'Built a custom design system for WFG rather than reusing an off-the-shelf component set, because WFG branding and functional requirements did not map cleanly onto existing patterns.',
             'Rebuilt global navigation around frequency of use rather than the org chart — agents were not asking for fewer features, they were asking for fewer steps to the ones they used constantly, like Commissions and Client Management.',
@@ -202,7 +202,7 @@ export const translations = {
           desc: 'Owned the Digital Sellers Guidebook — an adoption problem wearing a platform problem as a disguise.',
           highlights: [
             'Sellers treated the existing platform as overhead rather than help. Stakeholder interviews with sellers and managers surfaced the real constraint: high cognitive load and no time for training. Any fix that asked sellers to learn something new, somewhere new, would have failed the same way.',
-            'Ran a five-platform evaluation — WordPress, w3 Publisher, custom w3DS, Seismic, IBM Connections — and moved the guidebook to w3 Publisher for supported metrics and search indexing, keeping WordPress only for the knowledge base. The tradeoff, named up front: less customization and no embedded video.',
+            'Built the guidebook on WordPress for easy integration with existing IBM tools, structured around three pillars — product pages, a role-segmented knowledge base, and a searchable video library — informed by stakeholder interviews with sellers and managers.',
             'Restructured that knowledge base around seller journeys — Clients, Contacts, Communications, Opportunity — with manager and seller paths separated, instead of mirroring how the content team was organized.',
           ],
         },
@@ -245,11 +245,12 @@ export const translations = {
           badge: 'Tovuti LMS',
           desc: 'An approval-workflow feature carrying $500K+ ARR was "broken again" in support channels, and nobody could say precisely how. I synthesized 60+ Zendesk tickets, Slack signals, and internal case notes into four persona journey maps and a five-gate go/no-go assessment — surfacing silent auto-approvals, a compliance risk no ticket had named. The gates went to leadership before GA; the fixes are theirs to sequence.',
           tech: ['Discovery', 'Journey Mapping', 'Zendesk', 'Risk Assessment'],
+          link: 'etaylor.co/a-go-no-go-discovery-for-a-500k-arr-approval-workflow',
         },
         {
           title: 'WFG Agent Portal',
           badge: 'Transamerica',
-          desc: 'The agent portal was unintuitive and impersonal — essential tools were hard to find and nothing adapted to the agent using it. I joined after direction was set and argued for user interviews and usability testing anyway, then built a design system tailored to WFG rather than bending the experience into an off-the-shelf component set. The research base ran to 100+ financial advisors across the US and Canada; onboarding adoption among new agents rose 30% after launch.',
+          desc: 'The agent portal was unintuitive and impersonal — essential tools were hard to find and nothing adapted to the agent using it. I joined after direction was set and argued for user interviews and usability testing anyway, then built a design system tailored to WFG rather than bending the experience into an off-the-shelf component set. Task-completion, engagement, and satisfaction targets were set from that research; no post-launch metrics were measured, so none are claimed here.',
           tech: ['Design Systems', 'Figma', 'Usability Testing', 'Stakeholder Interviews'],
           link: 'etaylor.co/empowering-financial-agents-with-a-redesigned-portal-experience',
         },
@@ -263,9 +264,23 @@ export const translations = {
         {
           title: 'IBM Digital Sellers Guidebook',
           badge: 'IBM',
-          desc: 'Sellers saw the platform as overhead, not help — the real constraint was cognitive load, not awareness. A five-platform evaluation moved the guidebook to w3 Publisher, kept WordPress for the knowledge base, and the KB itself was restructured around seller journeys rather than how the content team was organized.',
+          desc: 'Sellers saw the platform as overhead, not help — the real constraint was cognitive load, not awareness. Built on WordPress for easy integration with existing IBM tools, the guidebook organized product pages, a role-segmented knowledge base, and a searchable video library around what sellers and managers actually needed.',
           tech: ['WordPress', 'Stakeholder Interviews', 'Content Design', 'Adoption'],
           link: 'etaylor.co/driving-adoption-and-engagement-with-ibms-digital-sellers-guidebook',
+        },
+        {
+          title: 'WFG 365',
+          badge: 'Transamerica',
+          desc: 'Senior leaders refused to use the mobile app that replaced Pulse — the paycheck tabs and team metrics they ran their business on daily were gone. I led field research with top producers, turning "this doesn\'t work" into a prioritized fix list before the next release. Adoption was never formally tracked, so no lift is claimed.',
+          tech: ['Field Research', 'Mobile UX', 'Change Management', 'Stakeholder Interviews'],
+          link: 'etaylor.co/recovering-a-mobile-app-launch-agents-refused-to-use',
+        },
+        {
+          title: 'An AI-Native Design Practice',
+          badge: 'Tovuti LMS',
+          desc: 'Three interlocking builds on one thesis: AI as infrastructure, not a bolted-on tool. JEM turns research into journey maps; 10 custom Claude skills cut synthesis time from 10–15 hours to under 2; an analytics vision reframes reporting as decisions, not dashboards.',
+          tech: ['Claude', 'AI Workflow Design', 'Product Strategy', 'Research Synthesis'],
+          link: 'etaylor.co/building-an-ai-native-design-practice-not-just-using-ai-tools',
         },
       ] as readonly ProjectItem[],
     },
@@ -279,8 +294,8 @@ export const translations = {
 
     education: {
       title: 'Education',
-      // TODO: add degree / institution / year. Not present in any existing
-      // material, so nothing is assumed here.
+      // No degree / institution / year on record for this material —
+      // intentionally left empty rather than assumed.
       items: [] as readonly { year: string; org: string; title: string; desc: string }[],
     },
 

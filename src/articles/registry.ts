@@ -76,8 +76,7 @@ export const articleRegistry: ArticleConfig[] = [
     type: 'case-study',
     ogImage: `${site.origin}/og-image.webp`,
     component: () => import('../JemCaseStudy.tsx'),
-    // Draft — flip to true after review so the chatbot can retrieve it.
-    ragReady: false,
+    ragReady: true,
     i18nFile: 'src/jem-i18n.ts',
     seoMeta: {
       datePublished: '2026-08-24',
@@ -122,8 +121,7 @@ export const articleRegistry: ArticleConfig[] = [
     type: 'case-study',
     ogImage: `${site.origin}/og-image.webp`,
     component: () => import('../CheckpointsCaseStudy.tsx'),
-    // Draft — flip to true after review so the chatbot can retrieve it.
-    ragReady: false,
+    ragReady: true,
     i18nFile: 'src/checkpoints-i18n.ts',
     seoMeta: {
       datePublished: '2026-08-24',
@@ -146,6 +144,216 @@ export const articleRegistry: ArticleConfig[] = [
       ],
       citation: [
         { '@type': 'WebPage', name: 'Journey Mapping 101 (Nielsen Norman Group)', url: 'https://www.nngroup.com/articles/journey-mapping-101/' },
+      ],
+    },
+  },
+  {
+    id: 'wfg-portal-case-study',
+    slug: 'empowering-financial-agents-with-a-redesigned-portal-experience',
+    title: 'WFG Agent Portal Redesign',
+    seo: {
+      title: `Redesigning the WFG Agent Portal | ${site.domain}`,
+      description: 'The WFG agent portal was unintuitive and impersonal. A research-driven redesign with role-based personalization and a tailored design system at Transamerica.',
+    },
+    sectionLabels: {
+      problem: 'The problem',
+      architecture: 'Process',
+      results: 'Targets',
+      lessons: 'Lessons',
+    },
+    type: 'case-study',
+    ogImage: `${site.origin}/og-image.webp`,
+    component: () => import('../WfgPortalCaseStudy.tsx'),
+    ragReady: true,
+    i18nFile: 'src/wfg-portal-i18n.ts',
+    seoMeta: {
+      datePublished: '2026-08-24',
+      dateModified: '2026-08-24',
+      keywords: [
+        'product design', 'UX research', 'design systems', 'usability testing',
+        'financial services UX', 'role-based personalization', 'SAFe Agile',
+        'Transamerica', 'WFG', 'enterprise portal design',
+      ],
+      articleType: 'TechArticle',
+      articleTags: 'product design, UX research, design systems, usability testing',
+      images: [`${site.origin}/og-image.webp`],
+      about: [
+        { '@type': 'Thing', name: 'Enterprise portal redesign' },
+        { '@type': 'Thing', name: 'Role-based personalization' },
+      ],
+      mentions: [
+        { '@type': 'SoftwareApplication', name: 'Figma', url: 'https://www.figma.com' },
+      ],
+      citation: [
+        { '@type': 'WebPage', name: 'SAFe (Scaled Agile Framework)', url: 'https://framework.scaledagile.com/' },
+      ],
+    },
+  },
+  {
+    id: 'advisor-nav-case-study',
+    slug: 'boosting-advisor-efficiency-with-a-renovated-navigation-experience',
+    title: 'Advisor Navigation Overhaul',
+    seo: {
+      title: `A Research-Driven Navigation Overhaul | ${site.domain}`,
+      description: 'Licensed WFG agents lost time to a cluttered global navigation. A frequency-of-use redesign, tested with agents on desktop and mobile, at Transamerica.',
+    },
+    sectionLabels: {
+      problem: 'The problem',
+      architecture: 'The method',
+      results: 'What it surfaced',
+      lessons: 'Lessons',
+    },
+    type: 'case-study',
+    ogImage: `${site.origin}/og-image.webp`,
+    component: () => import('../AdvisorNavCaseStudy.tsx'),
+    ragReady: true,
+    i18nFile: 'src/advisor-nav-i18n.ts',
+    seoMeta: {
+      datePublished: '2026-08-24',
+      dateModified: '2026-08-24',
+      keywords: [
+        'information architecture', 'mobile UX', 'usability testing', 'navigation design',
+        'financial services UX', 'Transamerica', 'WFG', 'frequency of use',
+        'global navigation', 'change management',
+      ],
+      articleType: 'TechArticle',
+      articleTags: 'information architecture, mobile UX, usability testing, product design',
+      images: [`${site.origin}/og-image.webp`],
+      about: [
+        { '@type': 'Thing', name: 'Global navigation redesign' },
+        { '@type': 'Thing', name: 'Mobile-first UX' },
+      ],
+      mentions: [
+        { '@type': 'SoftwareApplication', name: 'Figma', url: 'https://www.figma.com' },
+      ],
+      citation: [
+        { '@type': 'WebPage', name: 'Navigation Usability Research (Nielsen Norman Group)', url: 'https://www.nngroup.com/topic/navigation/' },
+      ],
+    },
+  },
+  {
+    id: 'ibm-guidebook-case-study',
+    slug: 'driving-adoption-and-engagement-with-ibms-digital-sellers-guidebook',
+    title: 'IBM Digital Sellers Guidebook',
+    seo: {
+      title: `Empowering IBM Sellers: A UX-Driven Guidebook | ${site.domain}`,
+      description: 'IBM sellers saw a new sales platform as a burden. A WordPress-based guidebook built from stakeholder research and role-segmented content closed the gap.',
+    },
+    sectionLabels: {
+      problem: 'The problem',
+      architecture: 'Process',
+      results: 'What it surfaced',
+      lessons: 'Lessons',
+    },
+    type: 'case-study',
+    ogImage: `${site.origin}/og-image.webp`,
+    component: () => import('../IbmGuidebookCaseStudy.tsx'),
+    ragReady: true,
+    i18nFile: 'src/ibm-guidebook-i18n.ts',
+    seoMeta: {
+      datePublished: '2026-08-24',
+      dateModified: '2026-08-24',
+      keywords: [
+        'content strategy', 'sales enablement', 'stakeholder research', 'product ownership',
+        'cognitive load', 'knowledge base design', 'IBM', 'WordPress',
+        'enterprise UX', 'internal tools',
+      ],
+      articleType: 'TechArticle',
+      articleTags: 'content strategy, sales enablement, stakeholder research, product ownership',
+      images: [`${site.origin}/og-image.webp`],
+      about: [
+        { '@type': 'Thing', name: 'Sales enablement content strategy' },
+        { '@type': 'Thing', name: 'Cognitive load reduction' },
+      ],
+      mentions: [
+        { '@type': 'SoftwareApplication', name: 'WordPress', url: 'https://wordpress.org' },
+      ],
+      citation: [
+        { '@type': 'WebPage', name: 'Minimize Cognitive Load to Maximize Usability (Nielsen Norman Group)', url: 'https://www.nngroup.com/articles/minimize-cognitive-load/' },
+      ],
+    },
+  },
+  {
+    id: 'wfg365-case-study',
+    slug: 'recovering-a-mobile-app-launch-agents-refused-to-use',
+    title: 'WFG 365: Recovering a Mobile App Launch',
+    seo: {
+      title: `WFG 365: Recovering a Mobile App Launch | ${site.domain}`,
+      description: 'Senior WFG leaders refused to use the app that replaced Pulse. Field research with top producers turned "this doesn\'t work" into a prioritized fix list.',
+    },
+    sectionLabels: {
+      problem: 'The problem',
+      architecture: 'The action',
+      results: 'What it surfaced',
+      lessons: 'Lessons',
+    },
+    type: 'case-study',
+    ogImage: `${site.origin}/og-image.webp`,
+    component: () => import('../Wfg365CaseStudy.tsx'),
+    ragReady: false,
+    i18nFile: 'src/wfg365-i18n.ts',
+    seoMeta: {
+      datePublished: '2026-08-24',
+      dateModified: '2026-08-24',
+      keywords: [
+        'field research', 'mobile UX', 'change management', 'user interviews',
+        'product recovery', 'financial services UX', 'Transamerica', 'WFG',
+        'stakeholder research', 'app redesign',
+      ],
+      articleType: 'TechArticle',
+      articleTags: 'field research, mobile UX, change management, product recovery',
+      images: [`${site.origin}/og-image.webp`],
+      about: [
+        { '@type': 'Thing', name: 'Field research for mobile UX' },
+        { '@type': 'Thing', name: 'Product launch recovery' },
+      ],
+      citation: [
+        { '@type': 'WebPage', name: 'Interviewing Users (Nielsen Norman Group)', url: 'https://www.nngroup.com/topic/interviewing-users/' },
+      ],
+      mentions: [
+        { '@type': 'Organization', name: 'Deloitte', url: 'https://www.deloitte.com' },
+      ],
+    },
+  },
+  {
+    id: 'ai-native-design-case-study',
+    slug: 'building-an-ai-native-design-practice-not-just-using-ai-tools',
+    title: 'An AI-Native Design Practice',
+    seo: {
+      title: `An AI-Native Design Practice at Tovuti | ${site.domain}`,
+      description: 'JEM, 10 custom Claude skills, and an analytics strategy vision — three builds on the thesis that AI should be infrastructure, not a bolted-on tool.',
+    },
+    sectionLabels: {
+      problem: 'The problem',
+      architecture: 'The action',
+      results: 'Results',
+      lessons: 'Lessons',
+    },
+    type: 'case-study',
+    ogImage: `${site.origin}/og-image.webp`,
+    component: () => import('../AiNativeDesignCaseStudy.tsx'),
+    ragReady: false,
+    i18nFile: 'src/ai-native-design-i18n.ts',
+    seoMeta: {
+      datePublished: '2026-08-24',
+      dateModified: '2026-08-24',
+      keywords: [
+        'AI workflow design', 'product strategy', 'research synthesis', 'Claude',
+        'design systems', 'Tovuti LMS', 'AI product design', 'analytics strategy',
+        'journey mapping', 'AI-native design',
+      ],
+      articleType: 'TechArticle',
+      articleTags: 'AI workflow design, product strategy, research synthesis, design systems',
+      images: [`${site.origin}/og-image.webp`],
+      about: [
+        { '@type': 'Thing', name: 'AI-native design workflow' },
+        { '@type': 'Thing', name: 'Research synthesis automation' },
+      ],
+      mentions: [
+        { '@type': 'SoftwareApplication', name: 'Claude', url: 'https://www.anthropic.com/claude' },
+      ],
+      citation: [
+        { '@type': 'WebPage', name: 'Anthropic Claude API documentation', url: 'https://docs.anthropic.com' },
       ],
     },
   },
