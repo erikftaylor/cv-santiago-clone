@@ -44,13 +44,18 @@ function StaggerIn({ delay = 0, x = 0, y = 8, className, children }: {
   children: React.ReactNode
 }) {
   const reduced = useReducedMotion()
-  const inView = useContext(SectionInView)
+  const phase = useContext(SectionInView)
   return (
     <motion.div
       initial={false}
-      animate={inView
-        ? (reduced ? { opacity: 1 } : { opacity: 1, x: 0, y: 0 })
-        : (reduced ? { opacity: 0 } : { opacity: 0, x, y })}
+      // phase 0 must apply NO styles: framer bakes `animate` values into the
+      // SSR markup, and hidden poses in prerendered HTML mean invisible
+      // content for crawlers and anyone whose hydration is slow or broken.
+      animate={phase === 0
+        ? false
+        : phase === 2
+          ? (reduced ? { opacity: 1 } : { opacity: 1, x: 0, y: 0 })
+          : (reduced ? { opacity: 0 } : { opacity: 0, x, y })}
       transition={{ duration: reduced ? 0.2 : 0.45, delay: reduced ? Math.min(delay, 0.15) : delay, ease: [0.22, 1, 0.36, 1] }}
       className={className}
     >
@@ -67,14 +72,17 @@ function CascadeChip({ brand, delay, className, style, children }: {
   children: React.ReactNode
 }) {
   const reduced = useReducedMotion()
-  const inView = useContext(SectionInView)
+  const phase = useContext(SectionInView)
   const ring = brand ? `0 0 0 1px ${hexAlpha(brand, 0.55)}, 0 2px 10px -4px ${hexAlpha(brand, 0.35)}` : NO_RING
   return (
     <motion.span
       initial={false}
-      animate={inView
-        ? (reduced ? { opacity: 1 } : { opacity: 1, y: 0, boxShadow: NO_RING })
-        : (reduced ? { opacity: 0 } : { opacity: 0, y: 6, boxShadow: ring })}
+      // See StaggerIn: phase 0 keeps the SSR markup style-free and visible.
+      animate={phase === 0
+        ? false
+        : phase === 2
+          ? (reduced ? { opacity: 1 } : { opacity: 1, y: 0, boxShadow: NO_RING })
+          : (reduced ? { opacity: 0 } : { opacity: 0, y: 6, boxShadow: ring })}
       transition={reduced
         ? { duration: 0.2, delay: Math.min(delay, 0.2) }
         : {
@@ -482,10 +490,14 @@ function HomeToc({ lang }: { lang: Lang }) {
   )
 }
 
-/** True once the nearest AnimatedSection has entered the viewport. Children
- *  (StaggerIn, CascadeChip) animate from this instead of running their own
- *  IntersectionObservers, which misfire inside content-visibility:auto. */
-const SectionInView = createContext(false)
+/** Animation phase of the nearest AnimatedSection, for children (StaggerIn,
+ *  CascadeChip) — they animate from this instead of running their own
+ *  IntersectionObservers, which misfire inside content-visibility:auto.
+ *  0 = SSR / pre-detection: children must render WITHOUT motion styles so the
+ *      prerendered HTML stays fully visible for crawlers and pre-hydration.
+ *  1 = detected but offscreen: children may hold their hidden pose.
+ *  2 = in view: children animate in. */
+const SectionInView = createContext(0)
 
 function AnimatedSection({ children, className = '', delay = 0 }: { children: React.ReactNode, className?: string, delay?: number }) {
   const [ref, setRef] = useState<HTMLElement | null>(null)
@@ -532,7 +544,7 @@ function AnimatedSection({ children, className = '', delay = 0 }: { children: Re
       transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
       className={className}
     >
-      <SectionInView.Provider value={hydrated && detected && isInView}>
+      <SectionInView.Provider value={!hydrated || !detected ? 0 : isInView ? 2 : 1}>
         {children}
       </SectionInView.Provider>
     </motion.div>
