@@ -1,6 +1,6 @@
 # Erik Taylor
 
-> Denver-based senior product designer, 15+ years from IBM copywriter to AI product design — most recently designed and shipped JEM, an AI journey-mapping tool at Tovuti LMS.
+> Denver-based senior product designer, in design since 2016 and in tech since 2008 — IBM copywriter to AI product design — most recently designed and shipped JEM, an AI journey-mapping tool at Tovuti LMS.
 
 ## About
 
@@ -23,8 +23,8 @@ is currently freelance and open to senior product design roles.
 ## Experience
 
 - **Freelance (2026–present), Senior Product Designer.** Product design for teams shipping software — discovery through engineering handoff.
-- **Tovuti LMS (2025–2026), Senior Product Designer.** Designed and shipped JEM, an AI journey-mapping tool that saves teams 10–15 hours per discovery cycle (ten fixes in its first production week). Led go/no-go discovery on Checkpoints, an approval-workflow feature tied to a commercially significant expansion opportunity — 60+ tickets synthesized into four persona journey maps and five go/no-go gates. Owned the design system: token-first, WCAG AA, specs consumed by 8–12 engineers.
-- **Transamerica (2020–2024), UX Designer.** World Financial Group agent portal and design system. New-agent onboarding redesigned with research-backed targets for task completion, engagement, and satisfaction; no post-launch adoption metrics were measured. Global navigation rebuilt around frequency of use rather than the org chart.
+- **Tovuti LMS (2025–2026), Senior Product Designer.** Designed and shipped JEM, an AI journey-mapping tool with an estimated 10–15 hours of hand synthesis avoided per discovery cycle (ten fixes in its first week of internal use). Led go/no-go discovery on Checkpoints, an approval-workflow feature tied to a commercially significant expansion opportunity — 60+ tickets synthesized into four persona journey maps and five go/no-go gates. Owned the design system: token-first, WCAG 2.2 AA, specs consumed by 8–12 engineers.
+- **Transamerica (2020–2024), Senior UX Designer.** World Financial Group agent portal and design system. New-agent onboarding redesigned with research-backed targets for task completion, engagement, and satisfaction; no post-launch adoption metrics were measured. Global navigation rebuilt around frequency of use rather than the org chart.
 - **IBM (2008–2020), Copywriter → Team Lead → Product Owner / UX Designer.** Owned the Digital Sellers Guidebook: a WordPress-based sales-enablement resource with role-segmented content — product pages, knowledge base, and a searchable video library — informed by stakeholder interviews with sellers and managers.
 
 ## Projects
