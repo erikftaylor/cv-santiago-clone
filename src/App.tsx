@@ -1091,7 +1091,7 @@ function ReflectiveTypewriter({
       {(phase === 'hook' || phase === 'complete') && hookParagraphs.map((paragraph, pIdx) => {
         const Tag = pIdx === 0 ? 'span' : 'p'
         const wrapperClass = pIdx === 0
-          ? "md:block md:mb-4"
+          ? "md:block md:mt-3 md:mb-4"
           : "mt-4 md:mt-0"
         return (
           <Tag key={pIdx} className={wrapperClass}>
