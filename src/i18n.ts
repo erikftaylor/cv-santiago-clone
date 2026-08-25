@@ -83,7 +83,6 @@ export const translations = {
   // ENGLISH
   // ═══════════════════════════════════════════════════════════════════════════
   en: {
-    greeting: 'I help teams make better product decisions before the build starts.',
     /** Single static headline — the rotating-roles typewriter is retired. */
     greetingRoles: ['Senior Product Designer for complex, AI-enabled products'],
     /** One-sentence support line under the hero headline. */
