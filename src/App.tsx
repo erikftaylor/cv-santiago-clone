@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo, useReducer, useRef } from 'react'
+import { useState, useEffect, useCallback, useContext, useMemo, useReducer, useRef, createContext } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react'
 import { Mail, ExternalLink, Briefcase, GraduationCap, Award, Code, Bot, FolderGit2, Sparkles, FileText, SkipForward, ChevronRight, List } from 'lucide-react'
@@ -34,6 +34,31 @@ const NO_RING = '0 0 0 1px rgba(0,0,0,0)'
  * once as the section enters, then recedes. Ring is box-shadow so it never
  * fights the CSS border hover from the brand-hover system.
  */
+/** Supporting-motion entrance: a small fade/slide with the house ease, for
+ *  staggering list-like children inside already-animated sections. */
+function StaggerIn({ delay = 0, x = 0, y = 8, className, children }: {
+  delay?: number
+  x?: number
+  y?: number
+  className?: string
+  children: React.ReactNode
+}) {
+  const reduced = useReducedMotion()
+  const inView = useContext(SectionInView)
+  return (
+    <motion.div
+      initial={false}
+      animate={inView
+        ? (reduced ? { opacity: 1 } : { opacity: 1, x: 0, y: 0 })
+        : (reduced ? { opacity: 0 } : { opacity: 0, x, y })}
+      transition={{ duration: reduced ? 0.2 : 0.45, delay: reduced ? Math.min(delay, 0.15) : delay, ease: [0.22, 1, 0.36, 1] }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  )
+}
+
 function CascadeChip({ brand, delay, className, style, children }: {
   brand: string | null
   delay: number
@@ -42,12 +67,14 @@ function CascadeChip({ brand, delay, className, style, children }: {
   children: React.ReactNode
 }) {
   const reduced = useReducedMotion()
+  const inView = useContext(SectionInView)
   const ring = brand ? `0 0 0 1px ${hexAlpha(brand, 0.55)}, 0 2px 10px -4px ${hexAlpha(brand, 0.35)}` : NO_RING
   return (
     <motion.span
-      initial={reduced ? { opacity: 0 } : { opacity: 0, y: 6, boxShadow: ring }}
-      whileInView={reduced ? { opacity: 1 } : { opacity: 1, y: 0, boxShadow: NO_RING }}
-      viewport={{ once: true, amount: 0.5 }}
+      initial={false}
+      animate={inView
+        ? (reduced ? { opacity: 1 } : { opacity: 1, y: 0, boxShadow: NO_RING })
+        : (reduced ? { opacity: 0 } : { opacity: 0, y: 6, boxShadow: ring })}
       transition={reduced
         ? { duration: 0.2, delay: Math.min(delay, 0.2) }
         : {
@@ -455,6 +482,11 @@ function HomeToc({ lang }: { lang: Lang }) {
   )
 }
 
+/** True once the nearest AnimatedSection has entered the viewport. Children
+ *  (StaggerIn, CascadeChip) animate from this instead of running their own
+ *  IntersectionObservers, which misfire inside content-visibility:auto. */
+const SectionInView = createContext(false)
+
 function AnimatedSection({ children, className = '', delay = 0 }: { children: React.ReactNode, className?: string, delay?: number }) {
   const [ref, setRef] = useState<HTMLElement | null>(null)
   const [isInView, setIsInView] = useState(false)
@@ -500,7 +532,9 @@ function AnimatedSection({ children, className = '', delay = 0 }: { children: Re
       transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
       className={className}
     >
-      {children}
+      <SectionInView.Provider value={hydrated && detected && isInView}>
+        {children}
+      </SectionInView.Provider>
     </motion.div>
   )
 }
@@ -1599,19 +1633,20 @@ function App() {
                   <h3 className="font-display text-2xl md:text-3xl font-bold mb-6">{proj.title}</h3>
 
                   {proj.problem && proj.approach && proj.result ? (
+                    // The three beats arrive in reading order — the story structure made temporal.
                     <div className="grid sm:grid-cols-3 gap-5 mb-6">
-                      <div>
+                      <StaggerIn delay={0.05}>
                         <span className="text-xs font-semibold uppercase tracking-wide text-primary">Challenge</span>
                         <p className="text-sm text-muted-foreground leading-relaxed mt-1.5">{proj.problem}</p>
-                      </div>
-                      <div>
+                      </StaggerIn>
+                      <StaggerIn delay={0.17}>
                         <span className="text-xs font-semibold uppercase tracking-wide text-primary">My contribution</span>
                         <p className="text-sm text-muted-foreground leading-relaxed mt-1.5">{proj.approach}</p>
-                      </div>
-                      <div>
+                      </StaggerIn>
+                      <StaggerIn delay={0.29}>
                         <span className="text-xs font-semibold uppercase tracking-wide text-primary">Evidence</span>
                         <p className="text-sm text-muted-foreground leading-relaxed mt-1.5">{proj.result}</p>
-                      </div>
+                      </StaggerIn>
                     </div>
                   ) : (
                     <p className="text-base text-muted-foreground leading-relaxed mb-6 max-w-3xl">{proj.desc}</p>
@@ -1730,14 +1765,16 @@ function App() {
 
           <AnimatedSection>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {t.coreCompetencies.items.map((c) => (
-                <div key={c.title} className="p-5 rounded-xl border border-border bg-background/60 backdrop-blur-sm">
-                  <h3 className="font-display font-semibold mb-1.5 flex items-center gap-2">
-                    <Sparkles className="w-4 h-4 text-primary shrink-0" aria-hidden="true" />
-                    {c.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{c.desc}</p>
-                </div>
+              {t.coreCompetencies.items.map((c, ci) => (
+                <StaggerIn key={c.title} delay={ci * 0.08} className="h-full">
+                  <div className="h-full p-5 rounded-xl border border-border bg-background/60 backdrop-blur-sm">
+                    <h3 className="font-display font-semibold mb-1.5 flex items-center gap-2">
+                      <Sparkles className="w-4 h-4 text-primary shrink-0" aria-hidden="true" />
+                      {c.title}
+                    </h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{c.desc}</p>
+                  </div>
+                </StaggerIn>
               ))}
             </div>
           </AnimatedSection>
@@ -1795,9 +1832,11 @@ function App() {
                   {job.highlights.length > 0 && (
                     <ul className="space-y-2.5">
                       {job.highlights.map((h, hi) => (
-                        <li key={hi} className="flex gap-3 text-sm text-muted-foreground leading-relaxed">
-                          <ChevronRight className="w-4 h-4 text-primary shrink-0 mt-0.5" aria-hidden="true" />
-                          <span>{h}</span>
+                        <li key={hi}>
+                          <StaggerIn delay={Math.min(hi * 0.06, 0.24)} x={-8} y={0} className="flex gap-3 text-sm text-muted-foreground leading-relaxed">
+                            <ChevronRight className="w-4 h-4 text-primary shrink-0 mt-0.5" aria-hidden="true" />
+                            <span>{h}</span>
+                          </StaggerIn>
                         </li>
                       ))}
                     </ul>
@@ -2051,9 +2090,9 @@ function App() {
             <div className="flex flex-wrap justify-center gap-4">
               <a
                 href={`mailto:${t.email}`}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-primary-foreground font-medium hover:brightness-110 hover:shadow-lg hover:shadow-primary/25 active:brightness-95 transition-all duration-200"
+                className="group/cta inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-primary-foreground font-medium hover:brightness-110 hover:shadow-lg hover:shadow-primary/25 active:brightness-95 transition-all duration-200"
               >
-                <Mail className="w-4 h-4" aria-hidden="true" />
+                <Mail className="w-4 h-4 transition-transform duration-200 ease-out group-hover/cta:translate-x-0.5 group-hover/cta:-translate-y-0.5 motion-reduce:group-hover/cta:translate-x-0 motion-reduce:group-hover/cta:translate-y-0" aria-hidden="true" />
                 {t.cta.contact}
               </a>
               {site.social.linkedin && (
@@ -2072,18 +2111,18 @@ function App() {
                 href="/resume-erik-taylor.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border hover:border-primary/50 transition-colors duration-200 hover:bg-primary/5"
+                className="group/cta inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border hover:border-primary/50 transition-colors duration-200 hover:bg-primary/5"
               >
-                <FileText className="w-4 h-4" aria-hidden="true" />
+                <FileText className="w-4 h-4 transition-transform duration-200 ease-out group-hover/cta:translate-x-0.5 motion-reduce:group-hover/cta:translate-x-0" aria-hidden="true" />
                 View resume
                 <ExternalLink className="w-3 h-3" aria-hidden="true" />
               </a>
               <a
                 href="/resume-erik-taylor.pdf"
                 download="Resume-ErikTaylor.pdf"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border hover:border-primary/50 transition-colors duration-200 hover:bg-primary/5"
+                className="group/cta inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border hover:border-primary/50 transition-colors duration-200 hover:bg-primary/5"
               >
-                <FileText className="w-4 h-4" aria-hidden="true" />
+                <FileText className="w-4 h-4 transition-transform duration-200 ease-out group-hover/cta:translate-y-0.5 motion-reduce:group-hover/cta:translate-y-0" aria-hidden="true" />
                 Download PDF
               </a>
             </div>
