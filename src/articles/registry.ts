@@ -65,11 +65,12 @@ export const articleRegistry: ArticleConfig[] = [
     title: 'JEM: An AI Journey-Mapping Tool',
     seo: {
       title: `JEM: Designing an AI Journey-Mapping Tool | ${site.domain}`,
-      description: 'Product teams lost 10-15 hours per discovery cycle to hand synthesis. The design story of JEM, an AI journey-mapping tool shipped in eight weeks at Tovuti LMS.',
+      description: 'Product teams spent an estimated 10-15 hours per discovery cycle on hand synthesis. The design story of JEM, an AI journey-mapping tool shipped in eight weeks at Tovuti LMS.',
     },
     sectionLabels: {
       problem: 'The problem',
       architecture: 'Architecture',
+      'human-judgment': 'Human judgment stayed in the loop',
       results: 'Results',
       lessons: 'Lessons',
     },
