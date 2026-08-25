@@ -89,7 +89,10 @@ export const translations = {
     heroSupport:
       'I turn ambiguous research and product problems into clear decisions, usable systems, and experiences teams can ship.',
     /** The three words in the hero's beam pill. */
-    heroPill: ['Research', 'Decisions', 'Systems', 'Implementation'],
+    // Verbs, not deliverable-nouns (ruled 2026-08-25): the chain reads as
+    // things Erik does, ending on the outcome. "Decide" second is the
+    // decisions-before-the-build positioning compressed into word order.
+    heroPill: ['Research', 'Decide', 'Design', 'Ship'],
     email: site.email,
     role: '',
     location: site.location,
