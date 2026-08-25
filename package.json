@@ -8,7 +8,7 @@
     "worker:dev": "vite build && wrangler dev",
     "worker:prerender": "vite build && npx tsx --tsconfig tsconfig.app.json scripts/prerender.tsx",
     "worker:staging": "npm run worker:prerender && wrangler deploy --env staging",
-    "worker:deploy": "npm run worker:prerender && wrangler deploy",
+    "worker:deploy": "npm run worker:prerender && wrangler deploy --env=\"\"",
     "rag:export": "npx tsx --tsconfig tsconfig.app.json scripts/export-chunks.ts",
     "rag:ingest": "npx tsx --tsconfig tsconfig.app.json scripts/ingest-rag.ts",
     "rag:sync": "npm run rag:export && npm run rag:ingest",
