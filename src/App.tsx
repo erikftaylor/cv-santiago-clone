@@ -906,8 +906,16 @@ function ReflectiveTypewriter({
       const timer = setTimeout(() => {
         if (signal?.aborted) return
         dispatch({ type: 'CLEAR_TEXT' })
-        // No reflections configured — go straight to the hook lines.
-        dispatch({ type: 'PHASE_CHANGE', phase: reflections.length > 0 ? 'reflection' : 'hook' })
+        // No reflections → hook; no hook lines either → finish the animation.
+        if (reflections.length > 0) {
+          dispatch({ type: 'PHASE_CHANGE', phase: 'reflection' })
+        } else if (hookParagraphs.length > 0) {
+          dispatch({ type: 'PHASE_CHANGE', phase: 'hook' })
+        } else {
+          dispatch({ type: 'PHASE_CHANGE', phase: 'complete' })
+          sessionStorage.setItem(STORY_SEEN_KEY, 'true')
+          onComplete?.()
+        }
       }, 800)
       return () => clearTimeout(timer)
     }
