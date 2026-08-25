@@ -83,7 +83,7 @@ export const translations = {
   // ENGLISH
   // ═══════════════════════════════════════════════════════════════════════════
   en: {
-    greeting: 'I design the decisions before the build starts.',
+    greeting: 'I help teams make better product decisions before the build starts.',
     /** Single static headline — the rotating-roles typewriter is retired. */
     greetingRoles: ['Senior Product Designer for complex, AI-enabled products'],
     /** One-sentence support line under the hero headline. */
@@ -105,14 +105,18 @@ export const translations = {
       // Intentionally empty — the "decision is the story" beat was cut
       // (2026-08-25); the typewriter goes from the tenure line to the hook.
       reflections: [],
+      // Positioning ruling (2026-08-25): "I work upstream", "before anything
+      // gets built", and "I design the decisions" are retired — clear and
+      // natural over conceptual. The hero tagline carries "I help teams make
+      // better product decisions before the build starts."; don't repeat it here.
       hookParagraphs: [
-        ['I work *upstream.*'],
+        ['I help teams turn ambiguous research and product problems'],
         [
-          'Where design decisions get made —',
-          '+before anything gets built+.',
+          'into clear decisions, usable systems —',
+          '+and experiences they can ship+.',
         ],
       ],
-      why: 'Global enterprise at IBM, financial services at Transamerica, learning platforms at Tovuti LMS — connecting research to product decisions, decisions to systems, and systems to implementation, with tradeoffs named out loud. I help teams make better product decisions before they commit to the wrong build — then carry those decisions into systems, interfaces, and implementation.',
+      why: 'That work spans global enterprise at IBM, financial services at Transamerica, and learning platforms at Tovuti LMS — from the early product thinking through the systems, interfaces, and implementation that follow.',
       seeking: [
         'Freelance right now, and open to the right full-time seat.',
         'Working where AI is changing what design owns.',
