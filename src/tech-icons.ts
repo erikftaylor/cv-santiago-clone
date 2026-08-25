@@ -257,6 +257,8 @@ icons['openai (custom gpts, tool use via openapi)'] = icons.openai
 icons['dataforseo'] = { color: '#1A73E8', path: 'M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z' }
 icons['youcanbookme'] = { color: '#5C5CFF', path: 'M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM9 10H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z' }
 icons["figjam"] = icons.figma
+// Direct alias required: partial matching would otherwise hit the Make.com key.
+icons["figmamake"] = icons.figma
 icons["chatgpt"] = icons.openai
 icons["vuetify3"] = icons.vuetify
 icons["bootstrap5"] = icons.bootstrap
