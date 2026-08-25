@@ -109,9 +109,11 @@ export const translations = {
       // gets built", and "I design the decisions" are retired — clear and
       // natural over conceptual. The hero tagline carries "I help teams make
       // better product decisions before the build starts."; don't repeat it here.
+      // One sentence = ONE paragraph: lines inside a paragraph stack tight
+      // (md:-mt-1); a second paragraph would open a mt-4 gap mid-sentence.
       hookParagraphs: [
-        ['I help teams turn ambiguous research and product problems'],
         [
+          'I help teams turn ambiguous research and product problems',
           'into clear decisions, usable systems —',
           '+and experiences they can ship+.',
         ],
