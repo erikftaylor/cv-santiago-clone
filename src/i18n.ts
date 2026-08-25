@@ -102,7 +102,9 @@ export const translations = {
       // mid-line would split the typography). Tenure is split deliberately:
       // "18+ years" read as 18 years of design; design started ~2016.
       context: '+In the field since 2008 — an IBM copywriter first, a designer since 2016.+',
-      reflections: ['The decision is the story.', '…not the process diagram.'],
+      // Intentionally empty — the "decision is the story" beat was cut
+      // (2026-08-25); the typewriter goes from the tenure line to the hook.
+      reflections: [],
       hookParagraphs: [
         ['I work *upstream.*'],
         [

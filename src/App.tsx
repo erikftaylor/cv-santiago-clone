@@ -906,7 +906,8 @@ function ReflectiveTypewriter({
       const timer = setTimeout(() => {
         if (signal?.aborted) return
         dispatch({ type: 'CLEAR_TEXT' })
-        dispatch({ type: 'PHASE_CHANGE', phase: 'reflection' })
+        // No reflections configured — go straight to the hook lines.
+        dispatch({ type: 'PHASE_CHANGE', phase: reflections.length > 0 ? 'reflection' : 'hook' })
       }, 800)
       return () => clearTimeout(timer)
     }
