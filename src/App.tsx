@@ -1050,7 +1050,7 @@ function ReflectiveTypewriter({
   return (
     <div
       ref={setRefs}
-      className={`${className} min-h-[7rem] md:min-h-[8rem] ${phase !== 'complete' && phase !== 'idle' ? 'cursor-pointer' : ''}`}
+      className={`${className} ${phase !== 'complete' && phase !== 'idle' ? 'cursor-pointer' : ''}`}
       title={phase !== 'complete' && phase !== 'idle' ? 'Click to skip' : undefined}
     >
       {/* Context line */}
@@ -1084,7 +1084,10 @@ function ReflectiveTypewriter({
             )}
           </>
         ) : null}
-      </span>{' '}
+      </span>
+      {/* Mobile-only joiner between context and hook paragraph 0 — a bare
+          {' '} here creates a phantom ~50px empty line box on desktop. */}
+      {hookParagraphs.length > 0 && <span className="md:hidden"> </span>}
 
       {/* Reflection line (becomes the hook line) */}
       {(phase === 'reflection' || phase === 'pause-before-delete' || phase === 'deleting') && (
@@ -1246,7 +1249,8 @@ function StorySection({ t }: { t: (typeof translations)[Lang] }) {
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background pointer-events-none" />
       <div className="relative z-10 max-w-5xl mx-auto px-6">
         {/* Hook emocional con typewriter reflexivo + botón skip */}
-        <div className="relative pb-12">
+        {/* pb reserves room for the absolute-positioned skip button during the animation */}
+        <div className="relative pb-10">
           <ReflectiveTypewriter
             context={t.story.context}
             reflections={t.story.reflections}
