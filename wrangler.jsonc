@@ -15,5 +15,14 @@
   ],
   "observability": {
     "enabled": true
+  },
+  // Staging: a separate Worker (own workers.dev URL, not bound to
+  // etaylor.co) for checking a change before it goes live. Deploy here
+  // first with `npm run worker:staging`, look it over, then
+  // `npm run worker:deploy` to promote the same build to production.
+  "env": {
+    "staging": {
+      "name": "portfolio-site-staging"
+    }
   }
 }
