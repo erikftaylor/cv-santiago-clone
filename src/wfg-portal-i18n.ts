@@ -20,6 +20,7 @@ export const wfgPortalContent = {
       heading: 'The problem',
       body: [
         'The WFG agent portal was unintuitive and inefficient, with essential tools hard to find and no personalization — licensed agents and senior agents saw the same undifferentiated dashboard regardless of what their role actually needed day to day. The result was frustration, reduced productivity, and low engagement with a tool agents were supposed to rely on.',
+        'My contribution: I joined after the redesign direction had been set. I pushed for user interviews and usability testing, translated the findings into role-based personalization, and created the custom design system used to carry that direction consistently across the portal.',
       ],
     },
 
@@ -31,7 +32,7 @@ export const wfgPortalContent = {
       steps: [
         {
           title: 'Research',
-          detail: 'Gathered insights from user interviews, surveys, and usability tests to identify where the existing portal was costing agents time.',
+          detail: 'Gathered insights from user interviews, surveys, and usability tests to identify where the single undifferentiated dashboard was obscuring the tools agents needed most.',
         },
         {
           title: 'Prototyping',
@@ -68,9 +69,14 @@ export const wfgPortalContent = {
           label: 'satisfaction rate target',
           detail: 'Aspirational goal, not a measured outcome',
         },
+        {
+          value: '40+',
+          label: 'Net Promoter Score target',
+          detail: 'Aspirational goal, not a measured outcome',
+        },
       ],
       body: [
-        'These figures — along with a target Net Promoter Score of 40+ — were the success metrics defined at the outset, informed by user research, competitive analysis, and usability testing. They were never measured against a shipped result: this case study reports the targets the team set, not verified outcomes, and does not claim the redesign hit them.',
+        'These figures were the success metrics defined at the outset, informed by user research, competitive analysis, and usability testing. They were never measured against a shipped result: this case study reports the targets the team set, not verified outcomes, and does not claim the redesign hit them.',
       ],
     },
 
