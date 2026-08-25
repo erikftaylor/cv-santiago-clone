@@ -116,7 +116,7 @@ export const translations = {
       // finishes after the tenure line. (One sentence = ONE paragraph if a
       // hook returns — a second paragraph opens a mt-4 gap mid-sentence.)
       hookParagraphs: [],
-      why: 'That work spans global enterprise at IBM, financial services at Transamerica, and learning platforms at Tovuti LMS — from the early product thinking through the systems, interfaces, and implementation that follow.',
+      why: 'My work spans global enterprise at IBM, financial services at Transamerica, and learning platforms at Tovuti LMS — from the early product thinking through the systems, interfaces, and implementation that follow.',
       seeking: [
         'Freelance right now, and open to the right full-time seat.',
         'Working where AI is changing what design owns.',
