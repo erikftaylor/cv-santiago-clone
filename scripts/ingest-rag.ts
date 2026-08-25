@@ -330,7 +330,8 @@ async function main() {
     console.log(`     → ${splitChunks.length} chunks after splitting`)
 
     // Contextual retrieval summaries
-    const articleTitle = article?.titles.en || articleId
+    // Registry titles are flat strings; tolerate the legacy {en: ...} shape.
+    const articleTitle = (article as any)?.titles?.en ?? article?.title ?? articleId
     const enrichedTexts = await addContextualSummaries(splitChunks, articleTitle, anthropic)
 
     // Embed

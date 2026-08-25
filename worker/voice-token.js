@@ -136,7 +136,7 @@ métrica o detalle de proyecto debe venir de search_portfolio, nunca de aquí.
 
 Proyectos (usa search_portfolio para CUALQUIER detalle — CERO métricas de memoria):
 - JEM — herramienta de mapeo de journeys con IA, construida en Tovuti LMS
-- Checkpoints — discovery go/no-go sobre un flujo de aprobación de $500K+ ARR
+- Checkpoints — discovery go/no-go sobre un flujo de aprobación crítico para el negocio
 - {{DOMAIN}} — este portfolio con chatbot IA`
 
 // ---------------------------------------------------------------------------

@@ -153,8 +153,9 @@ function parseI18n(source: I18nSource): Chunk[] {
 
   const chunks: Chunk[] = []
 
-  // Build anchor lookup from registry sectionLabels (source of truth for HTML IDs)
-  const registryAnchors = new Set(Object.keys(article.sectionLabels.en))
+  // Build anchor lookup from registry sectionLabels (source of truth for HTML IDs).
+  // sectionLabels is a flat Record in the registry; tolerate a legacy {en: {...}} shape.
+  const registryAnchors = new Set(Object.keys((article.sectionLabels as Record<string, any>).en ?? article.sectionLabels))
 
   // Helper: resolve the correct HTML anchor for a given i18n key
   const resolveAnchor = (key: string): string => {
@@ -375,7 +376,7 @@ async function main() {
     if (chunks.length === 0) continue
 
     // Validate: every non-empty section_anchor must exist in registry sectionLabels
-    const validAnchors = new Set(Object.keys(article.sectionLabels.en))
+    const validAnchors = new Set(Object.keys((article.sectionLabels as Record<string, any>).en ?? article.sectionLabels))
     for (const chunk of chunks) {
       const anchor = chunk.metadata.section_anchor
       if (anchor) {
