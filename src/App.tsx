@@ -7,6 +7,17 @@ import { site } from './site.config'
 import { useHomeSeo } from './articles/use-article-seo'
 import { getTechIcon } from './tech-icons'
 
+/** Near-black brand marks (Ollama, Notion, Apple, Slack…) vanish on dark
+ *  surfaces — tag them so index.css can lift them to the foreground color
+ *  in dark themes. Threshold is perceived luminance out of 255. */
+function darkBrandClass(hex: string): string {
+  const m = /^#([0-9a-f]{6})$/i.exec(hex)
+  if (!m) return ''
+  const n = parseInt(m[1], 16)
+  const lum = 0.2126 * ((n >> 16) & 255) + 0.7152 * ((n >> 8) & 255) + 0.0722 * (n & 255)
+  return lum < 60 ? 'icon-dark-brand' : ''
+}
+
 
 function LinkedInLogo({ className = "w-4 h-4" }: { className?: string }) {
   return (
@@ -1631,7 +1642,7 @@ function App() {
                       return (
                         <span key={tech} className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium bg-muted text-muted-foreground">
                           {icon && (
-                            <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 shrink-0" fill={icon.color} aria-hidden="true">
+                            <svg viewBox="0 0 24 24" className={`w-3.5 h-3.5 shrink-0 ${darkBrandClass(icon.color)}`} fill={icon.color} aria-hidden="true">
                               <path d={icon.path} />
                             </svg>
                           )}
@@ -1794,7 +1805,7 @@ function App() {
                       return (
                         <span key={tech} className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium bg-muted text-muted-foreground">
                           {icon && (
-                            <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 shrink-0" fill={icon.color} aria-hidden="true">
+                            <svg viewBox="0 0 24 24" className={`w-3.5 h-3.5 shrink-0 ${darkBrandClass(icon.color)}`} fill={icon.color} aria-hidden="true">
                               <path d={icon.path} />
                             </svg>
                           )}
@@ -1936,10 +1947,17 @@ function App() {
                     <div className="flex flex-wrap gap-2 mt-3">
                       {cat.items.map((item) => {
                         const icon = getTechIcon(item)
+                        // Hover borrows the tool's own brand color from its icon
+                        // data — the token layer made visible. Methodology chips
+                        // fall back to primary.
                         return (
-                          <span key={item} className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md text-xs bg-muted text-foreground">
+                          <span
+                            key={item}
+                            style={{ '--chip-brand': icon?.color ?? 'hsl(var(--primary))' } as React.CSSProperties}
+                            className="skill-chip group/chip inline-flex items-center gap-1.5 px-2 py-1 rounded-md text-xs bg-muted text-foreground border border-transparent transition-colors duration-200 hover:border-[color-mix(in_srgb,var(--chip-brand)_55%,transparent)] hover:bg-[color-mix(in_srgb,var(--chip-brand)_12%,transparent)] cursor-default"
+                          >
                             {icon && (
-                              <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 shrink-0" fill={icon.color} aria-hidden="true">
+                              <svg viewBox="0 0 24 24" className={`w-3.5 h-3.5 shrink-0 transition-transform duration-300 [transition-timing-function:cubic-bezier(.34,1.56,.64,1)] group-hover/chip:scale-125 motion-reduce:transition-none motion-reduce:group-hover/chip:!scale-100 ${darkBrandClass(icon.color)}`} fill={icon.color} aria-hidden="true">
                                 <path d={icon.path} />
                               </svg>
                             )}
@@ -2018,6 +2036,16 @@ function App() {
             <Link to="/privacy" className="underline underline-offset-2 hover:text-primary transition-colors">
               {'Privacy'}
             </Link>
+            <span className="mx-2 text-border">|</span>
+            Design adapted from{' '}
+            <a
+              href="https://github.com/santifer/cv-santiago"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 hover:text-primary transition-colors"
+            >
+              cv-santiago
+            </a>
           </p>
         </div>
       </footer>

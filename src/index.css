@@ -673,3 +673,13 @@ section[id], footer[id] {
 .dark .press-caption {
   color: rgba(255, 255, 255, 0.32);
 }
+
+/* Near-black brand icons (Ollama, Notion, Apple, Slack…) are invisible on
+   dark surfaces; lift them to the foreground color. The :has() rule keeps the
+   skills-chip brand-hover legible by retargeting its --chip-brand token. */
+.dark .icon-dark-brand {
+  fill: hsl(var(--foreground));
+}
+.dark .skill-chip:has(.icon-dark-brand) {
+  --chip-brand: hsl(var(--foreground));
+}
