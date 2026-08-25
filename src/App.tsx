@@ -1992,6 +1992,24 @@ function App() {
                 <ExternalLink className="w-3 h-3" aria-hidden="true" />
               </a>
               )}
+              <a
+                href="/resume-erik-taylor.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border hover:border-primary/50 transition-colors duration-200 hover:bg-primary/5"
+              >
+                <FileText className="w-4 h-4" aria-hidden="true" />
+                View resume
+                <ExternalLink className="w-3 h-3" aria-hidden="true" />
+              </a>
+              <a
+                href="/resume-erik-taylor.pdf"
+                download="Resume-ErikTaylor.pdf"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border hover:border-primary/50 transition-colors duration-200 hover:bg-primary/5"
+              >
+                <FileText className="w-4 h-4" aria-hidden="true" />
+                Download PDF
+              </a>
             </div>
           </AnimatedSection>
           <p className="mt-12 text-xs text-muted-foreground">

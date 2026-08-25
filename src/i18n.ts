@@ -178,21 +178,21 @@ export const translations = {
           period: '2025 – 2026',
           desc: 'Led design across admin and learner surfaces, and owned the design system.',
           highlights: [
-            'Designed and shipped JEM, an AI journey-mapping tool, after teams were spending an estimated 10–15 hours per discovery cycle hand-synthesizing help docs, transcripts, and support tickets. Built source ingestion, a guided AI scoping chat, and an editable persona-by-stage canvas, defined the data model, and shipped it with the platform\'s lead engineer — ten fixes shipped during the first week of internal use.',
+            'Designed and shipped JEM, an AI journey-mapping tool, after teams were spending an estimated 10–15 hours per discovery cycle hand-synthesizing help docs, transcripts, and support tickets. Built source ingestion, a guided AI scoping chat, and an editable persona-by-stage canvas, defined the data model, and shipped it with the platform\'s lead engineer on Nuxt 3, Vue 3, Cloudflare D1, and the Claude API — ten fixes shipped during the first week of internal use.',
             'Led discovery on Checkpoints, an approval-workflow feature tied to a commercially significant expansion opportunity, with several at-risk accounts depending on it: synthesized 60+ support tickets, Slack signals, and internal case notes into four persona journey maps and five go/no-go gates before GA — including silent auto-approvals, a compliance risk no ticket had named.',
-            'Owned the design system: token layer defined first, with a governance rule that every custom component traces back to a real primitive — so 8–12 engineers build from one shared taxonomy instead of drifting into one-offs. Specs held to WCAG AA.',
+            'Owned the design system, built from scratch on Vuetify 3: token layer defined first, 50–100+ standardized and documented components referenced directly by engineers, and a governance rule that every custom component traces back to a real primitive — so 8–12 engineers build from one shared taxonomy instead of drifting into one-offs. Defined the Component Spec Framework, a repeatable design-to-engineering handoff standard deployed across four product surfaces. Specs held to WCAG AA.',
           ],
         },
         {
           company: 'Transamerica',
           location: 'Denver, CO',
-          role: 'UX Designer',
+          role: 'Senior UX Designer',
           period: '2020 – 2024',
           desc: 'Designed the World Financial Group (WFG) agent portal — the tools licensed agents work in daily.',
           highlights: [
             'Redesigned new-agent onboarding — a card-based homepage over a blank dashboard, with entitlements shaping what recruits versus licensed agents see. Targets were set from research and usability testing; no post-launch numbers were measured.',
-            'Joined a redesign whose direction was already set and pushed to add user interviews and usability testing anyway, then built a custom design system for WFG — branding and functional requirements did not map cleanly onto off-the-shelf patterns.',
-            'Rebuilt global navigation around frequency of use rather than the org chart — agents wanted fewer steps to the tools they used constantly, accepting that rarely-used tools become harder to reach.',
+            'Joined a redesign whose direction was already set and pushed to add user interviews and usability testing anyway, then built a custom design system for WFG — branding and functional requirements did not map cleanly onto off-the-shelf patterns — while navigating four years of financial-services compliance review and mentoring 3–5 designers on accessibility and systems thinking.',
+            'Rebuilt global navigation around a goal-oriented architecture ("Manage My Business," "Grow My Business") rather than the org chart — grounded in card sorting, preference testing, and A/B testing with 100+ licensed agents, accepting that rarely-used tools become harder to reach.',
           ],
         },
         {
@@ -204,7 +204,7 @@ export const translations = {
           highlights: [
             'Sellers treated the existing platform as overhead rather than help. Stakeholder interviews with sellers and managers surfaced the real constraint: high cognitive load and no time for training. Any fix that asked sellers to learn something new, somewhere new, would have failed the same way.',
             'Built the guidebook on WordPress for easy integration with existing IBM tools, structured around three pillars: product pages, a role-segmented knowledge base, and a searchable video library.',
-            'Restructured that knowledge base around seller journeys — Clients, Contacts, Communications, Opportunity — with manager and seller paths separated, instead of mirroring how the content team was organized.',
+            'Restructured that knowledge base around seller journeys — Clients, Contacts, Communications, Opportunity — with manager and seller paths separated, instead of mirroring how the content team was organized. Delivered training workshops internationally, including sessions in China and India.',
           ],
         },
         {
@@ -212,7 +212,7 @@ export const translations = {
           location: 'Remote',
           role: 'Earlier IBM Experience',
           period: '2008 – 2017',
-          desc: 'Copywriter to team lead — writing and cross-functional leadership before moving into product ownership and design.',
+          desc: 'Copywriter to team lead — managed a global content team producing 2,500+ annual client profiles, improving submission-to-publication workflow efficiency by 50% through process redesign and editorial standards.',
           highlights: [],
         },
       ] as readonly ExperienceItem[],
