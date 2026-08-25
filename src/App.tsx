@@ -231,7 +231,7 @@ function GridSnakes() {
     }
   }, [])
 
-  return <canvas ref={canvasRef} className="absolute inset-0 pointer-events-none z-[1]" />
+  return <canvas ref={canvasRef} aria-hidden="true" className="absolute inset-0 pointer-events-none z-[1]" />
 }
 
 
@@ -419,7 +419,7 @@ function HomeToc({ lang }: { lang: Lang }) {
             className="2xl:hidden fixed bottom-6 right-6 z-40 w-11 h-11 rounded-full bg-primary text-primary-foreground shadow-lg flex items-center justify-center"
             aria-label="Toggle table of contents"
           >
-            <List className="w-5 h-5" />
+            <List className="w-5 h-5" aria-hidden="true" />
           </motion.button>
           {tocOpen && (
             <>
@@ -1297,7 +1297,7 @@ function StorySection({ t }: { t: (typeof translations)[Lang] }) {
                 onClick={() => skipRef.current?.()}
                 className="absolute bottom-0 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 px-4 py-1.5 rounded-full text-sm text-muted-foreground border border-border/50 bg-card backdrop-blur-sm cursor-pointer hover:bg-primary/10 hover:border-primary/30 hover:text-foreground transition-colors duration-200"
               >
-                <SkipForward className="w-3.5 h-3.5" />
+                <SkipForward className="w-3.5 h-3.5" aria-hidden="true" />
                 {t.story.skipButton}
               </motion.button>
             )}
@@ -1367,10 +1367,10 @@ function StorySection({ t }: { t: (typeof translations)[Lang] }) {
           >
           {t.story.nav.map((item) => {
             const icons: Record<string, React.ReactNode> = {
-              briefcase: <Briefcase className="w-4 h-4" />,
-              folder: <FolderGit2 className="w-4 h-4" />,
-              mail: <Mail className="w-4 h-4" />,
-              bot: <Bot className="w-4 h-4" />
+              briefcase: <Briefcase className="w-4 h-4" aria-hidden="true" />,
+              folder: <FolderGit2 className="w-4 h-4" aria-hidden="true" />,
+              mail: <Mail className="w-4 h-4" aria-hidden="true" />,
+              bot: <Bot className="w-4 h-4" aria-hidden="true" />
             }
             const isHighlight = 'highlight' in item && item.highlight
             const handleClick = (e: React.MouseEvent) => {
@@ -1468,8 +1468,8 @@ function App() {
       <header id="main-content" className="relative overflow-hidden">
         <GridSnakes />
         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-accent/5 to-transparent" />
-        <div className="absolute top-0 right-[max(0px,calc(50%-40rem))] w-[600px] h-[600px] rounded-full blur-3xl -translate-y-1/3 translate-x-1/3 hidden sm:block animate-[hero-glow_8s_ease-in-out_infinite]" style={{ backgroundColor: 'hsl(var(--hero-orb-primary))' }} />
-        <div className="absolute bottom-0 left-[max(0px,calc(50%-40rem))] w-[550px] h-[550px] rounded-full blur-3xl translate-y-1/3 -translate-x-1/3 hidden sm:block animate-[hero-glow_11s_ease-in-out_infinite_reverse]" style={{ backgroundColor: 'hsl(var(--hero-orb-accent))' }} />
+        <div aria-hidden="true" className="absolute top-0 right-[max(0px,calc(50%-40rem))] w-[600px] h-[600px] rounded-full blur-3xl -translate-y-1/3 translate-x-1/3 hidden sm:block animate-[hero-glow_8s_ease-in-out_infinite]" style={{ backgroundColor: 'hsl(var(--hero-orb-primary))' }} />
+        <div aria-hidden="true" className="absolute bottom-0 left-[max(0px,calc(50%-40rem))] w-[550px] h-[550px] rounded-full blur-3xl translate-y-1/3 -translate-x-1/3 hidden sm:block animate-[hero-glow_11s_ease-in-out_infinite_reverse]" style={{ backgroundColor: 'hsl(var(--hero-orb-accent))' }} />
 
         <div className="relative max-w-5xl mx-auto px-6 pt-20 pb-12 md:pt-32 md:pb-16">
           <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
@@ -1500,7 +1500,7 @@ function App() {
                 transition={{ delay: 0.4, type: "spring", stiffness: 200 }}
                 className="absolute -bottom-1 -right-1 w-10 h-10 rounded-full bg-gradient-theme flex items-center justify-center shadow-lg border-2 border-background"
               >
-                <BadgeCheck className="w-6 h-6 text-white" />
+                <BadgeCheck className="w-6 h-6 text-white" aria-hidden="true" />
               </motion.div>
             </motion.div>
 
@@ -1563,13 +1563,13 @@ function App() {
             <div className="flex items-center justify-between gap-4 flex-wrap mb-10">
               <h2 className="font-display text-2xl font-semibold flex items-center gap-3">
                 <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                  <FolderGit2 className="w-5 h-5 text-primary" />
+                  <FolderGit2 className="w-5 h-5 text-primary" aria-hidden="true" />
                 </div>
                 {t.projects.featuredTitle}
               </h2>
               {site.social.github && (
                 <a href={site.social.github} target="_blank" rel="me noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
-                  <Github className="w-4 h-4" />
+                  <Github className="w-4 h-4" aria-hidden="true" />
                   {t.projects.githubLink}
                 </a>
               )}
@@ -1619,12 +1619,12 @@ function App() {
                           <p className="text-sm font-medium">Sources</p>
                           <p className="text-xs text-muted-foreground mt-0.5">Docs, transcripts, tickets</p>
                         </div>
-                        <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0" />
+                        <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0" aria-hidden="true" />
                         <div className="flex-1 min-w-[140px] p-3 rounded-lg border border-border bg-muted/40 text-center">
                           <p className="text-sm font-medium">AI scoping chat</p>
                           <p className="text-xs text-muted-foreground mt-0.5">Guided intake</p>
                         </div>
-                        <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0" />
+                        <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0" aria-hidden="true" />
                         <div className="flex-1 min-w-[140px] p-3 rounded-lg border border-border bg-muted/40 text-center">
                           <p className="text-sm font-medium">Persona canvas</p>
                           <p className="text-xs text-muted-foreground mt-0.5">Editable, by stage</p>
@@ -1641,15 +1641,15 @@ function App() {
                           <p className="text-sm font-medium">60+ signals</p>
                           <p className="text-xs text-muted-foreground mt-0.5">Tickets, Slack, case notes</p>
                         </div>
-                        <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0" />
+                        <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0" aria-hidden="true" />
                         <div className="flex-1 min-w-[120px] p-3 rounded-lg border border-border bg-muted/40 text-center">
                           <p className="text-sm font-medium">4 persona maps</p>
                         </div>
-                        <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0" />
+                        <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0" aria-hidden="true" />
                         <div className="flex-1 min-w-[120px] p-3 rounded-lg border border-border bg-muted/40 text-center">
                           <p className="text-sm font-medium">5-gate go/no-go</p>
                         </div>
-                        <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0" />
+                        <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0" aria-hidden="true" />
                         <div className="flex-1 min-w-[120px] p-3 rounded-lg border border-primary/40 bg-primary/5 text-center">
                           <p className="text-sm font-medium text-primary">To leadership</p>
                         </div>
@@ -1692,7 +1692,7 @@ function App() {
 
                   {proj.link && (
                     <a href={`https://${proj.link}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors group/link">
-                      <ExternalLink className="w-4 h-4" />
+                      <ExternalLink className="w-4 h-4" aria-hidden="true" />
                       <span>{proj.linkLabel ?? proj.link} →</span>
                     </a>
                   )}
@@ -1712,7 +1712,7 @@ function App() {
           <AnimatedSection>
             <h2 className="font-display text-2xl font-semibold mb-8 flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                <Sparkles className="w-5 h-5 text-primary" />
+                <Sparkles className="w-5 h-5 text-primary" aria-hidden="true" />
               </div>
               {t.coreCompetencies.title}
             </h2>
@@ -1723,7 +1723,7 @@ function App() {
               {t.coreCompetencies.items.map((c) => (
                 <div key={c.title} className="p-5 rounded-xl border border-border bg-background/60 backdrop-blur-sm">
                   <h3 className="font-display font-semibold mb-1.5 flex items-center gap-2">
-                    <Sparkles className="w-4 h-4 text-primary shrink-0" />
+                    <Sparkles className="w-4 h-4 text-primary shrink-0" aria-hidden="true" />
                     {c.title}
                   </h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">{c.desc}</p>
@@ -1743,7 +1743,7 @@ function App() {
           <AnimatedSection>
             <h2 className="font-display text-2xl font-semibold mb-8 flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                <Briefcase className="w-5 h-5 text-primary" />
+                <Briefcase className="w-5 h-5 text-primary" aria-hidden="true" />
               </div>
               {t.experience.title}
             </h2>
@@ -1761,7 +1761,7 @@ function App() {
                       <div>
                         <h3 className="font-display text-2xl font-bold leading-tight">
                           {job.url ? (
-                            <a href={job.url} target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
+                            <a href={job.url} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-primary transition-colors">
                               {job.company}
                             </a>
                           ) : job.company}
@@ -1786,7 +1786,7 @@ function App() {
                     <ul className="space-y-2.5">
                       {job.highlights.map((h, hi) => (
                         <li key={hi} className="flex gap-3 text-sm text-muted-foreground leading-relaxed">
-                          <ChevronRight className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                          <ChevronRight className="w-4 h-4 text-primary shrink-0 mt-0.5" aria-hidden="true" />
                           <span>{h}</span>
                         </li>
                       ))}
@@ -1795,9 +1795,9 @@ function App() {
 
                   {job.caseStudyUrl && job.caseStudyLabel && (
                     <Link to={job.caseStudyUrl} className="inline-flex items-center gap-2 mt-6 text-sm font-medium text-primary hover:text-primary/80 transition-colors duration-200 group/cta">
-                      <FileText className="w-4 h-4" />
+                      <FileText className="w-4 h-4" aria-hidden="true" />
                       <span>{job.caseStudyLabel}</span>
-                      <ChevronRight className="w-4 h-4 group-hover/cta:translate-x-0.5 transition-transform" />
+                      <ChevronRight className="w-4 h-4 group-hover/cta:translate-x-0.5 transition-transform" aria-hidden="true" />
                     </Link>
                   )}
                 </article>
@@ -1815,7 +1815,7 @@ function App() {
             <div className="flex items-center justify-between gap-4 flex-wrap mb-8">
               <h2 className="font-display text-2xl font-semibold flex items-center gap-3">
                 <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                  <FolderGit2 className="w-5 h-5 text-primary" />
+                  <FolderGit2 className="w-5 h-5 text-primary" aria-hidden="true" />
                 </div>
                 {t.projects.moreTitle}
               </h2>
@@ -1855,7 +1855,7 @@ function App() {
 
                   {proj.link && (
                     <a href={`https://${proj.link}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors group/link">
-                      <ExternalLink className="w-4 h-4" />
+                      <ExternalLink className="w-4 h-4" aria-hidden="true" />
                       <span>{proj.linkLabel ?? proj.link} →</span>
                     </a>
                   )}
@@ -1878,7 +1878,7 @@ function App() {
               <AnimatedSection>
                 <h2 className="font-display text-2xl font-semibold mb-8 flex items-center gap-3">
                   <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                    <GraduationCap className="w-5 h-5 text-primary" />
+                    <GraduationCap className="w-5 h-5 text-primary" aria-hidden="true" />
                   </div>
                   {t.education.title}
                 </h2>
@@ -1913,7 +1913,7 @@ function App() {
               <AnimatedSection>
                 <h2 className="font-display text-2xl font-semibold mb-8 flex items-center gap-3">
                   <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center">
-                    <Award className="w-5 h-5 text-accent" />
+                    <Award className="w-5 h-5 text-accent" aria-hidden="true" />
                   </div>
                   {t.certifications.title}
                 </h2>
@@ -1958,7 +1958,7 @@ function App() {
           <AnimatedSection>
             <h2 className="font-display text-2xl font-semibold mb-12 flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                <Code className="w-5 h-5 text-primary" />
+                <Code className="w-5 h-5 text-primary" aria-hidden="true" />
               </div>
               {t.skills.title}
             </h2>
@@ -2026,7 +2026,7 @@ function App() {
                 href={`mailto:${t.email}`}
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-primary-foreground font-medium hover:brightness-110 hover:shadow-lg hover:shadow-primary/25 active:brightness-95 transition-all duration-200"
               >
-                <Mail className="w-4 h-4" />
+                <Mail className="w-4 h-4" aria-hidden="true" />
                 {t.cta.contact}
               </a>
               {site.social.linkedin && (
@@ -2046,7 +2046,7 @@ function App() {
           <p className="mt-12 text-xs text-muted-foreground">
             &copy; {new Date().getFullYear()} {site.fullName}
             <span className="mx-2 text-border">|</span>
-            <Link to="/privacy" className="hover:text-primary transition-colors">
+            <Link to="/privacy" className="underline underline-offset-2 hover:text-primary transition-colors">
               {'Privacy'}
             </Link>
           </p>

@@ -158,6 +158,8 @@ export default function FloatingChat({ lang }: FloatingChatProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
+  const triggerButtonRef = useRef<HTMLButtonElement>(null);
+  const wasOpenRef = useRef(false);
 
   // Voice mode
   const voiceMode = useVoiceMode();
@@ -213,6 +215,14 @@ export default function FloatingChat({ lang }: FloatingChatProps) {
     }
   }, [isOpen, isMobile, mode]);
 
+  // Return focus to the trigger button whenever the dialog closes
+  useEffect(() => {
+    if (wasOpenRef.current && !isOpen) {
+      triggerButtonRef.current?.focus();
+    }
+    wasOpenRef.current = isOpen;
+  }, [isOpen]);
+
   // Escuchar evento global para abrir chat desde otros componentes
   useEffect(() => {
     const handleOpenChat = () => setIsOpen(true);
@@ -264,15 +274,20 @@ export default function FloatingChat({ lang }: FloatingChatProps) {
     }
   }, [lang]);
 
-  // Escape key stops voice mode
+  // Escape key: stops voice mode if active, otherwise closes the dialog
   useEffect(() => {
-    if (mode !== 'voice') return;
+    if (!isOpen) return;
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') handleStopVoice();
+      if (e.key !== 'Escape') return;
+      if (mode === 'voice') {
+        handleStopVoice();
+      } else {
+        setIsOpen(false);
+      }
     };
     window.addEventListener('keydown', handleEscape);
     return () => window.removeEventListener('keydown', handleEscape);
-  }, [mode]);
+  }, [mode, isOpen]);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -546,6 +561,7 @@ export default function FloatingChat({ lang }: FloatingChatProps) {
     <>
       {/* Chat Button - avatar con animación sutil */}
       <motion.button
+        ref={triggerButtonRef}
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         whileHover={{ scale: 1.05 }}
@@ -718,7 +734,7 @@ export default function FloatingChat({ lang }: FloatingChatProps) {
                         <div className="max-w-[85%]">
                           {/* Degradation banner */}
                           {message.role === 'assistant' && message.ragDegraded && (
-                            <div className={`mb-1 px-3 py-1 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-400 ${isMobile ? 'text-xs' : 'text-[11px]'}`}>
+                            <div className="mb-1 px-3 py-1 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs">
                               {lang === 'en'
                                 ? 'Answering without full access to my articles.'
                                 : 'Respondiendo sin acceso completo a mis artículos.'}
@@ -809,13 +825,9 @@ export default function FloatingChat({ lang }: FloatingChatProps) {
                                         navigate(targetPath + (source.section_anchor || ''));
                                       }
                                     }}
-                                    className={`flex items-start gap-1.5 rounded-full font-medium text-left bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 hover:border-primary/40 active:bg-primary/30 transition-colors duration-200 ${
-                                      isMobile
-                                        ? 'px-3 py-1.5 text-xs'
-                                        : 'px-2.5 py-1 text-[10px]'
-                                    }`}
+                                    className="flex items-start gap-1.5 rounded-full font-medium text-left bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 hover:border-primary/40 active:bg-primary/30 transition-colors duration-200 px-3 py-1.5 text-xs"
                                   >
-                                    <FileText className="w-3 h-3 shrink-0" />
+                                    <FileText className="w-3 h-3 shrink-0" aria-hidden="true" />
                                     {articleName}{sectionName ? ` · ${sectionName}` : ''}
                                   </button>
                                 );
@@ -942,11 +954,9 @@ export default function FloatingChat({ lang }: FloatingChatProps) {
                           navigate(targetPath + (source.section_anchor || ''));
                         }
                       }}
-                      className={`flex items-center gap-1.5 rounded-full font-medium bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 hover:border-primary/40 active:bg-primary/30 transition-colors duration-200 ${
-                        isMobile ? 'px-3 py-1.5 text-xs' : 'px-2.5 py-1 text-[10px]'
-                      }`}
+                      className="flex items-center gap-1.5 rounded-full font-medium bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 hover:border-primary/40 active:bg-primary/30 transition-colors duration-200 px-3 py-1.5 text-xs"
                     >
-                      <FileText className="w-3 h-3 shrink-0" />
+                      <FileText className="w-3 h-3 shrink-0" aria-hidden="true" />
                       {articleName}{sectionName ? ` · ${sectionName}` : ''}
                     </button>
                   );
